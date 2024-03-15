@@ -56,7 +56,7 @@ import {
 } from '@neutron-org/neutronjsplus/dist/tokenfactory';
 
 import { getHeight } from '@neutron-org/neutronjsplus/dist/env';
-
+import * as fs from 'fs';
 const config = require('../../config.json');
 
 const MIN_LIQUDITY = 1000;
@@ -153,6 +153,33 @@ type TotalSupplyResponse = {
   total_supply: string;
 };
 
+interface UsersAmount {
+  user: string;
+  amount: string;
+}
+function parseData(data: string): Map<string, string> {
+  const parsedData: UsersAmount[] = JSON.parse(data); // Parse with type assertion
+
+  const map: Map<string, string> = new Map<string, string>();
+
+  parsedData.forEach((item) => {
+    map.set(item.user, item.amount);
+  });
+
+  return map;
+}
+
+function loadAndParseData(filePath: string): Map<string, string> {
+  try {
+    // Read the file content synchronously (not recommended)
+    const data: string = fs.readFileSync(filePath, 'utf-8');
+    return parseData(data);
+  } catch (error) {
+    console.error("Error loading data:", error);
+    throw error; // Re-throw the error for handling
+  }
+}
+
 const waitTill = (timestamp: number): Promise<void> => {
   if (typeof timestamp !== 'number' || isNaN(timestamp)) {
     throw new Error('timestamp is not a number');
@@ -191,6 +218,8 @@ describe('Neutron / TGE / Auction', () => {
   let atomVestingLpAddr: string;
   let usdcVestingLpAddr: string;
   let lockdropPclAddr: string;
+  let initData : Map<string, string> = new Map<string, string>();
+  initData = loadAndParseData("./init_data.json");
 
   beforeAll(async () => {
     testState = new TestStateLocalCosmosTestNet(config);
@@ -295,36 +324,15 @@ describe('Neutron / TGE / Auction', () => {
 
   describe('Deploy', () => {
     it('should deploy contracts for auction', async () => {
-      tgeMain.airdropAccounts = [
-        {
-          address:
-            tgeWallets['airdropAuctionLockdrop'].wallet.address.toString(),
-          amount: '1000000',
-        },
-        {
-          address: tgeWallets['airdropOnly'].wallet.address.toString(),
-          amount: '1000000',
-        },
-        {
-          address:
-            tgeWallets[
-              'airdropAuctionLockdropVesting'
-            ].wallet.address.toString(),
-          amount: TINY_AIRDROP_AMOUNT.toString(),
-        },
-        {
-          address:
-            tgeWallets['airdropAuctionVesting'].wallet.address.toString(),
-          amount: '1000000',
-        },
-        {
-          address:
-            tgeWallets[
-              'airdropAuctionLockdropVestingMigration'
-            ].wallet.address.toString(),
-          amount: '1000000',
-        },
-      ];
+      tgeMain.airdropAccounts = [];
+      for(let user in initData.keys()){
+        tgeMain.airdropAccounts.push(
+          {
+            address:
+              tgeWallets[user].wallet.address.toString(),
+            amount: initData.get(user) || "0",
+          });
+      }
       tgeMain.times.airdropStart = getTimestamp(0);
       tgeMain.times.airdropVestingStart = getTimestamp(300);
       await tgeMain.deployPreAuction();
