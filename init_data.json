@@ -1,0 +1,22 @@
+[
+  {
+    "user": "airdropAuctionLockdrop",
+    "amount": "1000000"
+  },
+  {
+    "user": "airdropOnly",
+    "amount": "1000000"
+  },
+  {
+    "user": "airdropAuctionLockdropVesting",
+    "amount": "100"
+  },
+  {
+    "user": "airdropAuctionVesting",
+    "amount": "1000000"
+  },
+  {
+    "user": "airdropAuctionLockdropVestingMigration",
+    "amount": "1000000"
+  }
+]
