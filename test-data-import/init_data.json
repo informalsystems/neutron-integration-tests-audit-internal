@@ -1,0 +1,10 @@
+[
+  {
+    "address" : "test1",
+    "amount" : "1000000"
+  },
+  {
+    "address" : "test2",
+    "amount" : "1000000"
+  }
+]
