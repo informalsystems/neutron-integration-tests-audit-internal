@@ -56,7 +56,8 @@ import {
 } from '@neutron-org/neutronjsplus/dist/tokenfactory';
 
 import { getHeight } from '@neutron-org/neutronjsplus/dist/env';
-import * as fs from 'fs/promises';
+// import * as fs from 'fs/promises';
+import * as fs from 'fs';
 const config = require('../../config.json');
 
 const MIN_LIQUDITY = 1000;
@@ -171,7 +172,18 @@ function parseData(data: string): Map<string, string> {
 async function loadAndParseData(filePath: string): Promise<Map<string, string>> {
   try {
     // Read the file content synchronously (not recommended)
-    const data: string = await fs.readFile(filePath, 'utf-8');
+    const data: string = await fs.promises.readFile(filePath, 'utf-8');
+    return parseData(data);
+  } catch (error) {
+    console.error("Error loading data:", error);
+    throw error; // Re-throw the error for handling
+  }
+}
+
+function loadAndParseDataSync(filePath: string): Map<string, string> {
+  try {
+    // Read the file content synchronously (not recommended)
+    const data: string = fs.readFileSync(filePath, 'utf-8');
     return parseData(data);
   } catch (error) {
     console.error("Error loading data:", error);
@@ -218,6 +230,8 @@ describe('Neutron / TGE / Auction', () => {
   let usdcVestingLpAddr: string;
   let lockdropPclAddr: string;
   let initData: Map<string, string> = new Map<string, string>();
+  initData = loadAndParseDataSync("./init_data.json");
+  console.log("in init data: ", initData);
 
 
   beforeAll(async () => {
@@ -277,10 +291,11 @@ describe('Neutron / TGE / Auction', () => {
       NEUTRON_DENOM,
     );
 
-    initData = await loadAndParseData("./init_data.json");
+    // initData = await loadAndParseData("./init_data.json");
 
 
 
+    console.log("in init data: ", initData);
     for (const v of initData.keys()) {
       tgeWallets[v] = new WalletWrapper(
         neutronChain,
@@ -1610,12 +1625,14 @@ describe('Neutron / TGE / Auction', () => {
           describe('claiming rewards', () => {
             // test.each(initData.keys())(
             // explanation for problems: https://stackoverflow.com/questions/57516047/why-dont-for-of-loops-over-iterables-work-when-run-within-jest
+            console.log("initData.keys() before the test", initData.keys());
             for (const v of initData.keys()) {
               console.log("in for loop for ", v);
               it('for ' + v + ' without withdraw', async () => {
                 const rewardsStateBeforeClaim = await tgeMain.generatorRewardsState(
                   tgeWallets[v].wallet.address.toString(),
                 );
+                console.log("inside test for ", v);
 
                 const res = await tgeWallets[v].executeContract(
                   tgeMain.contracts.lockdrop,
@@ -1660,6 +1677,13 @@ describe('Neutron / TGE / Auction', () => {
                   expectedGeneratorRewards + tgeMain.generatorRewardsPerBlock,
                 );
 
+                console.log("for user ", v);
+                console.log("NTRN rewards state before claim ", rewardsStateBeforeClaim.balanceNtrn);
+                console.log("NTRN rewards state after claim ", rewardsStateAfterClaim.balanceNtrn);
+
+                console.log("ASTRO rewards state before claim ", rewardsStateBeforeClaim.balanceAstro);
+                console.log("ASTRO rewards state after claim ", rewardsStateAfterClaim.balanceAstro);
+
                 // withdraw_lp_stake is false => no lp tokens returned
                 expect(rewardsStateBeforeClaim.atomNtrnLpTokenBalance).toEqual(
                   rewardsStateAfterClaim.atomNtrnLpTokenBalance,
@@ -1667,17 +1691,12 @@ describe('Neutron / TGE / Auction', () => {
                 expect(rewardsStateBeforeClaim.usdcNtrnLpTokenBalance).toEqual(
                   rewardsStateAfterClaim.usdcNtrnLpTokenBalance,
                 );
-                console.log("for user ", v);
-                console.log("NTRN rewards state before claim ", rewardsStateBeforeClaim.balanceNtrn);
-                console.log("NTRN rewards state after claim ", rewardsStateAfterClaim.balanceNtrn);
 
-                console.log("ASTRO rewards state before claim ", rewardsStateBeforeClaim.balanceAstro);
-                console.log("ASTRO rewards state after claim ", rewardsStateAfterClaim.balanceAstro);
               });
             }
 
             for (const v of initData.keys()) {
-              it('for ' + v + ' with withdraw', async () => {
+              it('for ' + v + ' with withdraw USDC', async () => {
                 const rewardsStateBeforeClaim = await tgeMain.generatorRewardsState(
                   tgeWallets[v].wallet.address.toString(),
                 );
