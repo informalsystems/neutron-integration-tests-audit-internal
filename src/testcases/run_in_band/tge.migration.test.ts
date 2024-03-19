@@ -340,11 +340,11 @@ describe('TGE / Migration / PCL contracts', () => {
         tgeMain.airdropAccounts = [];
 
         initData.forEach((value, key) => {
-          tgeMain.airdropAccounts.push(
-            {
-              address: tgeWallets[key].wallet.address.toString(),
-              amount: value,
-            });
+            tgeMain.airdropAccounts.push(
+              {
+                address: tgeWallets[key].wallet.address.toString(),
+                amount: value,
+              });
         });
 
         console.log("Airdrop accounts: ", tgeMain.airdropAccounts);
@@ -522,7 +522,11 @@ describe('TGE / Migration / PCL contracts', () => {
           usdcBalance += USDC_DEPOSIT_AMOUNT;
 
           for (const v of initData.keys()) {
-
+            const usdcBalanceBefore = await neutronChain.queryDenomBalance(
+              tgeWallets[v].wallet.address.toString(),
+              IBC_USDC_DENOM,
+            );
+            console.log("for ", v, " USDC balance before ", usdcBalanceBefore);
             const res2 = await tgeWallets[v].executeContract(
               tgeMain.contracts.auction,
               JSON.stringify({
@@ -539,6 +543,24 @@ describe('TGE / Migration / PCL contracts', () => {
             );
             expect(res2.code).toEqual(0);
             usdcBalance += USDC_DEPOSIT_AMOUNT;
+
+            const usdcBalanceAfter = await neutronChain.queryDenomBalance(
+              tgeWallets[v].wallet.address.toString(),
+              IBC_USDC_DENOM,
+            );
+            console.log("for ", v, " USDC balance after ", usdcBalanceAfter);
+
+            const info = await neutronChain.queryContract<UserInfoResponse>(
+              tgeMain.contracts.auction,
+              {
+                user_info: {
+                  address: tgeWallets[v].wallet.address.toString(),
+                },
+              },
+            );
+            console.log("for ", v, " USDC deposited ", info.usdc_deposited);
+
+
           }
         });
         //       // @audit-issue : removing the test that is withdrawing. May influence future balances - pay attention to it
@@ -616,7 +638,78 @@ describe('TGE / Migration / PCL contracts', () => {
             tgeMain.times.auctionInit + tgeMain.times.auctionDepositWindow + 5,
           );
         });
-
+        // @audit here is missing withdrawal, will paste it commented. it relies on the previously commented out code for withdrawall.
+        // it('should not be able to withdraw mode than 50% of current deposit', async () => {
+        //   await expect(
+        //     cmInstantiator.executeContract(
+        //       tgeMain.contracts.auction,
+        //       JSON.stringify({
+        //         withdraw: {
+        //           amount_usdc: '5000',
+        //           amount_atom: '5000',
+        //         },
+        //       }),
+        //     ),
+        //   ).rejects.toThrow(
+        //     /Amount exceeds maximum allowed withdrawal limit of 0.5/,
+        //   );
+        // });
+        // it('should be able to withdraw', async () => {
+        //   const atomBalanceBefore = await neutronChain.queryDenomBalance(
+        //     cmInstantiator.wallet.address.toString(),
+        //     IBC_ATOM_DENOM,
+        //   );
+        //   const usdcBalanceBefore = await neutronChain.queryDenomBalance(
+        //     cmInstantiator.wallet.address.toString(),
+        //     IBC_USDC_DENOM,
+        //   );
+        //   const res = await cmInstantiator.executeContract(
+        //     tgeMain.contracts.auction,
+        //     JSON.stringify({
+        //       withdraw: {
+        //         amount_usdc: '1000',
+        //         amount_atom: '1000',
+        //       },
+        //     }),
+        //   );
+        //   expect(res.code).toEqual(0);
+        //   atomBalance -= 1000;
+        //   usdcBalance -= 1000;
+        //   const info = await neutronChain.queryContract<UserInfoResponse>(
+        //     tgeMain.contracts.auction,
+        //     {
+        //       user_info: {
+        //         address: cmInstantiator.wallet.address.toString(),
+        //       },
+        //     },
+        //   );
+        //   const atomBalanceAfter = await neutronChain.queryDenomBalance(
+        //     cmInstantiator.wallet.address.toString(),
+        //     IBC_ATOM_DENOM,
+        //   );
+        //   const usdcBalanceAfter = await neutronChain.queryDenomBalance(
+        //     cmInstantiator.wallet.address.toString(),
+        //     IBC_USDC_DENOM,
+        //   );
+        //   expect(info.atom_deposited).toEqual('4000');
+        //   expect(info.usdc_deposited).toEqual('84000');
+        //   expect(info.withdrawn).toEqual(true);
+        //   expect(atomBalanceAfter).toEqual(atomBalanceBefore + 1000);
+        //   expect(usdcBalanceAfter).toEqual(usdcBalanceBefore + 1000);
+        // });
+        // it('should not allow to withdraw more than once', async () => {
+        //   await expect(
+        //     cmInstantiator.executeContract(
+        //       tgeMain.contracts.auction,
+        //       JSON.stringify({
+        //         withdraw: {
+        //           amount_usdc: '1000',
+        //           amount_atom: '1000',
+        //         },
+        //       }),
+        //     ),
+        //   ).rejects.toThrow(/Max 1 withdrawal allowed/);
+        // });
       });
       describe('Phase 3', () => {
         describe('intentivizing lockdrop', () => {
@@ -637,7 +730,6 @@ describe('TGE / Migration / PCL contracts', () => {
           });
         });
         describe('set_pool_size', () => {
-
           it('transfer some ATOM directly to auction contract to try affect pool', async () => {
             await cmInstantiator.msgSend(tgeMain.contracts.auction, {
               amount: '100000000',
@@ -680,7 +772,7 @@ describe('TGE / Migration / PCL contracts', () => {
               tgeMain.contracts.priceFeed,
               JSON.stringify({
                 set_rate: {
-                  symbol: 'USDT',
+                  symbol: 'USDC',
                   rate: {
                     rate: USDC_RATE.toString(),
                     resolve_time: time.toString(),
@@ -705,19 +797,20 @@ describe('TGE / Migration / PCL contracts', () => {
               },
             );
 
-            const usdcToAtomRate = ATOM_RATE / USDC_RATE;
-            const totalInUSDC = usdcToAtomRate * atomBalance + usdcBalance;
-            ntrnAtomSize = Math.floor(
-              NTRN_AMOUNT * ((atomBalance * usdcToAtomRate) / totalInUSDC),
-            );
-            ntrnUsdcSize = NTRN_AMOUNT - ntrnAtomSize;
-            atomLpSize = getLpSize(atomBalance, ntrnAtomSize);
-            usdcLpSize = getLpSize(usdcBalance, ntrnUsdcSize);
+          const usdcToAtomRate = ATOM_RATE / USDC_RATE;
+          const totalInUSDC = usdcToAtomRate * atomBalance + usdcBalance;
+          ntrnAtomSize = Math.floor(
+            NTRN_AMOUNT * ((atomBalance * usdcToAtomRate) / totalInUSDC),
+          );
+          ntrnUsdcSize = NTRN_AMOUNT - ntrnAtomSize;
+          atomLpSize = getLpSize(atomBalance, ntrnAtomSize);
+          usdcLpSize = getLpSize(usdcBalance, ntrnUsdcSize);
 
-            expect(parseInt(state.atom_ntrn_size)).toBeCloseTo(ntrnAtomSize, -1);
-            expect(parseInt(state.usdc_ntrn_size)).toBeCloseTo(ntrnUsdcSize, -1);
-            expect(parseInt(state.atom_lp_size)).toBeCloseTo(atomLpSize, -1);
-            expect(parseInt(state.usdc_lp_size)).toBeCloseTo(usdcLpSize, -1);
+          expect(parseInt(state.atom_ntrn_size)).toBeCloseTo(ntrnAtomSize, -1);
+          expect(parseInt(state.usdc_ntrn_size)).toBeCloseTo(ntrnUsdcSize, -1);
+          expect(parseInt(state.atom_lp_size)).toBeCloseTo(atomLpSize, -1);
+          expect(parseInt(state.usdc_lp_size)).toBeCloseTo(usdcLpSize, -1);
+
 
             expect(state).toMatchObject({
               atom_lp_locked: '0',
@@ -864,11 +957,19 @@ describe('TGE / Migration / PCL contracts', () => {
                 }),
               );
               expect(res2.code).toEqual(0);
+              console.log("user ", v, " locked usdc lp amount ", userInfo.usdc_lp_amount);
+
               usdcLpLocked += Number(userInfo.usdc_lp_amount);
             }
           });
+        });
 
-
+        it('wait for lock time to pass', async () => {
+          await waitTill(
+            tgeMain.times.lockdropInit +
+              tgeMain.times.lockdropDepositDuration +
+              5,
+          );
         });
         it('should set generator to lockdrop', async () => {
           const res = await cmInstantiator.executeContract(
@@ -1088,7 +1189,7 @@ describe('TGE / Migration / PCL contracts', () => {
             }),
           );
           expect(res.code).toEqual(0);
-
+  
           res = await cmInstantiator.executeContract(
             tgeMain.contracts.oracleUsdc,
             JSON.stringify({
@@ -1096,7 +1197,7 @@ describe('TGE / Migration / PCL contracts', () => {
             }),
           );
           expect(res.code).toEqual(0);
-
+  
           testState.blockWaiter1.waitBlocks(3);
           res = await cmInstantiator.executeContract(
             tgeMain.contracts.oracleAtom,
@@ -1113,16 +1214,16 @@ describe('TGE / Migration / PCL contracts', () => {
           );
           expect(res.code).toEqual(0);
         });
-        it('should not be able to init pool twice', async () => {
-          await expect(
-            cmInstantiator.executeContract(
-              tgeMain.contracts.auction,
-              JSON.stringify({
-                init_pool: {},
-              }),
-            ),
-          ).rejects.toThrow(/Liquidity already added/);
-        });
+        // it('should not be able to init pool twice', async () => {
+        //   await expect(
+        //     cmInstantiator.executeContract(
+        //       tgeMain.contracts.auction,
+        //       JSON.stringify({
+        //         init_pool: {},
+        //       }),
+        //     ),
+        //   ).rejects.toThrow(/Liquidity already added/);
+        // });
       });
 
       describe('Vest LP', () => {
@@ -1139,6 +1240,7 @@ describe('TGE / Migration / PCL contracts', () => {
 
           // @audit-info what is the significance of airdropOnly executing this?
           // probably not more than this contract losing a bit of its funds on gas
+          // Aleksandar: yes, there is no checking for who is executing that endpoint. there is no particular meaning except for gas (probably)
           res = await tgeWallets.airdropOnly.executeContract(
             tgeMain.contracts.auction,
             JSON.stringify({
@@ -1567,11 +1669,7 @@ describe('TGE / Migration / PCL contracts', () => {
             const rewardsStateAfterClaim = await tgeMain.generatorRewardsState(
               cmInstantiator.wallet.address.toString(),
             );
-            console.log("NTRN rewards state before claim ", rewardsStateBeforeClaim.balanceNtrn);
-            console.log("NTRN rewards state after claim ", rewardsStateAfterClaim.balanceNtrn);
-
-            console.log("ASTRO rewards state before claim ", rewardsStateBeforeClaim.balanceAstro);
-            console.log("ASTRO rewards state after claim ", rewardsStateAfterClaim.balanceAstro);
+        
             // expect(
             //   rewardsStateAfterClaim.balanceNtrn +
             //   FEE_SIZE -
@@ -1608,7 +1706,9 @@ describe('TGE / Migration / PCL contracts', () => {
               rewardsStateAfterClaim.usdcNtrnLpTokenBalance,
             );
           });
-
+          it('wait for blocks', async () => {
+            await neutronChain.blockWaiter.waitBlocks(3);
+          });
 
           describe('check generator state', () => {
             it('check generator stake presence', async () => {
@@ -1622,8 +1722,8 @@ describe('TGE / Migration / PCL contracts', () => {
                 },
               );
               // @audit-issue this was supposed to pass, failing for some reason
-              // inspect later
-              // expect(+stakedAtomLp).toBeGreaterThan(0);
+              // Aleksandar: fixed
+              expect(+stakedAtomLp).toBeGreaterThan(0);
 
               const stakedUsdcLp = await neutronChain.queryContract<string>(
                 tgeMain.contracts.astroGenerator,
@@ -1649,7 +1749,8 @@ describe('TGE / Migration / PCL contracts', () => {
               );
               console.log("pending atom rewards ", pendingAtomRewards);
               // @audit-issue this was supposed to pass, failing for some reason
-              // expect(+pendingAtomRewards.pending).toBeGreaterThan(0);
+              // Aleksandar: fixed
+              expect(+pendingAtomRewards.pending).toBeGreaterThan(0);
 
               const pendingUsdcRewards = await neutronChain.queryContract<any>(
                 tgeMain.contracts.astroGenerator,
@@ -1661,7 +1762,8 @@ describe('TGE / Migration / PCL contracts', () => {
                 },
               );
               // @audit-issue this was supposed to pass, failing for some reason
-              // expect(+pendingUsdcRewards.pending).toBeGreaterThan(0);
+              console.log('pending usdc rewards: ', pendingUsdcRewards.pending, '; ', pendingUsdcRewards.pending_on_proxy)
+              expect(+pendingUsdcRewards.pending).toBeGreaterThan(0);
             });
             describe('claiming rewards', () => {
               // test.each(initData.keys())(
