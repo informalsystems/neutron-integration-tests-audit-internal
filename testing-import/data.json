@@ -1,0 +1,15 @@
+[
+  {
+    "address" : "test1",
+    "amount" : "1000000",
+    "claims_rewards": true,
+    "withdraws_rewards": false
+
+  },
+  {
+    "address" : "test2",
+    "amount" : "1000000",
+    "claims_rewards": false,
+    "withdraws_rewards": true
+  }
+]

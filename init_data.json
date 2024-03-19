@@ -1,22 +1,54 @@
 [
   {
     "user": "airdropAuctionLockdrop",
-    "amount": "1000000"
+    "amount": "1000000",
+    "claims_rewards": true,
+    "withdraws_rewards": true,
+    "is_vesting": false
+
   },
   {
     "user": "airdropOnly",
-    "amount": "1000000"
+    "amount": "1000000",
+    "claims_rewards": true,
+    "withdraws_rewards": true,
+    "is_vesting": false
+
   },
   {
     "user": "airdropAuctionLockdropVesting",
-    "amount": "100"
+    "amount": "100",
+    "claims_rewards": true,
+    "withdraws_rewards": true,
+    "is_vesting": false
+
   },
   {
     "user": "airdropAuctionVesting",
-    "amount": "1000000"
+    "amount": "1000000",
+    "claims_rewards": true,
+    "withdraws_rewards": true,
+    "is_vesting": false
   },
   {
     "user": "airdropAuctionLockdropVestingMigration",
-    "amount": "1000000"
+    "amount": "1000000",
+    "claims_rewards": false,
+    "withdraws_rewards": false,
+    "is_vesting": false
+  },
+  {
+    "user": "airdropAuctionLockdropVestingMigration",
+    "amount": "1000000",
+    "claims_rewards": false,
+    "withdraws_rewards": false,
+    "is_vesting": false
+  },
+  {
+    "user" : "auctionVesting",
+    "amount": "1000000",
+    "claims_rewards": false,
+    "withdraws_rewards": false,
+    "is_vesting": true
   }
 ]
