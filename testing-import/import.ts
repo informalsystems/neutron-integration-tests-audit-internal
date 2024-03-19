@@ -3,15 +3,18 @@ import * as fs from 'fs';
 
 // Interface to represent the data structure in the JSON file
 interface UsersAmount {
-  address: string;
+  user: string;
   amount: string;
   claims_rewards: boolean;
   withdraws_rewards: boolean;
+  is_vesting: boolean;
 }
 interface AmountAndClaimsRewards {
   amount: string;
   claims_rewards: boolean;
   withdraws_rewards: boolean
+  is_vesting: boolean;
+
 }
 function filterMapByPropertyFunctional<TValue>(
   map: Map<string, TValue>,
@@ -40,7 +43,7 @@ function parseData(data: string): Map<string, AmountAndClaimsRewards> {
   const map: Map<string, AmountAndClaimsRewards> = new Map<string, AmountAndClaimsRewards>();
 
   parsedData.forEach((item) => {
-    map.set(item.address, { amount : item.amount, claims_rewards: item.claims_rewards, withdraws_rewards: item.withdraws_rewards});
+    map.set(item.user, { amount : item.amount, claims_rewards: item.claims_rewards, withdraws_rewards: item.withdraws_rewards,   is_vesting: item.is_vesting    });
   });
 
   return map;
@@ -62,7 +65,16 @@ const filePath = './data.json';
 
 let data = loadAndParseData(filePath)
 
-console.log(data.get("test1"))
 
 
-console.log(filterMapByPropertiesFunctional(data, "claims_rewards", "withdraws_rewards", true,true))
+// console.log(filterMapByPropertiesFunctional(data, "claims_rewards", "withdraws_rewards", true,true))
+
+
+let imported_data = filterMapByPropertyFunctional(data, "claims_rewards", true)
+imported_data.forEach((value, key) => {
+  console.log(value);
+  console.log(key);
+})
+// for(let a in imported_data.keys()){
+//   console.log(a)
+// }

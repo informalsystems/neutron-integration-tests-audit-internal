@@ -2556,353 +2556,355 @@ describe('TGE / Migration / PCL contracts', () => {
       // during migration, liquidity is migrated from XYK to PCL pools and staked to the generator,
       // PCL lockup entries are created in the PCL lockdrop contract.
       describe('migrate participants who didnt claim nor withdraw rewards', () => {
-        let data = filterMapByPropertiesFunctional(initData, "claims_rewards", "withdraws_rewards", false, false);
-        for(let v in data.keys()){
-          if(!data.get(v)?.is_vesting){
-            console.log('migrate participant: ', v);
-            let stateBefore: LiquidityMigrationState;
-            it('gather state before migration', async () => {
-              stateBefore = await gatherLiquidityMigrationState(
-                neutronChain,
-                tgeWallets[v].wallet.address.toString(),
-                liqMigContracts,
-              );
-              console.log(v,` migration state before:\n${JSON.stringify(stateBefore)}`);
-            });
-            
-            // @audit might be a good idea to get this from quint
-            const ntrnToPayGas = 750000;
-            const gas_limit = Long.fromNumber(15000000);
-  
-            it('migrate the user', async () => {
-              const res = await cmInstantiator.executeContract(
-                tgeMain.contracts.lockdrop,
-                JSON.stringify({
-                  migrate_liquidity_to_pcl_pools: {
-                    user_address_raw:
-                      tgeWallets[v].wallet.address.toString(),
+        filterMapByPropertiesFunctional(initData, "claims_rewards", "withdraws_rewards", false, false).forEach((value,key) => {
+          if(!value.is_vesting){
+            describe(`migrate ${key} participant`, () => {
+              let stateBefore: LiquidityMigrationState;
+              it('gather state before migration for: ' + key, async () => {
+                stateBefore = await gatherLiquidityMigrationState(
+                  neutronChain,
+                  tgeWallets[key].wallet.address.toString(),
+                  liqMigContracts,
+                );
+                console.log(key,` migration state before:\n${JSON.stringify(stateBefore)}`);
+              });
+              
+              // @audit might be a good idea to get this from quint
+              const ntrnToPayGas = 750000;
+              const gas_limit = Long.fromNumber(15000000);
+    
+              it('migrate the user: ' + key, async () => {
+                const res = await cmInstantiator.executeContract(
+                  tgeMain.contracts.lockdrop,
+                  JSON.stringify({
+                    migrate_liquidity_to_pcl_pools: {
+                      user_address_raw:
+                        tgeWallets[key].wallet.address.toString(),
+                    },
+                  }),
+                  undefined,
+                  {
+                    gas_limit: gas_limit,
+                    amount: [{ denom: NEUTRON_DENOM, amount: ntrnToPayGas.toString() }],
                   },
-                }),
-                undefined,
-                {
-                  gas_limit: gas_limit,
-                  amount: [{ denom: NEUTRON_DENOM, amount: ntrnToPayGas.toString() }],
-                },
-              );
-              expect(res.code).toEqual(0);
-            });
-  
-            let stateAfter: LiquidityMigrationState;
-            it('gather state after migration', async () => {
-              stateAfter = await gatherLiquidityMigrationState(
-                neutronChain,
-                tgeWallets[v].wallet.address.toString(),
-                liqMigContracts,
-              );
-              console.log(v, ` migration state after:\n${JSON.stringify(stateAfter)}`);
-            });
-            
-            describe('check user liquidity migration', () => {
-              const atomLockupKey = 'ATOM1';
-              const usdcLockupKey = 'USDC1';
-              describe('XYK user lockups', () => {
-                describe('generator rewards', () => {
-                  let userAstroRewards: number;
-                  test('claimable generator ntrn debt', async () => {
-                    userAstroRewards =
-                      +stateBefore.xykUserLockups.claimable_generator_ntrn_debt;
-                    expect(userAstroRewards).toBeGreaterThan(0);
+                );
+                expect(res.code).toEqual(0);
+              });
     
-                    // total rewards amount equals to sum of all lockup rewards
-                    expect(userAstroRewards).toEqual(
-                      +stateBefore.xykUserLockups.mapped_lockup_infos[atomLockupKey]
-                        .claimable_generator_astro_debt +
-                        +stateBefore.xykUserLockups.mapped_lockup_infos[
-                          usdcLockupKey
-                        ].claimable_generator_astro_debt,
-                    );
-    
-                    // rewards are claimed during migration => no rewards after it
-                    expect(
-                      +stateAfter.xykUserLockups.claimable_generator_ntrn_debt,
-                    ).toEqual(0);
-                  });
-    
-                  test('generator rewards are transferred to the user', async () => {
-                    expect(stateAfter.balances.user.astro).toBeGreaterThan(
-                      stateBefore.balances.user.astro,
-                    );
-                    // claimed rewards are transferred directly to the user
-                    // assume fluctuation because rewards amount increases every block
-                    isWithinRangeRel(
-                      stateAfter.balances.user.astro -
+              let stateAfter: LiquidityMigrationState;
+              it('gather state after migration', async () => {
+                stateAfter = await gatherLiquidityMigrationState(
+                  neutronChain,
+                  tgeWallets[key].wallet.address.toString(),
+                  liqMigContracts,
+                );
+                console.log(key, ` migration state after:\n${JSON.stringify(stateAfter)}`);
+              });
+              
+              describe('check user liquidity migration', () => {
+                const atomLockupKey = 'ATOM1';
+                const usdcLockupKey = 'USDC1';
+                describe('XYK user lockups', () => {
+                  describe('generator rewards', () => {
+                    let userAstroRewards: number;
+                    test('claimable generator ntrn debt', async () => {
+                      userAstroRewards =
+                        +stateBefore.xykUserLockups.claimable_generator_ntrn_debt;
+                      expect(userAstroRewards).toBeGreaterThan(0);
+      
+                      // total rewards amount equals to sum of all lockup rewards
+                      expect(userAstroRewards).toEqual(
+                        +stateBefore.xykUserLockups.mapped_lockup_infos[atomLockupKey]
+                          .claimable_generator_astro_debt +
+                          +stateBefore.xykUserLockups.mapped_lockup_infos[
+                            usdcLockupKey
+                          ].claimable_generator_astro_debt,
+                      );
+      
+                      // rewards are claimed during migration => no rewards after it
+                      expect(
+                        +stateAfter.xykUserLockups.claimable_generator_ntrn_debt,
+                      ).toEqual(0);
+                    });
+      
+                    test('generator rewards are transferred to the user', async () => {
+                      expect(stateAfter.balances.user.astro).toBeGreaterThan(
                         stateBefore.balances.user.astro,
-                      userAstroRewards,
-                      0.5,
-                    );
+                      );
+                      // claimed rewards are transferred directly to the user
+                      // assume fluctuation because rewards amount increases every block
+                      isWithinRangeRel(
+                        stateAfter.balances.user.astro -
+                          stateBefore.balances.user.astro,
+                        userAstroRewards,
+                        0.5,
+                      );
+                    });
                   });
-                });
-    
-                describe('astroport lp', () => {
-                  test('lp tokens marked as transferred', async () => {
-                    // lp tokens weren't transferred before migration
-                    expect(
-                      stateBefore.xykUserLockups.mapped_lockup_infos[atomLockupKey]
-                        .astroport_lp_transferred,
-                    ).toBe(null);
-                    expect(
-                      stateBefore.xykUserLockups.mapped_lockup_infos[usdcLockupKey]
-                        .astroport_lp_transferred,
-                    ).toBe(null);
-    
-                    // sanity check that there were some lp tokens in lockups
-                    expect(
-                      +stateAfter.xykUserLockups.mapped_lockup_infos[atomLockupKey]
-                        .astroport_lp_transferred!,
-                    ).toBeGreaterThan(0);
-                    expect(
-                      +stateAfter.xykUserLockups.mapped_lockup_infos[usdcLockupKey]
-                        .astroport_lp_transferred!,
-                    ).toBeGreaterThan(0);
-    
-                    // all lp tokens are transferred dirung migration to PCL contract
+      
+                  describe('astroport lp', () => {
+                    test('lp tokens marked as transferred', async () => {
+                      // lp tokens weren't transferred before migration
+                      expect(
+                        stateBefore.xykUserLockups.mapped_lockup_infos[atomLockupKey]
+                          .astroport_lp_transferred,
+                      ).toBe(null);
+                      expect(
+                        stateBefore.xykUserLockups.mapped_lockup_infos[usdcLockupKey]
+                          .astroport_lp_transferred,
+                      ).toBe(null);
+      
+                      // sanity check that there were some lp tokens in lockups
+                      expect(
+                        +stateAfter.xykUserLockups.mapped_lockup_infos[atomLockupKey]
+                          .astroport_lp_transferred!,
+                      ).toBeGreaterThan(0);
+                      expect(
+                        +stateAfter.xykUserLockups.mapped_lockup_infos[usdcLockupKey]
+                          .astroport_lp_transferred!,
+                      ).toBeGreaterThan(0);
+      
+                      // all lp tokens are transferred dirung migration to PCL contract
+                      expect(
+                        stateAfter.xykUserLockups.mapped_lockup_infos[atomLockupKey]
+                          .astroport_lp_transferred,
+                      ).toEqual(
+                        stateBefore.xykUserLockups.mapped_lockup_infos[atomLockupKey]
+                          .lp_units_locked,
+                      );
+                      expect(
+                        stateAfter.xykUserLockups.mapped_lockup_infos[usdcLockupKey]
+                          .astroport_lp_transferred,
+                      ).toEqual(
+                        stateBefore.xykUserLockups.mapped_lockup_infos[usdcLockupKey]
+                          .lp_units_locked,
+                      );
+                    });
+      
+                    test('staked lp amount decreases', async () => {
+                      // all lp from lockups is unstaked from generator
+                      expect(stateAfter.xykAtomStakedInGen).toEqual(
+                        stateBefore.xykAtomStakedInGen -
+                          +stateBefore.xykUserLockups.mapped_lockup_infos[
+                            atomLockupKey
+                          ].lp_units_locked,
+                      );
+                      expect(stateAfter.xykUsdcStakedInGen).toEqual(
+                        stateBefore.xykUsdcStakedInGen -
+                          +stateBefore.xykUserLockups.mapped_lockup_infos[
+                            usdcLockupKey
+                          ].lp_units_locked,
+                      );
+                    });
+                  });
+      
+                  test('XYK lockup lp token addresses', async () => {
+                    // lp token addresses shouldn't change
                     expect(
                       stateAfter.xykUserLockups.mapped_lockup_infos[atomLockupKey]
-                        .astroport_lp_transferred,
+                        .astroport_lp_token,
                     ).toEqual(
                       stateBefore.xykUserLockups.mapped_lockup_infos[atomLockupKey]
-                        .lp_units_locked,
+                        .astroport_lp_token,
                     );
                     expect(
                       stateAfter.xykUserLockups.mapped_lockup_infos[usdcLockupKey]
-                        .astroport_lp_transferred,
+                        .astroport_lp_token,
                     ).toEqual(
                       stateBefore.xykUserLockups.mapped_lockup_infos[usdcLockupKey]
-                        .lp_units_locked,
-                    );
-                  });
-    
-                  test('staked lp amount decreases', async () => {
-                    // all lp from lockups is unstaked from generator
-                    expect(stateAfter.xykAtomStakedInGen).toEqual(
-                      stateBefore.xykAtomStakedInGen -
-                        +stateBefore.xykUserLockups.mapped_lockup_infos[
-                          atomLockupKey
-                        ].lp_units_locked,
-                    );
-                    expect(stateAfter.xykUsdcStakedInGen).toEqual(
-                      stateBefore.xykUsdcStakedInGen -
-                        +stateBefore.xykUserLockups.mapped_lockup_infos[
-                          usdcLockupKey
-                        ].lp_units_locked,
+                        .astroport_lp_token,
                     );
                   });
                 });
-    
-                test('XYK lockup lp token addresses', async () => {
-                  // lp token addresses shouldn't change
-                  expect(
-                    stateAfter.xykUserLockups.mapped_lockup_infos[atomLockupKey]
-                      .astroport_lp_token,
-                  ).toEqual(
-                    stateBefore.xykUserLockups.mapped_lockup_infos[atomLockupKey]
-                      .astroport_lp_token,
-                  );
-                  expect(
-                    stateAfter.xykUserLockups.mapped_lockup_infos[usdcLockupKey]
-                      .astroport_lp_token,
-                  ).toEqual(
-                    stateBefore.xykUserLockups.mapped_lockup_infos[usdcLockupKey]
-                      .astroport_lp_token,
-                  );
-                });
-              });
-    
-              describe('lockdrop participation rewards', () => {
-                test('ntrn reward marked as transferred', async () => {
-                  // no claims whatsoever happened before migration => ntrn aren't transferred
-                  expect(stateBefore.xykUserLockups.ntrn_transferred).toBe(false);
-    
-                  // ntrn rewards transfer is processed during migration and is reflected in both contracts
-                  expect(stateAfter.xykUserLockups.ntrn_transferred).toBe(true);
-                  expect(stateAfter.pclUserLockups.ntrn_transferred).toBe(true);
-                });
-    
-                describe('ntrn transfer from lockdrop to user', () => {
-                  let expectedRewards: number;
-                  test('ntrn rewards received by the user', async () => {
-                    // expectedRewards = one time NTRN rewards +
-                    // airdrop rewards (same as NTRN rewards since airdrop multiplier = 1) +
-                    // a bit of unvested tokens (say 10 more percent — *1.1)
-                    expectedRewards =
-                      +stateBefore.xykUserLockups.total_ntrn_rewards * 2 * 1.1;
-                    const balanceChange =
-                      stateAfter.balances.user.ntrn -
-                      stateBefore.balances.user.ntrn;
-                    // assume fluctuation because of uncertain unvested tokens amount
-                    isWithinRangeRel(balanceChange, expectedRewards, 0.1);
+      
+                describe('lockdrop participation rewards', () => {
+                  test('ntrn reward marked as transferred', async () => {
+                    // no claims whatsoever happened before migration => ntrn aren't transferred
+                    expect(stateBefore.xykUserLockups.ntrn_transferred).toBe(false);
+      
+                    // ntrn rewards transfer is processed during migration and is reflected in both contracts
+                    expect(stateAfter.xykUserLockups.ntrn_transferred).toBe(true);
+                    expect(stateAfter.pclUserLockups.ntrn_transferred).toBe(true);
                   });
-    
-                  test('ntrn rewards sent by XYK lockdrop contract', async () => {
-                    const balanceChange =
-                      stateBefore.balances.xykLockdrop.ntrn -
-                      stateAfter.balances.xykLockdrop.ntrn;
-                    expect(balanceChange).toEqual(
-                      +stateBefore.xykUserLockups.total_ntrn_rewards,
+      
+                  describe('ntrn transfer from lockdrop to user', () => {
+                    let expectedRewards: number;
+                    test('ntrn rewards received by the user', async () => {
+                      // expectedRewards = one time NTRN rewards +
+                      // airdrop rewards (same as NTRN rewards since airdrop multiplier = 1) +
+                      // a bit of unvested tokens (say 10 more percent — *1.1)
+                      expectedRewards =
+                        +stateBefore.xykUserLockups.total_ntrn_rewards * 2 * 1.1;
+                      const balanceChange =
+                        stateAfter.balances.user.ntrn -
+                        stateBefore.balances.user.ntrn;
+                      // assume fluctuation because of uncertain unvested tokens amount
+                      isWithinRangeRel(balanceChange, expectedRewards, 0.1);
+                    });
+      
+                    test('ntrn rewards sent by XYK lockdrop contract', async () => {
+                      const balanceChange =
+                        stateBefore.balances.xykLockdrop.ntrn -
+                        stateAfter.balances.xykLockdrop.ntrn;
+                      expect(balanceChange).toEqual(
+                        +stateBefore.xykUserLockups.total_ntrn_rewards,
+                      );
+                    });
+                  });
+      
+                  test('no balance change for PCL lockdrop contract', async () => {
+                    // no funds directly transferred to and kept on the PCL lockdrop contract
+                    expect(stateAfter.balances.pclLockdrop).toEqual(
+                      stateBefore.balances.pclLockdrop,
+                    );
+                  });
+      
+                  test('no paired assets and lp received by user', async () => {
+                    // during migration a user can only receive ntrn and astro rewards
+                    expect(stateAfter.balances.user.atom).toEqual(
+                      stateBefore.balances.user.atom,
+                    );
+                    expect(stateAfter.balances.user.usdc).toEqual(
+                      stateBefore.balances.user.usdc,
+                    );
+                    expect(stateAfter.balances.user.atomXykPairLp).toEqual(
+                      stateBefore.balances.user.atomXykPairLp,
+                    );
+                    expect(stateAfter.balances.user.usdcXykPairLp).toEqual(
+                      stateBefore.balances.user.usdcXykPairLp,
+                    );
+                    expect(stateAfter.balances.user.atomPclPairLp).toEqual(
+                      stateBefore.balances.user.atomPclPairLp,
+                    );
+                    expect(stateAfter.balances.user.usdcPclPairLp).toEqual(
+                      stateBefore.balances.user.usdcPclPairLp,
                     );
                   });
                 });
-    
-                test('no balance change for PCL lockdrop contract', async () => {
-                  // no funds directly transferred to and kept on the PCL lockdrop contract
-                  expect(stateAfter.balances.pclLockdrop).toEqual(
-                    stateBefore.balances.pclLockdrop,
-                  );
-                });
-    
-                test('no paired assets and lp received by user', async () => {
-                  // during migration a user can only receive ntrn and astro rewards
-                  expect(stateAfter.balances.user.atom).toEqual(
-                    stateBefore.balances.user.atom,
-                  );
-                  expect(stateAfter.balances.user.usdc).toEqual(
-                    stateBefore.balances.user.usdc,
-                  );
-                  expect(stateAfter.balances.user.atomXykPairLp).toEqual(
-                    stateBefore.balances.user.atomXykPairLp,
-                  );
-                  expect(stateAfter.balances.user.usdcXykPairLp).toEqual(
-                    stateBefore.balances.user.usdcXykPairLp,
-                  );
-                  expect(stateAfter.balances.user.atomPclPairLp).toEqual(
-                    stateBefore.balances.user.atomPclPairLp,
-                  );
-                  expect(stateAfter.balances.user.usdcPclPairLp).toEqual(
-                    stateBefore.balances.user.usdcPclPairLp,
-                  );
-                });
-              });
-    
-              describe('PCL user lockups', () => {
-                test('no user lockup info before migration', async () => {
-                  expect(stateBefore.pclUserLockups).toMatchObject({
-                    claimable_incentives_debt: '0',
-                    mapped_lockup_infos: {},
-                    lockup_positions_index: 0,
-                    ntrn_transferred: false,
-                    total_ntrn_rewards: '0',
+      
+                describe('PCL user lockups', () => {
+                  test('no user lockup info before migration', async () => {
+                    expect(stateBefore.pclUserLockups).toMatchObject({
+                      claimable_incentives_debt: '0',
+                      mapped_lockup_infos: {},
+                      lockup_positions_index: 0,
+                      ntrn_transferred: false,
+                      total_ntrn_rewards: '0',
+                    });
                   });
-                });
-    
-                describe('astroport lp', () => {
-                  test('lp tokens are locked', async () => {
-                    expect(
-                      +stateAfter.pclUserLockups.mapped_lockup_infos[atomLockupKey]
-                        .lp_units_locked,
-                    ).toBeGreaterThan(0);
-                    expect(
-                      +stateAfter.pclUserLockups.mapped_lockup_infos[usdcLockupKey]
-                        .lp_units_locked,
-                    ).toBeGreaterThan(0);
+      
+                  describe('astroport lp', () => {
+                    test('lp tokens are locked', async () => {
+                      expect(
+                        +stateAfter.pclUserLockups.mapped_lockup_infos[atomLockupKey]
+                          .lp_units_locked,
+                      ).toBeGreaterThan(0);
+                      expect(
+                        +stateAfter.pclUserLockups.mapped_lockup_infos[usdcLockupKey]
+                          .lp_units_locked,
+                      ).toBeGreaterThan(0);
+                    });
+      
+                    test('lockup shares are roughly equal', async () => {
+                      // sanity check
+                      expect(
+                        stateAfter.pclUserLockups.mapped_lockup_infos[atomLockupKey]
+                          .expected_ntrn_share,
+                      ).toBeGreaterThan(0);
+                      expect(
+                        stateAfter.pclUserLockups.mapped_lockup_infos[usdcLockupKey]
+                          .expected_ntrn_share,
+                      ).toBeGreaterThan(0);
+      
+                      // equivalent of locked assets should be roughly equal before and after migration
+                      isWithinRangeRel(
+                        stateAfter.pclUserLockups.mapped_lockup_infos[atomLockupKey]
+                          .expected_ntrn_share,
+                        stateBefore.xykUserLockups.mapped_lockup_infos[atomLockupKey]
+                          .expected_ntrn_share,
+                        0.05,
+                      );
+                      isWithinRangeRel(
+                        stateAfter.pclUserLockups.mapped_lockup_infos[usdcLockupKey]
+                          .expected_ntrn_share,
+                        stateBefore.xykUserLockups.mapped_lockup_infos[usdcLockupKey]
+                          .expected_ntrn_share,
+                        0.05,
+                      );
+                    });
+      
+                    test('lp tokens not marked as transferred', async () => {
+                      // on XYK lockdrop contract's side we mark tokens as transferred meaning the contract
+                      // doesn't have them anymore. but on PCL contract's side the tokens are still locked
+                      expect(
+                        stateAfter.pclUserLockups.mapped_lockup_infos[atomLockupKey]
+                          .astroport_lp_transferred,
+                      ).toBe(null);
+                      expect(
+                        stateAfter.pclUserLockups.mapped_lockup_infos[usdcLockupKey]
+                          .astroport_lp_transferred,
+                      ).toBe(null);
+                    });
+      
+                    test('staked lp amount increases', async () => {
+                      // all lp from lockups are staked to generator
+                      expect(stateAfter.pclAtomStakedInGen).toEqual(
+                        stateBefore.pclAtomStakedInGen +
+                          +stateAfter.pclUserLockups.mapped_lockup_infos[
+                            atomLockupKey
+                          ].lp_units_locked,
+                      );
+                      expect(stateAfter.pclUsdcStakedInGen).toEqual(
+                        stateBefore.pclUsdcStakedInGen +
+                          +stateAfter.pclUserLockups.mapped_lockup_infos[
+                            usdcLockupKey
+                          ].lp_units_locked,
+                      );
+                    });
                   });
-    
-                  test('lockup shares are roughly equal', async () => {
-                    // sanity check
+      
+                  test('PCL lockup lp token addresses', async () => {
+                    // lp token addresses should correspond to the ones from PCL pairs
                     expect(
                       stateAfter.pclUserLockups.mapped_lockup_infos[atomLockupKey]
-                        .expected_ntrn_share,
-                    ).toBeGreaterThan(0);
+                        .astroport_lp_token,
+                    ).toEqual(ntrnAtomPclToken);
                     expect(
                       stateAfter.pclUserLockups.mapped_lockup_infos[usdcLockupKey]
-                        .expected_ntrn_share,
-                    ).toBeGreaterThan(0);
-    
-                    // equivalent of locked assets should be roughly equal before and after migration
-                    isWithinRangeRel(
-                      stateAfter.pclUserLockups.mapped_lockup_infos[atomLockupKey]
-                        .expected_ntrn_share,
+                        .astroport_lp_token,
+                    ).toEqual(ntrnUsdcPclToken);
+                  });
+      
+                  test('lockup positions consistency', async () => {
+                    // all positions should be migrated for the user with no previous claims and unlocks
+                    expect(stateBefore.xykUserLockups.lockup_positions_index).toEqual(
+                      stateAfter.pclUserLockups.lockup_positions_index,
+                    );
+      
+                    // unlock timestamps should remain the same
+                    expect(
                       stateBefore.xykUserLockups.mapped_lockup_infos[atomLockupKey]
-                        .expected_ntrn_share,
-                      0.05,
-                    );
-                    isWithinRangeRel(
-                      stateAfter.pclUserLockups.mapped_lockup_infos[usdcLockupKey]
-                        .expected_ntrn_share,
-                      stateBefore.xykUserLockups.mapped_lockup_infos[usdcLockupKey]
-                        .expected_ntrn_share,
-                      0.05,
-                    );
-                  });
-    
-                  test('lp tokens not marked as transferred', async () => {
-                    // on XYK lockdrop contract's side we mark tokens as transferred meaning the contract
-                    // doesn't have them anymore. but on PCL contract's side the tokens are still locked
-                    expect(
+                        .unlock_timestamp,
+                    ).toEqual(
                       stateAfter.pclUserLockups.mapped_lockup_infos[atomLockupKey]
-                        .astroport_lp_transferred,
-                    ).toBe(null);
+                        .unlock_timestamp,
+                    );
                     expect(
+                      stateBefore.xykUserLockups.mapped_lockup_infos[usdcLockupKey]
+                        .unlock_timestamp,
+                    ).toEqual(
                       stateAfter.pclUserLockups.mapped_lockup_infos[usdcLockupKey]
-                        .astroport_lp_transferred,
-                    ).toBe(null);
-                  });
-    
-                  test('staked lp amount increases', async () => {
-                    // all lp from lockups are staked to generator
-                    expect(stateAfter.pclAtomStakedInGen).toEqual(
-                      stateBefore.pclAtomStakedInGen +
-                        +stateAfter.pclUserLockups.mapped_lockup_infos[
-                          atomLockupKey
-                        ].lp_units_locked,
-                    );
-                    expect(stateAfter.pclUsdcStakedInGen).toEqual(
-                      stateBefore.pclUsdcStakedInGen +
-                        +stateAfter.pclUserLockups.mapped_lockup_infos[
-                          usdcLockupKey
-                        ].lp_units_locked,
+                        .unlock_timestamp,
                     );
                   });
-                });
-    
-                test('PCL lockup lp token addresses', async () => {
-                  // lp token addresses should correspond to the ones from PCL pairs
-                  expect(
-                    stateAfter.pclUserLockups.mapped_lockup_infos[atomLockupKey]
-                      .astroport_lp_token,
-                  ).toEqual(ntrnAtomPclToken);
-                  expect(
-                    stateAfter.pclUserLockups.mapped_lockup_infos[usdcLockupKey]
-                      .astroport_lp_token,
-                  ).toEqual(ntrnUsdcPclToken);
-                });
-    
-                test('lockup positions consistency', async () => {
-                  // all positions should be migrated for the user with no previous claims and unlocks
-                  expect(stateBefore.xykUserLockups.lockup_positions_index).toEqual(
-                    stateAfter.pclUserLockups.lockup_positions_index,
-                  );
-    
-                  // unlock timestamps should remain the same
-                  expect(
-                    stateBefore.xykUserLockups.mapped_lockup_infos[atomLockupKey]
-                      .unlock_timestamp,
-                  ).toEqual(
-                    stateAfter.pclUserLockups.mapped_lockup_infos[atomLockupKey]
-                      .unlock_timestamp,
-                  );
-                  expect(
-                    stateBefore.xykUserLockups.mapped_lockup_infos[usdcLockupKey]
-                      .unlock_timestamp,
-                  ).toEqual(
-                    stateAfter.pclUserLockups.mapped_lockup_infos[usdcLockupKey]
-                      .unlock_timestamp,
-                  );
                 });
               });
             });
           }
-          
-        }
+        });
+
+            
+            
       });
       
       // This participant has three lockup positions: ATOM for 1, USDC for 1 and USDC for 2. User
@@ -3343,90 +3345,94 @@ describe('TGE / Migration / PCL contracts', () => {
       // rewards paid, no balance changes whatsoever, no state changes made to both lockdrop
       // contracts, migration transaction emits events informing about the already withdrawn positions.
       describe('migrate the lockdrop participants who claimed and withdrew rewards', () => {
-        for(let v in filterMapByPropertiesFunctional(initData, "claims_rewards", "withdraws_rewards",  true, true).keys()){
-          describe(`migrate ${v} participant`, () => {
-            let stateBefore: LiquidityMigrationState;
-            it('gather state before migration', async () => {
-              stateBefore = await gatherLiquidityMigrationState(
-                neutronChain,
-                tgeWallets[v].wallet.address.toString(),
-                liqMigContracts,
-              );
-              console.log(
-                `${v} migration state before:\n${JSON.stringify(stateBefore)}`,
-              );
-            });
-            // @audit maybe a good idea to get this from quint
-            const gas_limit = Long.fromNumber(15000000)
-            const ntrnToPayGas = 750000;
-            let migrateRes: BroadcastTx200ResponseTxResponse;
-            it('migrate the user', async () => {
-              migrateRes = await cmInstantiator.executeContract(
-                tgeMain.contracts.lockdrop,
-                JSON.stringify({
-                  migrate_liquidity_to_pcl_pools: {
-                    user_address_raw: tgeWallets[v].wallet.address.toString(),
-                  },
-                }),
-                undefined,
-                {
-                  gas_limit: gas_limit,
-                  amount: [{ denom: NEUTRON_DENOM, amount: ntrnToPayGas.toString() }],
-                },
-              );
-            });
-
-            let stateAfter: LiquidityMigrationState;
-            it('gather state after migration', async () => {
-              stateAfter = await gatherLiquidityMigrationState(
-                neutronChain,
-                tgeWallets[v].wallet.address.toString(),
-                liqMigContracts,
-              );
-              console.log(
-                `${v} migration state after:\n${JSON.stringify(stateAfter)}`,
-              );
-            });
-
-            describe('check user liquidity migration', () => {
-              test('user XYK lockup info consistency', async () => {
-                expect(stateBefore.xykUserLockups).toMatchObject(
-                  stateAfter.xykUserLockups,
+        filterMapByPropertiesFunctional(initData, "claims_rewards", "withdraws_rewards",  true, true).forEach((value, key) => {
+          if(!value.is_vesting){
+            describe(`migrate ${key} participant`, () => {
+              let stateBefore: LiquidityMigrationState;
+              it('gather state before migration', async () => {
+                stateBefore = await gatherLiquidityMigrationState(
+                  neutronChain,
+                  tgeWallets[key].wallet.address.toString(),
+                  liqMigContracts,
+                );
+                console.log(
+                  `${key} migration state before:\n${JSON.stringify(stateBefore)}`,
                 );
               });
-
-              test('no user lockup info in PCL lockdrop', async () => {
-                expect(stateAfter.pclUserLockups).toMatchObject({
-                  claimable_incentives_debt: '0',
-                  mapped_lockup_infos: {},
-                  lockup_positions_index: 0,
-                  ntrn_transferred: false,
-                  total_ntrn_rewards: '0',
+              // @audit maybe a good idea to get this from quint
+              const gas_limit = Long.fromNumber(15000000)
+              const ntrnToPayGas = 750000;
+              let migrateRes: BroadcastTx200ResponseTxResponse;
+              it('migrate the user', async () => {
+                migrateRes = await cmInstantiator.executeContract(
+                  tgeMain.contracts.lockdrop,
+                  JSON.stringify({
+                    migrate_liquidity_to_pcl_pools: {
+                      user_address_raw: tgeWallets[key].wallet.address.toString(),
+                    },
+                  }),
+                  undefined,
+                  {
+                    gas_limit: gas_limit,
+                    amount: [{ denom: NEUTRON_DENOM, amount: ntrnToPayGas.toString() }],
+                  },
+                );
+              });
+  
+              let stateAfter: LiquidityMigrationState;
+              it('gather state after migration', async () => {
+                stateAfter = await gatherLiquidityMigrationState(
+                  neutronChain,
+                  tgeWallets[key].wallet.address.toString(),
+                  liqMigContracts,
+                );
+                console.log(
+                  `${key} migration state after:\n${JSON.stringify(stateAfter)}`,
+                );
+              });
+  
+              describe('check user liquidity migration', () => {
+                test('user XYK lockup info consistency', async () => {
+                  expect(stateBefore.xykUserLockups).toMatchObject(
+                    stateAfter.xykUserLockups,
+                  );
+                });
+  
+                test('no user lockup info in PCL lockdrop', async () => {
+                  expect(stateAfter.pclUserLockups).toMatchObject({
+                    claimable_incentives_debt: '0',
+                    mapped_lockup_infos: {},
+                    lockup_positions_index: 0,
+                    ntrn_transferred: false,
+                    total_ntrn_rewards: '0',
+                  });
+                });
+  
+                test('no balance changes', async () => {
+                  expect(stateBefore.balances).toMatchObject(stateAfter.balances);
+                });
+  
+                test('already claimed events emission', async () => {
+                  expect(migrateRes.raw_log).toContain(
+                    '{"key":"ATOM_for_1","value":"already_been_withdrawn"}',
+                  );
+                  expect(migrateRes.raw_log).toContain(
+                    '{"key":"USDC_for_1","value":"already_been_withdrawn"}',
+                  );
                 });
               });
-
-              test('no balance changes', async () => {
-                expect(stateBefore.balances).toMatchObject(stateAfter.balances);
-              });
-
-              test('already claimed events emission', async () => {
-                expect(migrateRes.raw_log).toContain(
-                  '{"key":"ATOM_for_1","value":"already_been_withdrawn"}',
-                );
-                expect(migrateRes.raw_log).toContain(
-                  '{"key":"USDC_for_1","value":"already_been_withdrawn"}',
-                );
-              });
             });
-          });
-        }
+          }
+        });
       });
 
 
 
       describe('execute migration handlers: vesting lp', () => {
-        for(let v in filterMapByPropertyFunctional(initData, "is_vesting", true)){
-          it('should validate numbers & save claim amount before migration', async () => {
+
+        
+        for (const v in filterMapByPropertyFunctional(initData, "is_vesting", true)){
+          it('should validate numbers & save claim amount before migration for user: ' + v, async () => {
             const [
               vestingInfoAtom,
               vestingInfoUsdc,
@@ -3538,80 +3544,80 @@ describe('TGE / Migration / PCL contracts', () => {
           );
           expect(res.code).toEqual(0);
         });
-
-        it('should  migrate atom', async () => {
-          for(let v in filterMapByPropertyFunctional(initData, "is_vesting", true)){
-            const resAtom = await cmInstantiator.executeContract(
-              tgeMain.contracts.vestingAtomLp,
-              JSON.stringify({
-                migrate_liquidity_to_pcl_pool: {
-                  user: tgeWallets[v].wallet.address.toString(),
-                },
-              }),
-            );
-            expect(resAtom.code).toEqual(0);
-          }
-        });
-  
-        it('should  migrate usdc', async () => {
-          for(let v in filterMapByPropertyFunctional(initData, "is_vesting", true)){
-            const res = await cmInstantiator.executeContract(
-              tgeMain.contracts.vestingUsdcLp,
-              JSON.stringify({
-                migrate_liquidity_to_pcl_pool: {
-                  user: tgeWallets[v].wallet.address.toString(),
-                },
-              }),
-            );
-            expect(res.code).toEqual(0);
-          }
-        });
+        for(const v in filterMapByPropertyFunctional(initData, "is_vesting", true)){
+          it('should  migrate atom for user: ' + v, async () => {
+              const resAtom = await cmInstantiator.executeContract(
+                tgeMain.contracts.vestingAtomLp,
+                JSON.stringify({
+                  migrate_liquidity_to_pcl_pool: {
+                    user: tgeWallets[v].wallet.address.toString(),
+                  },
+                }),
+              );
+              expect(resAtom.code).toEqual(0);
+            
+          });
+        }
+        for(const v in filterMapByPropertyFunctional(initData, "is_vesting", true)){
+          it('should  migrate usdc for user: '+v, async () => {
+              const res = await cmInstantiator.executeContract(
+                tgeMain.contracts.vestingUsdcLp,
+                JSON.stringify({
+                  migrate_liquidity_to_pcl_pool: {
+                    user: tgeWallets[v].wallet.address.toString(),
+                  },
+                }),
+              );
+              expect(res.code).toEqual(0);
+            
+          });
+        }
         // @audit-info removed: should compare voting power after migrtaion: vesting lp
         // @audit-info removed: should compare voting power after migrtaion: lockdrop
         // @audit-info removed: should compare voting power after migrtaion: overall
 
-  
-        it('should claim', async () => {
-          for(let v in filterMapByPropertyFunctional(initData, "is_vesting", true)){
-            const vs = await neutronChain.queryContract<{
-              total_granted: string;
-              total_released: string;
-            }>(usdcVestingLpAddr, {
-              vesting_state: {},
-            });
-            expect(vs.total_granted).not.toEqual('0');
-            const resAtom = await tgeWallets[v].executeContract(
-              atomVestingLpAddr,
-              JSON.stringify({
-                claim: {},
-              }),
-            );
-            expect(resAtom.code).toEqual(0);
-            const resUsdc = await tgeWallets[v].executeContract(
-              usdcVestingLpAddr,
-              JSON.stringify({
-                claim: {},
-              }),
-            );
-            expect(resUsdc.code).toEqual(0);
-          
-            const [lpBalanceAtom, lpBalanceUsdc] = await Promise.all([
-              neutronChain.queryContract<BalanceResponse>(ntrnAtomPclToken, {
-                balance: {
-                  address: tgeWallets[v].wallet.address.toString(),
-                },
-              }),
-              neutronChain.queryContract<BalanceResponse>(ntrnUsdcPclToken, {
-                balance: {
-                  address: tgeWallets[v].wallet.address.toString(),
-                },
-              }),
-            ]);
-          // diff is big, near 40%
-          isWithinRangeRel(parseInt(lpBalanceAtom.balance), claimAtomLPMap.get(v), 0.05);
-          isWithinRangeRel(parseInt(lpBalanceUsdc.balance), claimUsdcLPMap.get(v), 0.05);
-          }
-        });
+        for(const v in filterMapByPropertyFunctional(initData, "is_vesting", true)){
+          it('should claim for user: '+v, async () => {
+              const vs = await neutronChain.queryContract<{
+                total_granted: string;
+                total_released: string;
+              }>(usdcVestingLpAddr, {
+                vesting_state: {},
+              });
+              expect(vs.total_granted).not.toEqual('0');
+              const resAtom = await tgeWallets[v].executeContract(
+                atomVestingLpAddr,
+                JSON.stringify({
+                  claim: {},
+                }),
+              );
+              expect(resAtom.code).toEqual(0);
+              const resUsdc = await tgeWallets[v].executeContract(
+                usdcVestingLpAddr,
+                JSON.stringify({
+                  claim: {},
+                }),
+              );
+              expect(resUsdc.code).toEqual(0);
+            
+              const [lpBalanceAtom, lpBalanceUsdc] = await Promise.all([
+                neutronChain.queryContract<BalanceResponse>(ntrnAtomPclToken, {
+                  balance: {
+                    address: tgeWallets[v].wallet.address.toString(),
+                  },
+                }),
+                neutronChain.queryContract<BalanceResponse>(ntrnUsdcPclToken, {
+                  balance: {
+                    address: tgeWallets[v].wallet.address.toString(),
+                  },
+                }),
+              ]);
+            // diff is big, near 40%
+            isWithinRangeRel(parseInt(lpBalanceAtom.balance), claimAtomLPMap.get(v), 0.05);
+            isWithinRangeRel(parseInt(lpBalanceUsdc.balance), claimUsdcLPMap.get(v), 0.05);
+            
+          });
+        }
       });
     });
 
@@ -3743,11 +3749,7 @@ type LiquidityMigrationBalances = {
 };
 
 // Makes a number of queries for balances in all assets involved in TGE liquidity migration process.
-const getLiquidityMigrationBalances = async (
-  chain: CosmosWrapper,
-  address: string,
-  contracts: LiquidityMigrationContracts,
-): Promise<LiquidityMigrationBalances> => ({
+const getLiquidityMigrationBalances = async (chain: CosmosWrapper, address: string,contracts: LiquidityMigrationContracts): Promise<LiquidityMigrationBalances> => ({
   ntrn: await chain.queryDenomBalance(address, NEUTRON_DENOM),
   usdc: await chain.queryDenomBalance(address, IBC_USDC_DENOM),
   atom: await chain.queryDenomBalance(address, IBC_ATOM_DENOM),

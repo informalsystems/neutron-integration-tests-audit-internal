@@ -19,7 +19,7 @@ function parseData(data) {
     var parsedData = JSON.parse(data); // Parse with type assertion  
     var map = new Map();
     parsedData.forEach(function (item) {
-        map.set(item.address, { amount: item.amount, claims_rewards: item.claims_rewards, withdraws_rewards: item.withdraws_rewards });
+        map.set(item.user, { amount: item.amount, claims_rewards: item.claims_rewards, withdraws_rewards: item.withdraws_rewards, is_vesting: item.is_vesting });
     });
     return map;
 }
@@ -37,5 +37,13 @@ function loadAndParseData(filePath) {
 // Example usage
 var filePath = './data.json';
 var data = loadAndParseData(filePath);
-console.log(data.get("test1"));
-console.log(filterMapByPropertiesFunctional(data, "claims_rewards", "withdraws_rewards", true, true));
+// console.log(filterMapByPropertiesFunctional(data, "claims_rewards", "withdraws_rewards", true,true))
+var imported_data = filterMapByPropertyFunctional(data, "claims_rewards", true);
+console.log(imported_data.keys());
+imported_data.forEach(function (value, key) {
+    console.log(value);
+    console.log(key);
+});
+// for(let a in imported_data.keys()){
+//   console.log(a)
+// }

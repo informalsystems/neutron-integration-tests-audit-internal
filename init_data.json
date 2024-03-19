@@ -21,17 +21,9 @@
     "claims_rewards": true,
     "withdraws_rewards": true,
     "is_vesting": false
-
   },
   {
     "user": "airdropAuctionVesting",
-    "amount": "1000000",
-    "claims_rewards": true,
-    "withdraws_rewards": true,
-    "is_vesting": false
-  },
-  {
-    "user": "airdropAuctionLockdropVestingMigration",
     "amount": "1000000",
     "claims_rewards": false,
     "withdraws_rewards": false,
