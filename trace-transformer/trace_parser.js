@@ -16,7 +16,15 @@ var readStatesFromFile = function () {
     });
     return states;
 };
-var getInitialState = function () { return readStatesFromFile()[0]; };
+var getInitialState = function () {
+    var initialState = readStatesFromFile()[0];
+    var usersStatesMap = new Map();
+    initialState.stepInfo.msgArgs.value["#map"].forEach(function (element) {
+        usersStatesMap.set(element[0], { ATOM_locked: element[1].ATOM_locked["#bigint"], NTRN_locked: element[1].NTRN_locked["#bigint"], USDC_locked: element[1].USDC_locked["#bigint"] });
+    });
+    initialState.stepInfo.msgArgs.value = usersStatesMap;
+    return initialState;
+};
 exports.getInitialState = getInitialState;
 var getAllOtherStates = function () { return readStatesFromFile().slice(1); };
 exports.getAllOtherStates = getAllOtherStates;
@@ -47,3 +55,12 @@ function testMatcher() {
         }
     }
 }
+function test() {
+    var a = 0;
+    (0, exports.getInitialState)().stepInfo.msgArgs.value.forEach(function (value, key) {
+        console.log((0, exports.getInitialState)().stepInfo.msgArgs.value.get(key));
+        a += (0, exports.getInitialState)().stepInfo.msgArgs.value.get(key).ATOM_locked;
+    });
+    console.log("AJHFBDKJSHVDUOJH ", a);
+}
+test();

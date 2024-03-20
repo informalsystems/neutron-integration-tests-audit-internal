@@ -14,7 +14,11 @@ export interface MsgArgs {
   tag: string;
   value: any; // Can be more specific based on actual data types
 }
-
+export interface InitAmounts {
+  ATOM_locked: number;
+  NTRN_locked: number;
+  USDC_locked: number;
+} 
 export interface MsgInfo {
   sender: string;
 }
@@ -38,7 +42,18 @@ export interface State {
   stepInfo: StepInfo;
   users: Map<string, User> 
 }
-
+export interface InitialStepInfo {
+  actionErrorDescription: string;
+  actionSuccessful: boolean;
+  actionTaken: string;
+  msgArgs: MsgArgs;
+  msgInfo: MsgInfo;
+}
+export interface InitialState {
+  numSteps: number;
+  stepInfo: InitialStepInfo;
+  users: Map<string, User> 
+}
 
 export interface UserEntry {
   [key: string]: User | string; // Can be username (string) or user data (object)

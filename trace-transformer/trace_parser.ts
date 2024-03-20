@@ -1,5 +1,5 @@
 import * as fs from 'fs';
-import { Trace, State, User, ReadingState, ReadingTrace } from "./structs";
+import { Trace, State, User, ReadingState, ReadingTrace, InitAmounts } from "./structs";
 
 
 const readStatesFromFile = () : State[] => {
@@ -18,7 +18,16 @@ const readStatesFromFile = () : State[] => {
   return states;
 };
 
-export const getInitialState = () : State => readStatesFromFile()[0];
+export const getInitialState = () : State => {
+  let initialState = readStatesFromFile()[0];
+  let usersStatesMap : Map<string, InitAmounts> = new Map<string, InitAmounts>();
+  initialState.stepInfo.msgArgs.value["#map"].forEach(function (element) {
+      usersStatesMap.set(element[0], { ATOM_locked: element[1].ATOM_locked["#bigint"] as number, NTRN_locked: element[1].NTRN_locked["#bigint"]  as number, USDC_locked: element[1].USDC_locked["#bigint"] as number });
+  });
+  initialState.stepInfo.msgArgs.value = usersStatesMap;
+  return initialState;
+};
+
 export const getAllOtherStates = () : State[] => readStatesFromFile().slice(1);
 
 function testMatcher() {
@@ -45,6 +54,5 @@ function testMatcher() {
     }
   }
 }
-
 
 
