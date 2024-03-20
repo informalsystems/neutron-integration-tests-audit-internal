@@ -15,9 +15,11 @@ const readStatesFromFile = () : State[] => {
     });
     states.push({stepInfo: v.stepInfo, users: users_map, numSteps: v.numSteps['#bigint']})
   })
-  
   return states;
 };
+
+export const getInitialState = () : State => readStatesFromFile()[0];
+export const getAllOtherStates = () : State[] => readStatesFromFile().slice(1);
 
 function testMatcher() {
   for(let state of readStatesFromFile()){
@@ -44,4 +46,5 @@ function testMatcher() {
   }
 }
 
-testMatcher()
+
+

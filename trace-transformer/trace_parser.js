@@ -1,5 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.getAllOtherStates = exports.getInitialState = void 0;
 var fs = require("fs");
 var readStatesFromFile = function () {
     var jsonString = fs.readFileSync('trace.json', 'utf8'); // Replace with your file reading logic
@@ -15,6 +16,10 @@ var readStatesFromFile = function () {
     });
     return states;
 };
+var getInitialState = function () { return readStatesFromFile()[0]; };
+exports.getInitialState = getInitialState;
+var getAllOtherStates = function () { return readStatesFromFile().slice(1); };
+exports.getAllOtherStates = getAllOtherStates;
 function testMatcher() {
     for (var _i = 0, _a = readStatesFromFile(); _i < _a.length; _i++) {
         var state = _a[_i];
@@ -42,4 +47,3 @@ function testMatcher() {
         }
     }
 }
-testMatcher();
