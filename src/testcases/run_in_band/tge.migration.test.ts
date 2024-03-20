@@ -3267,10 +3267,18 @@ describe('TGE / Migration / PCL contracts', () => {
                   stateAfter.pclUserLockups.mapped_lockup_infos[atomLockupKey]
                     .expected_ntrn_share,
                 ).toBeGreaterThan(0);
+                console.log(`[STATE BEFORE] Expected ntrn share for atomLockupKey ${stateBefore.xykUserLockups.mapped_lockup_infos[atomLockupKey]
+                  .expected_ntrn_share}`)
+                  console.log(`[STATE AFTER] Expected ntrn share for atomLockupKey ${stateAfter.pclUserLockups.mapped_lockup_infos[atomLockupKey]
+                    .expected_ntrn_share}`)
                 expect(
                   stateAfter.pclUserLockups.mapped_lockup_infos[usdcLockupKey]
                     .expected_ntrn_share,
                 ).toBeGreaterThan(0);
+                console.log(`[STATE BEFORE] Expected ntrn share for usdcLockupKey ${stateBefore.xykUserLockups.mapped_lockup_infos[usdcLockupKey]
+                  .expected_ntrn_share}`)
+                console.log(`[STATE AFTER] Expected ntrn share for usdcLockupKey ${stateAfter.pclUserLockups.mapped_lockup_infos[usdcLockupKey]
+                  .expected_ntrn_share}`)
 
                 // equivalent of locked assets should be roughly equal before and after migration
                 isWithinRangeRel(
@@ -3280,6 +3288,7 @@ describe('TGE / Migration / PCL contracts', () => {
                     .expected_ntrn_share,
                   0.05,
                 );
+
                 isWithinRangeRel(
                   stateAfter.pclUserLockups.mapped_lockup_infos[usdcLockupKey]
                     .expected_ntrn_share,
@@ -3425,8 +3434,11 @@ describe('TGE / Migration / PCL contracts', () => {
                     total_ntrn_rewards: '0',
                   });
                 });
-  
+                
+                //@audit here checks balances for rest of migrations
                 test('no balance changes', async () => {
+                  console.log(`${key} balances before: `, JSON.stringify(stateBefore.balances))
+                  console.log(`${key} balances after: `, JSON.stringify(stateAfter.balances))
                   expect(stateBefore.balances).toMatchObject(stateAfter.balances);
                 });
   
