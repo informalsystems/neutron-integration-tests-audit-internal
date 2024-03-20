@@ -2754,8 +2754,26 @@ describe('TGE / Migration / PCL contracts', () => {
       
                   test('no balance change for PCL lockdrop contract', async () => {
                     // no funds directly transferred to and kept on the PCL lockdrop contract
-                    expect(stateAfter.balances.pclLockdrop).toEqual(
-                      stateBefore.balances.pclLockdrop,
+                    expect(stateAfter.balances.pclLockdrop.atom).toEqual(
+                      stateBefore.balances.pclLockdrop.atom,
+                    );
+                    expect(stateAfter.balances.pclLockdrop.ntrn).toEqual(
+                      stateBefore.balances.pclLockdrop.ntrn,
+                    );
+                    expect(stateAfter.balances.pclLockdrop.usdc).toEqual(
+                      stateBefore.balances.pclLockdrop.usdc,
+                    );
+                    expect(stateAfter.balances.pclLockdrop.atomPclPairLp).toEqual(
+                      stateBefore.balances.pclLockdrop.atomPclPairLp,
+                    );
+                    expect(stateAfter.balances.pclLockdrop.atomXykPairLp).toEqual(
+                      stateBefore.balances.pclLockdrop.atomXykPairLp,
+                    );
+                    expect(stateAfter.balances.pclLockdrop.usdcPclPairLp).toEqual(
+                      stateBefore.balances.pclLockdrop.usdcPclPairLp,
+                    );
+                    expect(stateAfter.balances.pclLockdrop.usdcXykPairLp).toEqual(
+                      stateBefore.balances.pclLockdrop.usdcXykPairLp,
                     );
                   });
       
