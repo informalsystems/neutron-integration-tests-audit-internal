@@ -58,7 +58,7 @@ import {
 import { getHeight } from '@neutron-org/neutronjsplus/dist/env';
 // import * as fs from 'fs/promises';
 import * as fs from 'fs';
-import { Trace, State, User, ReadingState, ReadingTrace } from "../../../trace-transformer/structs";
+import { Trace, State, User, ReadingState, ReadingTrace, InitAmounts } from "../../../trace-transformer/structs";
 import { getAllOtherStates, getInitialState } from '../../../trace-transformer/trace_parser';
 
 
@@ -320,7 +320,6 @@ describe('TGE / Migration / PCL contracts', () => {
         IBC_USDC_DENOM,
         NEUTRON_DENOM,
       );
-      
       for (const v of initialStateData.stepInfo.msgArgs.value.keys()) {
         tgeWallets[v] = new WalletWrapper(
           neutronChain,
@@ -336,15 +335,15 @@ describe('TGE / Migration / PCL contracts', () => {
               [
                 {
                   denom: NEUTRON_DENOM,
-                  amount: '5000000',
+                  amount: '50000000',
                 },
                 {
                   denom: IBC_ATOM_DENOM,
-                  amount: '1000000',
+                  amount: '10000000',
                 },
                 {
                   denom: IBC_USDC_DENOM,
-                  amount: '1000000',
+                  amount: '10000000',
                 },
               ],
             )
@@ -425,10 +424,17 @@ describe('TGE / Migration / PCL contracts', () => {
 
     describe('Auction', () => {
       describe('Phase 1', () => {
-
-        it('should allow deposit ATOM', async () => {
+        it('should wait for auction time', async () => {
           await waitTill(tgeMain.times.auctionInit + 3);
-          initialStateData.stepInfo.msgArgs.value.forEach(async (value, key) => {
+        })
+        console.log(initialStateData.stepInfo.msgArgs)
+        it('should allow deposit ATOM', async () => {
+          console.log("GOTTEN INTO SHOULD ALLOW DEPOSIT ATOM")
+          let data : Map<string, InitAmounts> = initialStateData.stepInfo.msgArgs.value
+          for(const key of data.keys()){
+            let value = initialStateData.stepInfo.msgArgs.value.get(key)
+            console.log(JSON.stringify(value))
+            console.log(`FOR ${key} ATOM LOCKED: ${value.ATOM_locked}`)
             const atomBalanceBefore = await neutronChain.queryDenomBalance(
               tgeWallets[key].wallet.address.toString(),
               IBC_ATOM_DENOM,
@@ -441,13 +447,14 @@ describe('TGE / Migration / PCL contracts', () => {
               }),
               [
                 {
-                  amount: value.ATOM_locked,
+                  amount: value.ATOM_locked.toString(),
                   denom: IBC_ATOM_DENOM,
                 },
               ],
             );
             expect(res2.code).toEqual(0);
             let atom_locked = parseInt(value.ATOM_locked);
+            console.log("value.ATOM_locked")
             atomBalance += atom_locked;
             const atomBalanceAfter = await neutronChain.queryDenomBalance(
               tgeWallets[key].wallet.address.toString(),
@@ -464,10 +471,13 @@ describe('TGE / Migration / PCL contracts', () => {
               },
             );
             console.log("for ", key, " atom deposited ", info.atom_deposited);
-          });
+          }
         });
         it('should allow deposit USDC', async () => {
-          initialStateData.stepInfo.msgArgs.value.forEach(async (value, key) => {
+          let data : Map<string, InitAmounts> = initialStateData.stepInfo.msgArgs.value
+          for(const key of data.keys()){
+            let value = initialStateData.stepInfo.msgArgs.value.get(key)
+
             const usdcBalanceBefore = await neutronChain.queryDenomBalance(
               tgeWallets[key].wallet.address.toString(),
               IBC_USDC_DENOM,
@@ -505,9 +515,7 @@ describe('TGE / Migration / PCL contracts', () => {
               },
             );
             console.log("for ", key, " USDC deposited ", info.usdc_deposited);
-
-          });
-
+          }
         });
       });
 
@@ -616,6 +624,7 @@ describe('TGE / Migration / PCL contracts', () => {
           expect(parseInt(state.atom_ntrn_size)).toBeCloseTo(ntrnAtomSize, -1);
           expect(parseInt(state.usdc_ntrn_size)).toBeCloseTo(ntrnUsdcSize, -1);
           expect(parseInt(state.atom_lp_size)).toBeCloseTo(atomLpSize, -1);
+          // @audit-issue fails here
           expect(parseInt(state.usdc_lp_size)).toBeCloseTo(usdcLpSize, -1);
 
 
@@ -634,7 +643,9 @@ describe('TGE / Migration / PCL contracts', () => {
         });
         describe('lock_lp', () => {
           it('should be able to lock ATOM LP tokens', async () => {
-            initialStateData.stepInfo.msgArgs.value.forEach(async (_, key) => {
+            let data : Map<string, InitAmounts> = initialStateData.stepInfo.msgArgs.value
+
+            for(const key in data.keys()){
               const userInfo = await neutronChain.queryContract<UserInfoResponse>(
                 tgeMain.contracts.auction,
                 {
@@ -656,12 +667,13 @@ describe('TGE / Migration / PCL contracts', () => {
               expect(res2.code).toEqual(0);
               console.log("user ", key, " locked atom lp amount ", userInfo.atom_lp_amount);
               atomLpLocked += Number(userInfo.atom_lp_amount);
-            });
+            }
           });
           
           it('should be able to lock USDC LP tokens', async () => {
-            
-            initialStateData.stepInfo.msgArgs.value.forEach(async (_, key) => {
+            let data : Map<string, InitAmounts> = initialStateData.stepInfo.msgArgs.value
+
+            for(const key in data.keys()){
               const userInfo = await neutronChain.queryContract<UserInfoResponse>(
                 tgeMain.contracts.auction,
                 {
@@ -684,7 +696,7 @@ describe('TGE / Migration / PCL contracts', () => {
               console.log("user ", key, " locked usdc lp amount ", userInfo.usdc_lp_amount);
 
               usdcLpLocked += Number(userInfo.usdc_lp_amount);
-            });
+            }
           });
         });
 
@@ -889,6 +901,7 @@ describe('TGE / Migration / PCL contracts', () => {
           expect(parseInt(usdcPoolInfo.total_share)).toEqual(
             parseInt(auctionState.usdc_lp_size) + MIN_LIQUDITY,
           );
+          //@audit-issue fails here
           expect(atomLpSize).toBeCloseTo(
             parseInt(atomPoolInfo.total_share) - MIN_LIQUDITY,
             -1,
