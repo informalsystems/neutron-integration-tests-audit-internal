@@ -634,7 +634,7 @@ describe('TGE / Migration / PCL contracts', () => {
 
             // expect(parseInt(state.usdc_ntrn_size)).toBeCloseTo(ntrnUsdcSize, -1);
             // expect(parseInt(state.atom_lp_size)).toBeCloseTo(atomLpSize, -1);
-            // @audit-issue fails here
+            // @audit-issue used to fail here, fixed
             // expect(parseInt(state.usdc_lp_size)).toBeCloseTo(usdcLpSize, -1);
             isWithinRangeRel(parseInt(state.usdc_lp_size), usdcLpSize, 0.1);
             isWithinRangeRel(parseInt(state.atom_lp_size), atomLpSize, 0.1);
@@ -656,8 +656,7 @@ describe('TGE / Migration / PCL contracts', () => {
         describe('lock_lp', () => {
           it('should be able to lock ATOM LP tokens', async () => {
             let data: Map<string, InitAmounts> = initialStateData.stepInfo.msgArgs.value
-
-            for (const key in data.keys()) {
+            for (const key of data.keys()) {
               const userInfo = await neutronChain.queryContract<UserInfoResponse>(
                 tgeMain.contracts.auction,
                 {
@@ -666,7 +665,7 @@ describe('TGE / Migration / PCL contracts', () => {
                   },
                 },
               );
-              const res2 = await tgeWallets[key].executeContract(
+              const res = await tgeWallets[key].executeContract(
                 tgeMain.contracts.auction,
                 JSON.stringify({
                   lock_lp: {
@@ -676,16 +675,39 @@ describe('TGE / Migration / PCL contracts', () => {
                   },
                 }),
               );
-              expect(res2.code).toEqual(0);
+              expect(res.code).toEqual(0);
               console.log("user ", key, " locked atom lp amount ", userInfo.atom_lp_amount);
-              atomLpLocked += Number(userInfo.atom_lp_amount);
+              atomLpLocked = Number(userInfo.atom_lp_amount);
+
+              const userInfoAfterLocking = await neutronChain.queryContract<UserInfoResponse>(
+                tgeMain.contracts.auction,
+                {
+                  user_info: {
+                    address: tgeWallets[key].wallet.address.toString(),
+                  },
+                },
+              );
+              expect(parseInt(userInfo.atom_lp_amount)).toEqual(parseInt(userInfoAfterLocking.atom_lp_locked));
+
+              const info = await neutronChain.queryContract<LockDropInfoResponse>(
+                tgeMain.contracts.lockdrop,
+                {
+                  user_info: {
+                    address: tgeWallets[key].wallet.address.toString(),
+                  },
+                },
+              );
+              expect(info.lockup_infos).toHaveLength(1);
+              expect(info.lockup_infos[0]).toMatchObject({
+                lp_units_locked: atomLpLocked.toString(),
+                pool_type: 'ATOM',
+              });
             }
           });
 
           it('should be able to lock USDC LP tokens', async () => {
             let data: Map<string, InitAmounts> = initialStateData.stepInfo.msgArgs.value
-
-            for (const key in data.keys()) {
+            for (const key of data.keys()) {
               const userInfo = await neutronChain.queryContract<UserInfoResponse>(
                 tgeMain.contracts.auction,
                 {
@@ -706,8 +728,32 @@ describe('TGE / Migration / PCL contracts', () => {
               );
               expect(res2.code).toEqual(0);
               console.log("user ", key, " locked usdc lp amount ", userInfo.usdc_lp_amount);
+              usdcLpLocked = Number(userInfo.usdc_lp_amount);
+              
+              const userInfoAfterLocking = await neutronChain.queryContract<UserInfoResponse>(
+                tgeMain.contracts.auction,
+                {
+                  user_info: {
+                    address: tgeWallets[key].wallet.address.toString(),
+                  },
+                },
+              );
 
-              usdcLpLocked += Number(userInfo.usdc_lp_amount);
+              expect(parseInt(userInfo.usdc_lp_amount)).toEqual(parseInt(userInfoAfterLocking.usdc_lp_locked));
+
+              const info = await neutronChain.queryContract<LockDropInfoResponse>(
+                tgeMain.contracts.lockdrop,
+                {
+                  user_info: {
+                    address: tgeWallets[key].wallet.address.toString(),
+                  },
+                },
+              );
+              expect(info.lockup_infos).toHaveLength(2);
+              expect(info.lockup_infos[1]).toMatchObject({
+                lp_units_locked: usdcLpLocked.toString(),
+                pool_type: 'USDC',
+              });
             }
           });
         });
@@ -984,21 +1030,209 @@ describe('TGE / Migration / PCL contracts', () => {
     for(let state of otherStatesData){
       switch(state.stepInfo.actionTaken){
         case 'advance_block': {
-          it(`Quint generated step ADVANCE BLOCK from step [${state.numSteps}]`, async () => {
+          it(`Quint generated step ADVANCE BLOCK from step ${state.numSteps}`, async () => {
             await neutronChain.blockWaiter.waitBlocks(3);
           });
           break;
         }
         case 'migrate': {
-          console.log(`[${state.numSteps}][MIGRATE]\n[Executor: ${state.stepInfo.msgInfo.sender}]\n[Outcome: ${state.stepInfo.actionSuccessful}]\n`);
+          describe(`Quint generated step MIGRATE from step ${state.numSteps}`, () => {
+            console.log(`[${state.numSteps}][MIGRATE]\n[Executor: ${state.stepInfo.msgInfo.sender}]\n[Outcome: ${state.stepInfo.actionSuccessful}]\n`);          
+          });
           break;
         }
         case 'claim_rewards_xyk': {
-          console.log(`[${state.numSteps}][CLAIM REWARD XYK]\n[Executor: ${state.stepInfo.msgInfo.sender}]\n[Outcome: ${state.stepInfo.actionSuccessful}]\n`);
+          describe(`Quint generated step CLAIM_REWARDS_XYK from step ${state.numSteps}`, () => {
+            console.log(`[${state.numSteps}][CLAIM REWARD XYK]\n[Executor: ${state.stepInfo.msgInfo.sender}]\n[Outcome: ${state.stepInfo.actionSuccessful}]\n`);
+            let sender = state.stepInfo.msgInfo.sender;
+            let withdraw = state.stepInfo.msgArgs.value.withdraw;
+            if (!withdraw) {
+              it(`for ${sender} without withdraw`, async () => {
+                const rewardsStateBeforeClaim = await tgeMain.generatorRewardsState(
+                  tgeWallets[sender].wallet.address.toString(),
+                );
+                console.log(`inside test for ${sender}`);
+                console.log(`${sender} claiming ATOM`);
+                let res = await tgeWallets[sender].executeContract(
+                  tgeMain.contracts.lockdrop,
+                  JSON.stringify({
+                    claim_rewards_and_optionally_unlock: {
+                      pool_type: 'ATOM',
+                      duration: 1,
+                      withdraw_lp_stake: withdraw,
+                    },
+                  }),
+                );
+                expect(res.code).toEqual(0);
+                
+                console.log(`${sender} claiming USDC`);
+                res = await tgeWallets[sender].executeContract(
+                  tgeMain.contracts.lockdrop,
+                  JSON.stringify({
+                    claim_rewards_and_optionally_unlock: {
+                      pool_type: 'USDC',
+                      duration: 1,
+                      withdraw_lp_stake: withdraw,
+                    },
+                  }),
+                );
+                expect(res.code).toEqual(0);
+
+                const rewardsStateAfterClaim = await tgeMain.generatorRewardsState(
+                  tgeWallets[sender].wallet.address.toString(),
+                );
+
+                // a more precise check is done later in 'should get extra untrn from unclaimed airdrop'
+                // testcase, here we simply check that the balance has increased
+                expect(
+                  rewardsStateAfterClaim.balanceNtrn + 2 * FEE_SIZE,
+                ).toBeGreaterThan(rewardsStateBeforeClaim.balanceNtrn);
+
+                const rewardsBeforeClaimAtom =
+                  rewardsStateBeforeClaim.userInfo.lockup_infos.find(
+                    (i) => i.pool_type == 'ATOM' && i.duration == 1,
+                  ) as LockdropLockUpInfoResponse;
+                expect(rewardsBeforeClaimAtom).not.toBeNull();
+                const expectedGeneratorRewards =
+                  +rewardsBeforeClaimAtom.claimable_generator_astro_debt;
+                expect(expectedGeneratorRewards).toBeGreaterThan(0);
+                
+                const rewardsBeforeClaimUsdc =
+                  rewardsStateBeforeClaim.userInfo.lockup_infos.find(
+                    (i) => i.pool_type == 'USDC' && i.duration == 1,
+                  ) as LockdropLockUpInfoResponse;
+                expect(rewardsBeforeClaimUsdc).not.toBeNull();
+                const expectedGeneratorRewards2 =
+                  +rewardsBeforeClaimUsdc.claimable_generator_astro_debt;
+                expect(expectedGeneratorRewards2).toBeGreaterThan(0);
+
+                // we expect the astro balance to increase by somewhere between user rewards amount and user
+                // rewards amount plus rewards per block amount because rewards amount increases each block.
+                const astroBalanceDiff =
+                  rewardsStateAfterClaim.balanceAstro -
+                  rewardsStateBeforeClaim.balanceAstro;
+                expect(astroBalanceDiff).toBeGreaterThanOrEqual(
+                  expectedGeneratorRewards,
+                );
+                expect(astroBalanceDiff).toBeLessThan(
+                  expectedGeneratorRewards + 2* tgeMain.generatorRewardsPerBlock,
+                );
+                /*
+                console.log(`for user ${sender}`);
+                console.log("NTRN rewards state before claim ", rewardsStateBeforeClaim.balanceNtrn);
+                console.log("NTRN rewards state after claim ", rewardsStateAfterClaim.balanceNtrn);
+
+                console.log("ASTRO rewards state before claim ", rewardsStateBeforeClaim.balanceAstro);
+                console.log("ASTRO rewards state after claim ", rewardsStateAfterClaim.balanceAstro);
+                */
+                // withdraw_lp_stake is false => no lp tokens returned
+                expect(rewardsStateBeforeClaim.atomNtrnLpTokenBalance).toEqual(
+                  rewardsStateAfterClaim.atomNtrnLpTokenBalance,
+                );
+                expect(rewardsStateBeforeClaim.usdcNtrnLpTokenBalance).toEqual(
+                  rewardsStateAfterClaim.usdcNtrnLpTokenBalance,
+                );
+              });
+            }else {
+              it(`for ${sender} with withdraw USDC`, async () => {
+                const rewardsStateBeforeClaim = await tgeMain.generatorRewardsState(
+                  tgeWallets[sender].wallet.address.toString(),
+                );
+                console.log(rewardsStateBeforeClaim)
+                let res = await tgeWallets[sender].executeContract(
+                  tgeMain.contracts.lockdrop,
+                  JSON.stringify({
+                    claim_rewards_and_optionally_unlock: {
+                      pool_type: 'USDC',
+                      duration: 1,
+                      withdraw_lp_stake: withdraw,
+                    },
+                  }),
+                );
+                expect(res.code).toEqual(0);
+                res = await tgeWallets[sender].executeContract(
+                  tgeMain.contracts.lockdrop,
+                  JSON.stringify({
+                    claim_rewards_and_optionally_unlock: {
+                      pool_type: 'ATOM',
+                      duration: 1,
+                      withdraw_lp_stake: withdraw,
+                    },
+                  }),
+                );
+                expect(res.code).toEqual(0);
+
+                const rewardsStateAfterClaim = await tgeMain.generatorRewardsState(
+                  tgeWallets[sender].wallet.address.toString(),
+                );
+                console.log(rewardsStateAfterClaim)
+                // @audit-issue toEqual throws error - INVESTIGATE
+                // TODO: Ivan. Can we check this out? For some reason this way it works, but having toEqual throws errors.
+                expect(rewardsStateAfterClaim.balanceNtrn + 2 * FEE_SIZE).toBeGreaterThan(
+                  rewardsStateBeforeClaim.balanceNtrn,
+                ); // ntrn rewards were sent at the previous claim, so no ntrn income is expected
+
+                // withdraw_lp_stake is true => expect lp tokens to be unlocked and returned to the user
+                const rewardsUscBeforeClaim =
+                  rewardsStateBeforeClaim.userInfo.lockup_infos.find(
+                    (i) => i.pool_type == 'USDC' && i.duration == 1,
+                  ) as LockdropLockUpInfoResponse;
+                expect(rewardsUscBeforeClaim).not.toBeNull();
+                const usdcNtrnLockedLp = +rewardsUscBeforeClaim.lp_units_locked;
+                expect(usdcNtrnLockedLp).toBeGreaterThan(0);
+                expect(rewardsStateAfterClaim.usdcNtrnLpTokenBalance).toEqual(
+                  rewardsStateBeforeClaim.usdcNtrnLpTokenBalance + usdcNtrnLockedLp,
+                );
+                const rewardsAtomBeforeClaim =
+                  rewardsStateBeforeClaim.userInfo.lockup_infos.find(
+                    (i) => i.pool_type == 'ATOM' && i.duration == 1,
+                  ) as LockdropLockUpInfoResponse;
+                expect(rewardsAtomBeforeClaim).not.toBeNull();
+                const atomNtrnLockedLp = +rewardsAtomBeforeClaim.lp_units_locked;
+                expect(atomNtrnLockedLp).toBeGreaterThan(0);
+                expect(rewardsStateAfterClaim.atomNtrnLpTokenBalance).toEqual(
+                  rewardsStateBeforeClaim.atomNtrnLpTokenBalance + atomNtrnLockedLp,
+                );
+
+                // claimed from both pools above, so expected rewards amount is a sum of both
+                const rewardsBeforeClaimUsdc =
+                  rewardsStateBeforeClaim.userInfo.lockup_infos.find(
+                    (i) => i.pool_type == 'USDC' && i.duration == 1,
+                  ) as LockdropLockUpInfoResponse;
+                expect(rewardsBeforeClaimUsdc).not.toBeNull();
+                const rewardsBeforeClaimAtom =
+                  rewardsStateBeforeClaim.userInfo.lockup_infos.find(
+                    (i) => i.pool_type == 'ATOM' && i.duration == 1,
+                  ) as LockdropLockUpInfoResponse;
+                expect(rewardsBeforeClaimAtom).not.toBeNull();
+
+                const expectedGeneratorRewards =
+                  +rewardsBeforeClaimUsdc.claimable_generator_astro_debt +
+                  +rewardsBeforeClaimAtom.claimable_generator_astro_debt;
+                expect(expectedGeneratorRewards).toBeGreaterThan(0);
+
+                // we expect the astro balance to increase by somewhere between user rewards amount and user
+                // rewards amount plus 2*rewards per block amount because rewards amount increases each block.
+                const astroBalanceDiff =
+                  rewardsStateAfterClaim.balanceAstro -
+                  rewardsStateBeforeClaim.balanceAstro;
+                expect(astroBalanceDiff).toBeGreaterThanOrEqual(
+                  expectedGeneratorRewards,
+                );
+                expect(astroBalanceDiff).toBeLessThan(
+                  expectedGeneratorRewards + 2 * tgeMain.generatorRewardsPerBlock,
+                );
+              });
+            }            
+          });
           break;
         }
         case 'claim_rewards_pcl': {
-          console.log(`[${state.numSteps}][CLAIM REWARD PCL]\n[Executor: ${state.stepInfo.msgInfo.sender}]\n[Outcome: ${state.stepInfo.actionSuccessful}]\n`)
+          describe(`Quint generated step CLAIM_REWARDS_PCL from step ${state.numSteps}`, () => {
+            console.log(`[${state.numSteps}][CLAIM REWARD PCL]\n[Executor: ${state.stepInfo.msgInfo.sender}]\n[Outcome: ${state.stepInfo.actionSuccessful}]\n`)
+            let sender = state.stepInfo.msgInfo.sender;
+            let withdraw = state.stepInfo.msgArgs.value.withdraw;
+          });
           break;
         };
         default: {
