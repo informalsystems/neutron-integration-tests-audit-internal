@@ -960,7 +960,6 @@ describe('TGE / Migration / PCL contracts', () => {
             parseInt(auctionState.usdc_lp_size) + MIN_LIQUDITY,
           );
           //@audit-issue used to fail here, but fixed
-          // TODO: @ALeksandar, replace the fail case here with how it was done at line ~632
           // expect(atomLpSize).toBeCloseTo(
           //   parseInt(atomPoolInfo.total_share) - MIN_LIQUDITY,
           //   -1,
@@ -1013,17 +1012,20 @@ describe('TGE / Migration / PCL contracts', () => {
           );
           expect(res.code).toEqual(0);
         });
-        // it('should not be able to init pool twice', async () => {
-        //   await expect(
-        //     cmInstantiator.executeContract(
-        //       tgeMain.contracts.auction,
-        //       JSON.stringify({
-        //         init_pool: {},
-        //       }),
-        //     ),
-        //   ).rejects.toThrow(/Liquidity already added/);
-        // });
       });
+      describe('Vest LP', () => {
+        it('should vest LP (permissionless)', async () => {
+          let res = await cmStranger.executeContract(
+            tgeMain.contracts.auction,
+            JSON.stringify({
+              migrate_to_vesting: {},
+            }),
+          );
+          expect(res.code).toEqual(0);
+          tgeMain.times.vestTimestamp = Date.now();
+        });
+      })
+      
     });
   });
   describe('Quint generated steps', () => {
@@ -1037,7 +1039,9 @@ describe('TGE / Migration / PCL contracts', () => {
         }
         case 'migrate': {
           describe(`Quint generated step MIGRATE from step ${state.numSteps}`, () => {
-            console.log(`[${state.numSteps}][MIGRATE]\n[Executor: ${state.stepInfo.msgInfo.sender}]\n[Outcome: ${state.stepInfo.actionSuccessful}]\n`);          
+            console.log(`[${state.numSteps}][MIGRATE]\n[Executor: ${state.stepInfo.msgInfo.sender}]\n[Outcome: ${state.stepInfo.actionSuccessful}]\n`);    
+            let user_address = state.stepInfo.msgArgs.value.user_address;
+
           });
           break;
         }
