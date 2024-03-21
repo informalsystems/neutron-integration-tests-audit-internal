@@ -258,106 +258,106 @@ describe('TGE / Migration / PCL contracts', () => {
   let lockdropPclAddr: string;
   let initialStateData: State;
   let otherStatesData: State[];
+  initialStateData = getInitialState();
+  console.log("in init data state: ", initialStateData);
+  otherStatesData = getAllOtherStates();
+  console.log("in all other states: ", otherStatesData);
+
+  beforeAll(async () => {
+    testState = new TestStateLocalCosmosTestNet(config);
+    await testState.init();
+
+    neutronChain = new CosmosWrapper(
+      testState.sdk1,
+      testState.blockWaiter1,
+      NEUTRON_DENOM,
+    );
+    cmInstantiator = new WalletWrapper(
+      neutronChain,
+      testState.wallets.qaNeutron.genQaWal1,
+    );
+    cmTokenManager = new WalletWrapper(
+      neutronChain,
+      testState.wallets.qaNeutronFour.genQaWal1,
+    );
+    cmStranger = new WalletWrapper(
+      neutronChain,
+
+      testState.wallets.qaNeutronFive.genQaWal1,
+    );
+    const daoCoreAddress = (await neutronChain.getChainAdmins())[0];
+    const daoContracts = await getDaoContracts(neutronChain, daoCoreAddress);
+    daoMain = new Dao(neutronChain, daoContracts);
+    daoMember1 = new DaoMember(cmInstantiator, daoMain);
+    await daoMember1.bondFunds('10000');
+
+    const reserveCodeID = await cmInstantiator.storeWasm(
+      NeutronContract.RESERVE_CURRENT,
+    );
+    const res = await cmInstantiator.instantiateContract(
+      reserveCodeID,
+      JSON.stringify({
+        main_dao_address: NEUTRON_DAO_ADDR,
+        denom: NEUTRON_DENOM,
+        distribution_rate: '0.23',
+        min_period: 1000,
+        distribution_contract: cmInstantiator.wallet.address.toString(),
+        treasury_contract: cmInstantiator.wallet.address.toString(),
+        security_dao_address: cmInstantiator.wallet.address.toString(),
+        vesting_denominator: '100000000000',
+      }),
+      'reserve',
+    );
+    reserveContract = res[0]._contract_address;
+
+    tgeMain = new Tge(
+      neutronChain,
+      cmInstantiator,
+      cmTokenManager,
+      reserveContract,
+      IBC_ATOM_DENOM,
+      IBC_USDC_DENOM,
+      NEUTRON_DENOM,
+    );
+    for (const v of initialStateData.stepInfo.msgArgs.value.keys()) {
+      tgeWallets[v] = new WalletWrapper(
+        neutronChain,
+        (
+          await testState.createQaWallet(
+            'neutron',
+            testState.sdk1,
+            testState.blockWaiter1,
+            testState.wallets.neutron.demo1,
+            // @audit-info The amount of Neutron, IBC, and ATOM are defined here.
+            // (good place to add Quint-generated amount)
+            NEUTRON_DENOM,
+            [
+              {
+                denom: NEUTRON_DENOM,
+                amount: '50000000',
+              },
+              {
+                denom: IBC_ATOM_DENOM,
+                amount: '10000000',
+              },
+              {
+                denom: IBC_USDC_DENOM,
+                amount: '10000000',
+              },
+            ],
+          )
+        ).genQaWal1,
+      );
+    }
+
+  });
+
+  afterAll(async () => {
+    console.log(`TGE participant wallets: ${JSON.stringify(tgeWallets)}`);
+    console.log('TGE contracts:', tgeMain.contracts);
+  });
+
   describe('Pre-Migration setup', () => {
-    initialStateData = getInitialState();
-    console.log("in init data state: ", initialStateData);
-    otherStatesData = getAllOtherStates();
-    console.log("in all other states: ", otherStatesData);
-
-    beforeAll(async () => {
-      testState = new TestStateLocalCosmosTestNet(config);
-      await testState.init();
-
-      neutronChain = new CosmosWrapper(
-        testState.sdk1,
-        testState.blockWaiter1,
-        NEUTRON_DENOM,
-      );
-      cmInstantiator = new WalletWrapper(
-        neutronChain,
-        testState.wallets.qaNeutron.genQaWal1,
-      );
-      cmTokenManager = new WalletWrapper(
-        neutronChain,
-        testState.wallets.qaNeutronFour.genQaWal1,
-      );
-      cmStranger = new WalletWrapper(
-        neutronChain,
-
-        testState.wallets.qaNeutronFive.genQaWal1,
-      );
-      const daoCoreAddress = (await neutronChain.getChainAdmins())[0];
-      const daoContracts = await getDaoContracts(neutronChain, daoCoreAddress);
-      daoMain = new Dao(neutronChain, daoContracts);
-      daoMember1 = new DaoMember(cmInstantiator, daoMain);
-      await daoMember1.bondFunds('10000');
-
-      const reserveCodeID = await cmInstantiator.storeWasm(
-        NeutronContract.RESERVE_CURRENT,
-      );
-      const res = await cmInstantiator.instantiateContract(
-        reserveCodeID,
-        JSON.stringify({
-          main_dao_address: NEUTRON_DAO_ADDR,
-          denom: NEUTRON_DENOM,
-          distribution_rate: '0.23',
-          min_period: 1000,
-          distribution_contract: cmInstantiator.wallet.address.toString(),
-          treasury_contract: cmInstantiator.wallet.address.toString(),
-          security_dao_address: cmInstantiator.wallet.address.toString(),
-          vesting_denominator: '100000000000',
-        }),
-        'reserve',
-      );
-      reserveContract = res[0]._contract_address;
-
-      tgeMain = new Tge(
-        neutronChain,
-        cmInstantiator,
-        cmTokenManager,
-        reserveContract,
-        IBC_ATOM_DENOM,
-        IBC_USDC_DENOM,
-        NEUTRON_DENOM,
-      );
-      for (const v of initialStateData.stepInfo.msgArgs.value.keys()) {
-        tgeWallets[v] = new WalletWrapper(
-          neutronChain,
-          (
-            await testState.createQaWallet(
-              'neutron',
-              testState.sdk1,
-              testState.blockWaiter1,
-              testState.wallets.neutron.demo1,
-              // @audit-info The amount of Neutron, IBC, and ATOM are defined here.
-              // (good place to add Quint-generated amount)
-              NEUTRON_DENOM,
-              [
-                {
-                  denom: NEUTRON_DENOM,
-                  amount: '50000000',
-                },
-                {
-                  denom: IBC_ATOM_DENOM,
-                  amount: '10000000',
-                },
-                {
-                  denom: IBC_USDC_DENOM,
-                  amount: '10000000',
-                },
-              ],
-            )
-          ).genQaWal1,
-        );
-      }
-
-    });
-
-    afterAll(async () => {
-      console.log(`TGE participant wallets: ${JSON.stringify(tgeWallets)}`);
-      console.log('TGE contracts:', tgeMain.contracts);
-    });
-    //@todo fix this here
     describe('Deploy', () => {
       it('should deploy useres contracts', async () => {
         tgeMain.airdropAccounts = [];
@@ -980,7 +980,32 @@ describe('TGE / Migration / PCL contracts', () => {
       });
     });
   });
-
+  describe('Quint generated steps', () => {
+    for(let state of otherStatesData){
+      switch(state.stepInfo.actionTaken){
+        case 'advance_block': {
+          it(`Quint generated step ADVANCE BLOCK from step [${state.numSteps}]`, async () => {
+            await neutronChain.blockWaiter.waitBlocks(3);
+          });
+          break;
+        }
+        case 'migrate': {
+          console.log(`[${state.numSteps}][MIGRATE]\n[Executor: ${state.stepInfo.msgInfo.sender}]\n[Outcome: ${state.stepInfo.actionSuccessful}]\n`);
+          break;
+        }
+        case 'claim_rewards_xyk': {
+          console.log(`[${state.numSteps}][CLAIM REWARD XYK]\n[Executor: ${state.stepInfo.msgInfo.sender}]\n[Outcome: ${state.stepInfo.actionSuccessful}]\n`);
+          break;
+        }
+        case 'claim_rewards_pcl': {
+          console.log(`[${state.numSteps}][CLAIM REWARD PCL]\n[Executor: ${state.stepInfo.msgInfo.sender}]\n[Outcome: ${state.stepInfo.actionSuccessful}]\n`)
+          break;
+        };
+        default: {
+        }
+      }
+    }
+  });
 
 }); // end Neutron/TGE/Auction
 const gatherLiquidityMigrationState = async (
