@@ -1124,6 +1124,447 @@ describe('TGE / Migration / PCL contracts', () => {
         await neutronChain.blockWaiter.waitBlocks(10);
       });
     });
+    describe('Migrate to new contracts', () => {
+      describe('replace XYK with PCL pools', () => {
+        test('deregister XYK pairs', async () => {
+          await deregisterPair(cmInstantiator, tgeMain.contracts.astroFactory, [
+            nativeTokenInfo(NEUTRON_DENOM),
+            nativeTokenInfo(IBC_ATOM_DENOM),
+          ]);
+          await deregisterPair(cmInstantiator, tgeMain.contracts.astroFactory, [
+            nativeTokenInfo(NEUTRON_DENOM),
+            nativeTokenInfo(IBC_USDC_DENOM),
+          ]);
+        });
+  
+        test('create and fill NTRN/ibcATOM PCL pair', async () => {
+          const poolStatus = await neutronChain.queryContract<PoolStatus>(
+            tgeMain.pairs.atom_ntrn.contract,
+            { pool: {} },
+          );
+          const ntrnInPool = poolStatus.assets.filter(
+            (a) => (a.info as NativeToken).native_token.denom == NEUTRON_DENOM,
+          )[0].amount;
+          const ibcAtomInPool = poolStatus.assets.filter(
+            (a) => (a.info as NativeToken).native_token.denom == IBC_ATOM_DENOM,
+          )[0].amount;
+          const priceScale = +ibcAtomInPool / +ntrnInPool;
+  
+          const ntrnAtomClPairInfo = await createPclPair(
+            neutronChain,
+            cmInstantiator,
+            tgeMain.contracts.astroFactory,
+            [nativeTokenInfo(IBC_ATOM_DENOM), nativeTokenInfo(NEUTRON_DENOM)],
+            priceScale,
+          );
+          ntrnAtomPclPool = ntrnAtomClPairInfo.contract_addr;
+          ntrnAtomPclToken = ntrnAtomClPairInfo.liquidity_token;
+  
+          const atomToProvide = Math.floor(NTRN_AMOUNT * priceScale);
+          const ntrnToProvide = NTRN_AMOUNT;
+          await cmInstantiator.executeContract(
+            ntrnAtomPclPool,
+            JSON.stringify({
+              provide_liquidity: {
+                assets: [
+                  nativeToken(IBC_ATOM_DENOM, atomToProvide.toString()),
+                  nativeToken(NEUTRON_DENOM, ntrnToProvide.toString()),
+                ],
+                slippage_tolerance: '0.01',
+              },
+            }),
+            [
+              {
+                denom: IBC_ATOM_DENOM,
+                amount: atomToProvide.toString(),
+              },
+              {
+                denom: NEUTRON_DENOM,
+                amount: ntrnToProvide.toString(),
+              },
+            ],
+          );
+        });
+  
+        test('create and fill NTRN/ibcUSDC PCL pair', async () => {
+          const poolStatus = await neutronChain.queryContract<PoolStatus>(
+            tgeMain.pairs.usdc_ntrn.contract,
+            { pool: {} },
+          );
+          const ntrnInPool = poolStatus.assets.filter(
+            (a) => (a.info as NativeToken).native_token.denom == NEUTRON_DENOM,
+          )[0].amount;
+          const ibcUsdcInPool = poolStatus.assets.filter(
+            (a) => (a.info as NativeToken).native_token.denom == IBC_USDC_DENOM,
+          )[0].amount;
+          const priceScale = +ibcUsdcInPool / +ntrnInPool;
+  
+          const ntrnUsdcClPairInfo = await createPclPair(
+            neutronChain,
+            cmInstantiator,
+            tgeMain.contracts.astroFactory,
+            [nativeTokenInfo(IBC_USDC_DENOM), nativeTokenInfo(NEUTRON_DENOM)],
+            priceScale,
+          );
+          ntrnUsdcPclPool = ntrnUsdcClPairInfo.contract_addr;
+          ntrnUsdcPclToken = ntrnUsdcClPairInfo.liquidity_token;
+  
+          const usdcToProvide = Math.floor(NTRN_AMOUNT * priceScale);
+          const ntrnToProvide = NTRN_AMOUNT;
+          await cmInstantiator.executeContract(
+            ntrnUsdcPclPool,
+            JSON.stringify({
+              provide_liquidity: {
+                assets: [
+                  nativeToken(IBC_USDC_DENOM, usdcToProvide.toString()),
+                  nativeToken(NEUTRON_DENOM, ntrnToProvide.toString()),
+                ],
+                slippage_tolerance: '0.01',
+              },
+            }),
+            [
+              {
+                denom: IBC_USDC_DENOM,
+                amount: usdcToProvide.toString(),
+              },
+              {
+                denom: NEUTRON_DENOM,
+                amount: ntrnToProvide.toString(),
+              },
+            ],
+          );
+        });
+  
+        describe('reschedule staking rewards', () => {
+          test('deactivate generator rewards', async () => {
+            await cmInstantiator.executeContract(
+              tgeMain.contracts.astroGenerator,
+              JSON.stringify({
+                set_tokens_per_block: {
+                  amount: '0',
+                },
+              }),
+            );
+  
+            await cmInstantiator.executeContract(
+              tgeMain.contracts.astroGenerator,
+              JSON.stringify({
+                setup_pools: {
+                  pools: [
+                    [ntrnAtomPclToken, '0'],
+                    [ntrnUsdcPclToken, '0'],
+                  ],
+                },
+              }),
+            );
+          });
+  
+          test('activate incentives contract rewards', async () => {
+            await cmInstantiator.executeContract(
+              tgeMain.contracts.astroFactory,
+              JSON.stringify({
+                update_config: {
+                  generator_address: tgeMain.contracts.astroIncentives,
+                },
+              }),
+            );
+            await cmInstantiator.executeContract(
+              tgeMain.contracts.astroVesting,
+              JSON.stringify({
+                register_vesting_accounts: {
+                  vesting_accounts: [
+                    vestingAccount(tgeMain.contracts.astroIncentives, [
+                      vestingSchedule(
+                        vestingSchedulePoint(
+                          0,
+                          tgeMain.generatorRewardsTotal.toString(),
+                        ),
+                      ),
+                    ]),
+                  ],
+                },
+              }),
+              [
+                {
+                  denom: tgeMain.astroDenom,
+                  amount: tgeMain.generatorRewardsTotal.toString(),
+                },
+              ],
+            );
+            await cmInstantiator.executeContract(
+              tgeMain.contracts.astroIncentives,
+              JSON.stringify({
+                set_tokens_per_second: {
+                  amount: tgeMain.generatorRewardsPerBlock.toString(),
+                },
+              }),
+            );
+          });
+  
+          describe('add external rewards for incentives contract', () => {
+            let extRewardDenom: string;
+            test('create external rewards token', async () => {
+              const resp = await msgCreateDenom(
+                cmInstantiator,
+                cmInstantiator.wallet.address.toString(),
+                EXT_REWARD_SUBDENOM,
+              );
+              extRewardDenom = getEventAttribute(
+                (resp as any).events,
+                'create_denom',
+                'new_token_denom',
+              );
+              await msgMintDenom(
+                cmInstantiator,
+                cmInstantiator.wallet.address.toString(),
+                {
+                  denom: extRewardDenom,
+                  amount: EXT_REWARD_AMOUNT,
+                },
+              );
+            });
+  
+            // incentivize only NTRN/ATOM pair
+            test('add external rewards for incentives contract', async () => {
+              await cmInstantiator.executeContract(
+                tgeMain.contracts.astroIncentives,
+                JSON.stringify({
+                  incentivize: {
+                    lp_token: ntrnAtomPclToken,
+                    schedule: {
+                      reward: nativeToken(extRewardDenom, EXT_REWARD_AMOUNT),
+                      duration_periods: 1, // for one epoch
+                    },
+                  },
+                }),
+                [{ denom: extRewardDenom, amount: EXT_REWARD_AMOUNT }],
+              );
+            });
+          });
+        });
+      });
+      test('setup PCL pools', async () => {
+        await cmInstantiator.executeContract(
+          tgeMain.contracts.astroIncentives,
+          JSON.stringify({
+            setup_pools: {
+              pools: [
+                [ntrnAtomPclToken, '1'],
+                [ntrnUsdcPclToken, '1'],
+              ],
+            },
+          }),
+        );
+      });
+  
+      describe('instantiate PCL contracts', () => {
+        let xykLockdropConfig: XykLockdropConfig;
+        let xykLockdropUsdcPool: LockdropXykPool;
+        let xykLockdropAtomPool: LockdropXykPool;
+        it('retrieve XYK lockdrop contract state', async () => {
+          xykLockdropConfig = await queryXykLockdropConfig(
+            neutronChain,
+            tgeMain.contracts.lockdrop,
+          );
+          xykLockdropUsdcPool = await queryXykLockdropPool(
+            neutronChain,
+            tgeMain.contracts.lockdrop,
+            'USDC',
+          );
+          xykLockdropAtomPool = await queryXykLockdropPool(
+            neutronChain,
+            tgeMain.contracts.lockdrop,
+            'ATOM',
+          );
+        });
+        it('instantiate PCL lockdrop contract', async () => {
+          const codeId = await cmInstantiator.storeWasm(
+            NeutronContract.TGE_LOCKDROP_PCL,
+          );
+          const res = await cmInstantiator.instantiateContract(
+            codeId,
+            JSON.stringify({
+              owner: xykLockdropConfig.owner,
+              xyk_lockdrop_contract: tgeMain.contracts.lockdrop,
+              credits_contract: xykLockdropConfig.credits_contract,
+              auction_contract: xykLockdropConfig.auction_contract,
+              incentives: tgeMain.contracts.astroIncentives,
+              lockup_rewards_info: xykLockdropConfig.lockup_rewards_info,
+              usdc_token: ntrnUsdcPclToken,
+              atom_token: ntrnAtomPclToken,
+              lockdrop_incentives: xykLockdropConfig.lockdrop_incentives,
+              usdc_incentives_share: xykLockdropUsdcPool.incentives_share,
+              usdc_weighted_amount: xykLockdropUsdcPool.weighted_amount,
+              atom_incentives_share: xykLockdropAtomPool.incentives_share,
+              atom_weighted_amount: xykLockdropAtomPool.weighted_amount,
+            }),
+            'lockdrop_pcl',
+          );
+          lockdropPclAddr = res[0]._contract_address;
+        });
+  
+        it('instantiate PCL vesting lp contracts', async () => {
+          const codeId = await cmInstantiator.storeWasm(
+            NeutronContract.VESTING_LP_PCL,
+          );
+          const res = await cmInstantiator.instantiateContract(
+            codeId,
+            JSON.stringify({
+              owner: cmInstantiator.wallet.address.toString(),
+              token_info_manager: cmInstantiator.wallet.address.toString(),
+              vesting_managers: [],
+              vesting_token: {
+                token: {
+                  contract_addr: ntrnAtomPclToken,
+                },
+              },
+              xyk_vesting_lp_contract: tgeMain.contracts.vestingAtomLp,
+            }),
+            'atom_vesting_lp_pcl',
+          );
+          const res1 = await cmInstantiator.instantiateContract(
+            codeId,
+            JSON.stringify({
+              owner: cmInstantiator.wallet.address.toString(),
+              token_info_manager: cmInstantiator.wallet.address.toString(),
+              vesting_managers: [],
+              vesting_token: {
+                token: {
+                  contract_addr: ntrnUsdcPclToken,
+                },
+              },
+              xyk_vesting_lp_contract: tgeMain.contracts.vestingUsdcLp,
+            }),
+            'usdc_vesting_lp_pcl',
+          );
+          atomVestingLpAddr = res[0]._contract_address;
+          usdcVestingLpAddr = res1[0]._contract_address;
+        });
+      });
+  
+      describe('migrate TGE contracts to liquidity migration versions', () => {
+        let newLockdropCodeID: number;
+        it('store new lockdrop contract version', async () => {
+          newLockdropCodeID = await cmInstantiator.storeWasm(
+            NeutronContract.TGE_LOCKDROP,
+          );
+        });
+        it('migrate lockdrop', async () => {
+          await cmInstantiator.migrateContract(
+            tgeMain.contracts.lockdrop,
+            newLockdropCodeID,
+            JSON.stringify({
+              pcl_lockdrop_contract: lockdropPclAddr,
+            }),
+          );
+        });
+  
+        let newReserveCodeID: number;
+        it('store new reserve contract version', async () => {
+          newReserveCodeID = await cmInstantiator.storeWasm(
+            NeutronContract.RESERVE,
+          );
+        });
+        it('migrate reserve', async () => {
+          await cmInstantiator.migrateContract(
+            reserveContract,
+            newReserveCodeID,
+            JSON.stringify({
+              max_slippage: '0.05', // 5%
+              ntrn_denom: NEUTRON_DENOM,
+              atom_denom: IBC_ATOM_DENOM,
+              ntrn_atom_xyk_pair: tgeMain.pairs.atom_ntrn.contract,
+              ntrn_atom_cl_pair: ntrnAtomPclPool,
+              usdc_denom: IBC_USDC_DENOM,
+              ntrn_usdc_xyk_pair: tgeMain.pairs.usdc_ntrn.contract,
+              ntrn_usdc_cl_pair: ntrnUsdcPclPool,
+            }),
+          );
+        });
+      });
+      describe('execute migration handlers: reserve', () => {
+        let sharesBefore: tgePoolShares; // reserve shares in XYK pools
+        it('check reserve shares before migration', async () => {
+          sharesBefore = await queryTgePoolShares(
+            neutronChain,
+            reserveContract,
+            tgeMain.pairs.atom_ntrn.contract,
+            tgeMain.pairs.usdc_ntrn.contract,
+          );
+          expect(sharesBefore.atomNtrn.atomShares).toBeGreaterThan(0);
+          expect(sharesBefore.atomNtrn.ntrnShares).toBeGreaterThan(0);
+          expect(sharesBefore.usdcNtrn.usdcShares).toBeGreaterThan(0);
+          expect(sharesBefore.usdcNtrn.ntrnShares).toBeGreaterThan(0);
+        });
+        it('check Neutron DAO shares before migration', async () => {
+          const shares = await queryTgePoolShares(
+            neutronChain,
+            NEUTRON_DAO_ADDR,
+            ntrnAtomPclPool,
+            ntrnUsdcPclPool,
+          );
+          expect(shares.atomNtrn.atomShares).toEqual(0);
+          expect(shares.atomNtrn.ntrnShares).toEqual(0);
+          expect(shares.usdcNtrn.usdcShares).toEqual(0);
+          expect(shares.usdcNtrn.ntrnShares).toEqual(0);
+        });
+  
+        it('migrate reserve contract liquidity', async () => {
+          await cmInstantiator.executeContract(
+            reserveContract,
+            JSON.stringify({
+              migrate_from_xyk_to_cl: {
+                slippage_tolerance: '0.05', // 5%
+              },
+            }),
+          );
+        });
+  
+        it('check reserve shares after migration', async () => {
+          const shares = await queryTgePoolShares(
+            neutronChain,
+            reserveContract,
+            tgeMain.pairs.atom_ntrn.contract,
+            tgeMain.pairs.usdc_ntrn.contract,
+          );
+          expect(shares.atomNtrn.atomShares).toEqual(0);
+          expect(shares.atomNtrn.ntrnShares).toEqual(0);
+          expect(shares.usdcNtrn.usdcShares).toEqual(0);
+          expect(shares.usdcNtrn.ntrnShares).toEqual(0);
+        });
+        it('check Neutron DAO shares after migration', async () => {
+          const sharesAfter = await queryTgePoolShares(
+            // Neutron DAO shares in PCL pools
+            neutronChain,
+            NEUTRON_DAO_ADDR,
+            ntrnAtomPclPool,
+            ntrnUsdcPclPool,
+          );
+  
+          // according to 5% slippage tolerance
+          isWithinRangeRel(
+            sharesAfter.atomNtrn.atomShares,
+            sharesBefore.atomNtrn.atomShares,
+            0.05,
+          );
+          isWithinRangeRel(
+            sharesAfter.atomNtrn.ntrnShares,
+            sharesBefore.atomNtrn.ntrnShares,
+            0.05,
+          );
+          isWithinRangeRel(
+            sharesAfter.usdcNtrn.usdcShares,
+            sharesBefore.usdcNtrn.usdcShares,
+            0.05,
+          );
+          isWithinRangeRel(
+            sharesAfter.usdcNtrn.ntrnShares,
+            sharesBefore.usdcNtrn.ntrnShares,
+            0.05,
+          );
+        });
+      });
+    });
   });
   describe('Quint generated steps', () => {
     for(let state of otherStatesData){
