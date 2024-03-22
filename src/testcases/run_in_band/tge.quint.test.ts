@@ -1027,20 +1027,24 @@ describe('TGE / Migration / PCL contracts', () => {
       })
       
     });
+
   });
   describe('Quint generated steps', () => {
+    const blocksToAdvance = 3;
     for(let state of otherStatesData){
       switch(state.stepInfo.actionTaken){
         case 'advance_block': {
-          it(`Quint generated step ADVANCE BLOCK from step ${state.numSteps}`, async () => {
-            await neutronChain.blockWaiter.waitBlocks(3);
+          describe(`Quint generated step ADVANCE BLOCK from step ${state.numSteps}`, ()=>{
+            it(`advancing ${blocksToAdvance} blocks`, async () => {
+              await neutronChain.blockWaiter.waitBlocks(blocksToAdvance);
+            });
           });
           break;
         }
         case 'migrate': {
           describe(`Quint generated step MIGRATE from step ${state.numSteps}`, () => {
             console.log(`[${state.numSteps}][MIGRATE]\n[Executor: ${state.stepInfo.msgInfo.sender}]\n[Outcome: ${state.stepInfo.actionSuccessful}]\n`);    
-            let user_address = state.stepInfo.msgArgs.value.user_address;
+            let userAddress = state.stepInfo.msgArgs.value.user_address;
 
           });
           break;
