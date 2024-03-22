@@ -3,7 +3,7 @@ import { Trace, State, User, ReadingState, ReadingTrace, InitAmounts } from "./s
 
 
 const readStatesFromFile = () : State[] => {
-  const jsonString = fs.readFileSync('trace.json', 'utf8'); // Replace with your file reading logic
+  const jsonString = fs.readFileSync('./traces/fullMigrationHappened_trace0.itf.json', 'utf8'); // Replace with your file reading logic
   const data: ReadingTrace = JSON.parse(jsonString);
   const reading_states: ReadingState[] = data.states;
   let states : State[] = []
