@@ -3,7 +3,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.getAllOtherStates = exports.getInitialState = void 0;
 var fs = require("fs");
 var readStatesFromFile = function () {
-    var jsonString = fs.readFileSync('trace.json', 'utf8'); // Replace with your file reading logic
+    var jsonString = fs.readFileSync('./traces/fullMigrationHappened_trace0.itf.json', 'utf8'); // Replace with your file reading logic
     var data = JSON.parse(jsonString);
     var reading_states = data.states;
     var states = [];

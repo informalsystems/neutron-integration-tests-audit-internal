@@ -3,7 +3,8 @@ export interface BigIntWrapper {
 }
 
 export interface User {
-  has_rewards: boolean;
+  has_xyk_rewards: boolean;
+  has_pcl_rewards: boolean;
   migrated: boolean;
   only_vesting: boolean;
   pcl_liquidity_withdrawn: boolean;
