@@ -3,7 +3,7 @@ import { Trace, State, User, ReadingState, ReadingTrace, InitAmounts } from "./s
 
 
 const readStatesFromFile = () : State[] => {
-  const jsonString = fs.readFileSync('./traces/fullMigrationHappened_trace0.itf.json', 'utf8'); // Replace with your file reading logic
+  const jsonString = fs.readFileSync('./traces/fullMigrationHappened_trace5.itf.json', 'utf8'); // Replace with your file reading logic
   const data: ReadingTrace = JSON.parse(jsonString);
   const reading_states: ReadingState[] = data.states;
   let states : State[] = []
@@ -31,7 +31,9 @@ export const getInitialState = () : State => {
 export const getAllOtherStates = () : State[] => readStatesFromFile().slice(1);
 
 function testMatcher() {
-  for(let state of readStatesFromFile()){
+  var index = 0;
+  var states = getAllOtherStates();
+  for(let state of states){
     switch(state.stepInfo.actionTaken){
       case 'advance_block': {
         console.log(`[${state.numSteps}][ADVANCE BLOCK]`);
@@ -43,6 +45,9 @@ function testMatcher() {
       }
       case 'claim_rewards_xyk': {
         console.log(`[${state.numSteps}][CLAIM REWARD XYK]\n[Executor: ${state.stepInfo.msgInfo.sender}]\n[Outcome: ${state.stepInfo.actionSuccessful}]\n`);
+        let stateBefore = index==0 ? state : states[--index]
+        stateBefore.users.get(state.stepInfo.msgInfo.sender)?.has_xyk_rewards ? console.log("had rewards before") : console.log("didnt have rewards before")
+        console.log(stateBefore)
         break;
       }
       case 'claim_rewards_pcl': {
@@ -52,5 +57,8 @@ function testMatcher() {
       default: {
       }
     }
+    index++;
   }
 }
+
+// testMatcher()

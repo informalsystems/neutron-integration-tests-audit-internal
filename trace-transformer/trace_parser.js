@@ -3,7 +3,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.getAllOtherStates = exports.getInitialState = void 0;
 var fs = require("fs");
 var readStatesFromFile = function () {
-    var jsonString = fs.readFileSync('./traces/fullMigrationHappened_trace0.itf.json', 'utf8'); // Replace with your file reading logic
+    var jsonString = fs.readFileSync('./traces/fullMigrationHappened_trace5.itf.json', 'utf8'); // Replace with your file reading logic
     var data = JSON.parse(jsonString);
     var reading_states = data.states;
     var states = [];
@@ -29,8 +29,11 @@ exports.getInitialState = getInitialState;
 var getAllOtherStates = function () { return readStatesFromFile().slice(1); };
 exports.getAllOtherStates = getAllOtherStates;
 function testMatcher() {
-    for (var _i = 0, _a = readStatesFromFile(); _i < _a.length; _i++) {
-        var state = _a[_i];
+    var _a;
+    var index = 0;
+    var states = (0, exports.getAllOtherStates)();
+    for (var _i = 0, states_1 = states; _i < states_1.length; _i++) {
+        var state = states_1[_i];
         switch (state.stepInfo.actionTaken) {
             case 'advance_block': {
                 console.log("[".concat(state.numSteps, "][ADVANCE BLOCK]"));
@@ -42,6 +45,9 @@ function testMatcher() {
             }
             case 'claim_rewards_xyk': {
                 console.log("[".concat(state.numSteps, "][CLAIM REWARD XYK]\n[Executor: ").concat(state.stepInfo.msgInfo.sender, "]\n[Outcome: ").concat(state.stepInfo.actionSuccessful, "]\n"));
+                var stateBefore = index == 0 ? state : states[--index];
+                ((_a = stateBefore.users.get(state.stepInfo.msgInfo.sender)) === null || _a === void 0 ? void 0 : _a.has_xyk_rewards) ? console.log("had rewards before") : console.log("didnt have rewards before");
+                console.log(stateBefore);
                 break;
             }
             case 'claim_rewards_pcl':
@@ -53,5 +59,7 @@ function testMatcher() {
             default: {
             }
         }
+        index++;
     }
 }
+// testMatcher()
