@@ -1823,7 +1823,7 @@ describe('TGE / Migration / PCL contracts', () => {
                     const atomLockupKey = 'ATOM1';
                     const usdcLockupKey = 'USDC1';
                     describe('XYK user lockups', () => {
-                      let hadRewardsBeforeThisStep = stateIndex == 0 ? state : otherStatesData[--stateIndex];
+                      let hadRewardsBeforeThisStep = stateIndex == 0 ? initialStateData : otherStatesData[--stateIndex];
   
                       describe('generator rewards', () => {
                         let userAstroRewards: number;
@@ -2295,7 +2295,7 @@ describe('TGE / Migration / PCL contracts', () => {
             let withdraw = state.stepInfo.msgArgs.value.withdraw;
             let success = state.stepInfo.actionSuccessful;
             console.log(`CLAIM ACTION BY USER ${sender} in step ${state.numSteps} OUTCOME ${success}`)
-            let hadRewardsBeforeThisStep = stateIndex == 0 ? state : otherStatesData[--stateIndex];
+            let hadRewardsBeforeThisStep = stateIndex == 0 ? initialStateData : otherStatesData[--stateIndex];
             if(!state.users.get(sender)?.only_vesting){
               if (!withdraw) {
                 it(`for ${sender} without withdraw`, async () => {
@@ -2406,6 +2406,8 @@ describe('TGE / Migration / PCL contracts', () => {
                       },
                     }),
                   );
+                  console.log(`USER ${sender} EXECUTING USDC CLAIM WITH WITHDRAW OUTCOME: ${res}`)
+
                   if(success){
                     expect(res.code).toEqual(0);
                   }else{
@@ -2423,6 +2425,7 @@ describe('TGE / Migration / PCL contracts', () => {
                       },
                     }),
                   );
+                  console.log(`USER ${sender} EXECUTING ATOM CLAIM WITH WITHDRAW OUTCOME: ${res2}`)
                   if (success) {
                     expect(res2.code).toEqual(0);
                     const rewardsStateAfterClaim = await tgeMain.generatorRewardsState(
