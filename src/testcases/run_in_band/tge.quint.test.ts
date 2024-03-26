@@ -1698,6 +1698,7 @@ describe('TGE / Migration / PCL contracts', () => {
     let claimUsdcLP;
 
     var stateIndex = 0;
+    var isFirstPostMigrationOperation = true;
     for(let state of otherStatesData){
       switch(state.stepInfo.actionTaken){
         case 'advance_block': {
@@ -2559,7 +2560,495 @@ describe('TGE / Migration / PCL contracts', () => {
             console.log(`[${state.numSteps}][CLAIM REWARD PCL]\n[Executor: ${state.stepInfo.msgInfo.sender}]\n[Outcome: ${state.stepInfo.actionSuccessful}]\n`)
             let sender = state.stepInfo.msgInfo.sender;
             let withdraw = state.stepInfo.msgArgs.value.withdraw;
+            let success = state.stepInfo.actionSuccessful;
+            let i = stateIndex
+            let stateToGetPCLData = stateIndex === 0 ? initialStateData : otherStatesData[--i];
+            let error_msg = stateToGetPCLData.users.get(sender)?.pcl_liquidity_withdrawn ? /Astro LP Tokens have already been claimed!/ : /No rewards available to claim!/;
+
+            if(isFirstPostMigrationOperation){
+              describe('check generator state', () => {
+                it('check generator stake presence', async () => {
+                  const stakedAtomLp = await neutronChain.queryContract<string>(
+                    liqMigContracts.incentives,
+                    {
+                      deposit: {
+                        lp_token: liqMigContracts.atomPclLp,
+                        user: liqMigContracts.pclLockdrop,
+                      },
+                    },
+                  );
+                  expect(+stakedAtomLp).toBeGreaterThan(0);
+          
+                  const stakedUsdcLp = await neutronChain.queryContract<string>(
+                    liqMigContracts.incentives,
+                    {
+                      deposit: {
+                        lp_token: liqMigContracts.usdcPclLp,
+                        user: liqMigContracts.pclLockdrop,
+                      },
+                    },
+                  );
+                  expect(+stakedUsdcLp).toBeGreaterThan(0);
+                });
+          
+                it('check generator rewards presence', async () => {
+                  const pendingAtomRewards = await neutronChain.queryContract<Asset[]>(
+                    liqMigContracts.incentives,
+                    {
+                      pending_rewards: {
+                        lp_token: liqMigContracts.atomPclLp,
+                        user: liqMigContracts.pclLockdrop,
+                      },
+                    },
+                  );
+                  expect(
+                    pendingAtomRewards.reduce((sum, current) => sum + +current.amount, 0),
+                  ).toBeGreaterThan(0);
+          
+                  const pendingUsdcRewards = await neutronChain.queryContract<Asset[]>(
+                    liqMigContracts.incentives,
+                    {
+                      pending_rewards: {
+                        lp_token: liqMigContracts.usdcPclLp,
+                        user: liqMigContracts.pclLockdrop,
+                      },
+                    },
+                  );
+                  expect(
+                    pendingUsdcRewards.reduce((sum, current) => sum + +current.amount, 0),
+                  ).toBeGreaterThan(0);
+                });
+              });
+            }
+
+            describe(`user ${sender} testing post migration state`, () => {
+              it('no withdrawal available from XYK', async () => {
+                // nor with withdrawal
+                await expect(
+                  tgeWallets[sender].executeContract(
+                    tgeMain.contracts.lockdrop,
+                    JSON.stringify({
+                      claim_rewards_and_optionally_unlock: {
+                        pool_type: 'USDC',
+                        duration: 1,
+                        withdraw_lp_stake: true,
+                      },
+                    }),
+                  ),
+                ).rejects.toThrow(/Astro LP Tokens have already been claimed!/);
+                // nor without one
+                await expect(
+                  tgeWallets[sender].executeContract(
+                    tgeMain.contracts.lockdrop,
+                    JSON.stringify({
+                      claim_rewards_and_optionally_unlock: {
+                        pool_type: 'ATOM',
+                        duration: 1,
+                        withdraw_lp_stake: false,
+                      },
+                    }),
+                  ),
+                ).rejects.toThrow(/Astro LP Tokens have already been claimed!/);
+              });
+              const ntrnToPayGas = 20000;
+              if(!withdraw){
+                describe(`${sender} claim without withdrawal`, () => {
+                  let stateBefore: LiquidityMigrationState;
+                  it('gather state before claim/withdrawal on PCL', async () => {
+                    stateBefore = await gatherLiquidityMigrationState(
+                      neutronChain,
+                      tgeWallets[sender].wallet.address.toString(),
+                      liqMigContracts,
+                    );
+                    console.log(
+                      `${sender} state before claim/withdrawal on PCL:\n${JSON.stringify(
+                        stateBefore,
+                      )}`,
+                    );
+                  });
+                  if(success){
+                    it('claim USDC lockup from PCL', async () => {
+                      let res = await tgeWallets[sender].executeContract(
+                        liqMigContracts.pclLockdrop,
+                        JSON.stringify({
+                          claim_rewards_and_optionally_unlock: {
+                            pool_type: 'USDC',
+                            duration: 1,
+                            withdraw_lp_stake: false,
+                          },
+                        }),
+                        undefined,
+                        {
+                          gas_limit: Long.fromString('5000000'),
+                          amount: [{ denom: NEUTRON_DENOM, amount: ntrnToPayGas.toString() }],
+                        },
+                      );
+                      expect(res.code).toEqual(0);
+                    });
+                    it('claim ATOM lockup from PCL', async () => {
+                      let res = await tgeWallets[sender].executeContract(
+                        liqMigContracts.pclLockdrop,
+                        JSON.stringify({
+                          claim_rewards_and_optionally_unlock: {
+                            pool_type: 'ATOM',
+                            duration: 1,
+                            withdraw_lp_stake: false,
+                          },
+                        }),
+                        undefined,
+                        {
+                          gas_limit: Long.fromString('5000000'),
+                          amount: [{ denom: NEUTRON_DENOM, amount: ntrnToPayGas.toString() }],
+                        },
+                      );
+                      expect(res.code).toEqual(0);
+                    });
+                  }else{
+                    it('claim USDC lockup from PCL fails', async () => {
+                      await expect(
+                        tgeWallets[sender].executeContract(
+                          liqMigContracts.pclLockdrop,
+                          JSON.stringify({
+                            claim_rewards_and_optionally_unlock: {
+                              pool_type: 'USDC',
+                              duration: 1,
+                              withdraw_lp_stake: false,
+                            },
+                          }),
+                          undefined,
+                          {
+                            gas_limit: Long.fromString('5000000'),
+                            amount: [
+                              { denom: NEUTRON_DENOM, amount: ntrnToPayGas.toString() },
+                            ],
+                          },
+                        ),
+                      ).rejects.toThrow(error_msg);
+                    });
+                    it('claim ATOM lockup from PCL fails', async () => {
+                      await expect(
+                        tgeWallets[sender].executeContract(
+                          liqMigContracts.pclLockdrop,
+                          JSON.stringify({
+                            claim_rewards_and_optionally_unlock: {
+                              pool_type: 'ATOM',
+                              duration: 1,
+                              withdraw_lp_stake: false,
+                            },
+                          }),
+                          undefined,
+                          {
+                            gas_limit: Long.fromString('5000000'),
+                            amount: [
+                              { denom: NEUTRON_DENOM, amount: ntrnToPayGas.toString() },
+                            ],
+                          },
+                        ),
+                      ).rejects.toThrow(error_msg);
+                    });
+                  }
+                  if(success){
+                    let stateAfter: LiquidityMigrationState;
+                    it('gather state after withdrawal', async () => {
+                      stateAfter = await gatherLiquidityMigrationState(
+                        neutronChain,
+                        tgeWallets[sender].wallet.address.toString(),
+                        liqMigContracts,
+                      );
+                      console.log(
+                        `${sender} state after withdrawal:\n${JSON.stringify(
+                          stateAfter,
+                        )}`,
+                      );
+                    });
+  
+                    describe('funds flow', () => {
+                      const atomLockupKey = 'ATOM1';
+                      const usdcLockupKey = 'USDC1';
+                      describe('generator rewards', () => {
+                        it('astro', async () => {
+                          // sanity check
+                          expect(
+                            +stateBefore.pclUserLockups.claimable_incentives_debt,
+                          ).toBeGreaterThan(0);
+                          expect(
+                            +stateBefore.pclUserLockups.claimable_incentives_debt,
+                          ).toEqual(
+                            +stateBefore.pclUserLockups.mapped_lockup_infos[atomLockupKey]
+                              .claimable_incentives_debt +
+                              +stateBefore.pclUserLockups.mapped_lockup_infos[usdcLockupKey]
+                                .claimable_incentives_debt,
+                          );
+              
+                          // assume fluctuation because rewards amount increases every block
+                          isWithinRangeRel(
+                            stateAfter.balances.user.astro - stateBefore.balances.user.astro,
+                            +stateBefore.pclUserLockups.claimable_incentives_debt,
+                            0.5,
+                          );
+                        });
+              
+                        it('external rewards', async () => {
+                          // sanity check
+                          expect(
+                            +stateBefore.pclUserLockups.claimable_incentives_external_debt,
+                          ).toBeGreaterThan(0);
+                          expect(
+                            +stateBefore.pclUserLockups.claimable_incentives_external_debt,
+                          ).toEqual(
+                            +stateBefore.pclUserLockups.mapped_lockup_infos[atomLockupKey] // only atom cuz usdc is not incentivized
+                              .claimable_external_incentives_rewards_debt,
+                          );
+              
+                          // assume fluctuation because rewards amount increases every block
+                          isWithinRangeRel(
+                            stateAfter.balances.user.external_rewards -
+                              stateBefore.balances.user.external_rewards,
+                            +stateBefore.pclUserLockups.claimable_incentives_external_debt,
+                            0.5,
+                          );
+                        });
+                      });
+              
+                      it('lp tokens staked in generator', async () => {
+                        // expect staked LP amount to decrease by amount of withdrawn tokens
+                        expect(
+                          stateBefore.pclAtomStakedInGen - stateAfter.pclAtomStakedInGen,
+                        ).toEqual(0);
+                        expect(
+                          stateBefore.pclUsdcStakedInGen - stateAfter.pclUsdcStakedInGen,
+                        ).toEqual(0);
+                      });
+              
+                      it('lp tokens received by the user', async () => {
+                        // expect all locked LP transferred to the user
+                        expect(stateAfter.balances.user.atomPclPairLp).toEqual(
+                          +stateBefore.balances.user.atomPclPairLp
+                        );
+                        expect(stateAfter.balances.user.usdcPclPairLp).toEqual(
+                          +stateBefore.balances.user.usdcPclPairLp 
+                        );
+                      });
+              
+                      // @audit fix this here; if first time, then be equal, if not, then error
+                      it('no ntrn received by the user', async () => {
+                        // all ntrn rewards are transferred to the user during migration, so no additional
+                        // rewards are expected to be received by the user for withdrawals
+                        expect(stateAfter.balances.user.ntrn).toEqual(
+                          stateBefore.balances.user.ntrn - ntrnToPayGas * 2, // fees for 5 withdrawal/claim attempts
+                        );
+                      });
+                    });
+                  }
+                });
+              }else{
+                describe(`${sender} claim without withdrawal`, () => {
+                  let stateBefore: LiquidityMigrationState;
+                  it('gather state before claim/withdrawal on PCL', async () => {
+                    stateBefore = await gatherLiquidityMigrationState(
+                      neutronChain,
+                      tgeWallets[sender].wallet.address.toString(),
+                      liqMigContracts,
+                    );
+                    console.log(
+                      `${sender} state before claim/withdrawal on PCL:\n${JSON.stringify(
+                        stateBefore,
+                      )}`,
+                    );
+                  });
+
+                  if(success){
+                    it('claim USDC lockup from PCL', async () => {
+                      let res = await tgeWallets[sender].executeContract(
+                        liqMigContracts.pclLockdrop,
+                        JSON.stringify({
+                          claim_rewards_and_optionally_unlock: {
+                            pool_type: 'USDC',
+                            duration: 1,
+                            withdraw_lp_stake: true,
+                          },
+                        }),
+                        undefined,
+                        {
+                          gas_limit: Long.fromString('5000000'),
+                          amount: [{ denom: NEUTRON_DENOM, amount: ntrnToPayGas.toString() }],
+                        },
+                      );
+                      expect(res.code).toEqual(0);
+                    });
+                    it('claim ATOM lockup from PCL', async () => {
+                      let res = await tgeWallets[sender].executeContract(
+                        liqMigContracts.pclLockdrop,
+                        JSON.stringify({
+                          claim_rewards_and_optionally_unlock: {
+                            pool_type: 'ATOM',
+                            duration: 1,
+                            withdraw_lp_stake: true,
+                          },
+                        }),
+                        undefined,
+                        {
+                          gas_limit: Long.fromString('5000000'),
+                          amount: [{ denom: NEUTRON_DENOM, amount: ntrnToPayGas.toString() }],
+                        },
+                      );
+                      expect(res.code).toEqual(0);
+                    });
+                  }else{
+                    it('claim USDC lockup from PCL fails', async () => {
+                      await expect(
+                        tgeWallets[sender].executeContract(
+                          liqMigContracts.pclLockdrop,
+                          JSON.stringify({
+                            claim_rewards_and_optionally_unlock: {
+                              pool_type: 'USDC',
+                              duration: 1,
+                              withdraw_lp_stake: true,
+                            },
+                          }),
+                          undefined,
+                          {
+                            gas_limit: Long.fromString('5000000'),
+                            amount: [
+                              { denom: NEUTRON_DENOM, amount: ntrnToPayGas.toString() },
+                            ],
+                          },
+                        ),
+                      ).rejects.toThrow(error_msg);
+                    });
+                    it('claim ATOM lockup from PCL fails', async () => {
+                      await expect(
+                        tgeWallets[sender].executeContract(
+                          liqMigContracts.pclLockdrop,
+                          JSON.stringify({
+                            claim_rewards_and_optionally_unlock: {
+                              pool_type: 'ATOM',
+                              duration: 1,
+                              withdraw_lp_stake: withdraw,
+                            },
+                          }),
+                          undefined,
+                          {
+                            gas_limit: Long.fromString('5000000'),
+                            amount: [
+                              { denom: NEUTRON_DENOM, amount: ntrnToPayGas.toString() },
+                            ],
+                          },
+                        ),
+                      ).rejects.toThrow(error_msg);
+                    });
+                  }
+
+                  if(success){
+                    let stateAfter: LiquidityMigrationState;
+                    it('gather state after withdrawal', async () => {
+                      stateAfter = await gatherLiquidityMigrationState(
+                        neutronChain,
+                        tgeWallets[sender].wallet.address.toString(),
+                        liqMigContracts,
+                      );
+                      console.log(
+                        `${sender} state after withdrawal:\n${JSON.stringify(
+                          stateAfter,
+                        )}`,
+                      );
+                    });
+                    describe('funds flow', () => {
+                      const atomLockupKey = 'ATOM1';
+                      const usdcLockupKey = 'USDC1';
+                      describe('generator rewards', () => {
+                        it('astro', async () => {
+                          // sanity check
+                          expect(
+                            +stateBefore.pclUserLockups.claimable_incentives_debt,
+                          ).toBeGreaterThan(0);
+                          expect(
+                            +stateBefore.pclUserLockups.claimable_incentives_debt,
+                          ).toEqual(
+                            +stateBefore.pclUserLockups.mapped_lockup_infos[atomLockupKey]
+                              .claimable_incentives_debt +
+                              +stateBefore.pclUserLockups.mapped_lockup_infos[usdcLockupKey]
+                                .claimable_incentives_debt,
+                          );
+              
+                          // assume fluctuation because rewards amount increases every block
+                          isWithinRangeRel(
+                            stateAfter.balances.user.astro - stateBefore.balances.user.astro,
+                            +stateBefore.pclUserLockups.claimable_incentives_debt,
+                            0.5,
+                          );
+                        });
+              
+                        it('external rewards', async () => {
+                          // sanity check
+                          expect(
+                            +stateBefore.pclUserLockups.claimable_incentives_external_debt,
+                          ).toBeGreaterThan(0);
+                          expect(
+                            +stateBefore.pclUserLockups.claimable_incentives_external_debt,
+                          ).toEqual(
+                            +stateBefore.pclUserLockups.mapped_lockup_infos[atomLockupKey] // only atom cuz usdc is not incentivized
+                              .claimable_external_incentives_rewards_debt,
+                          );
+              
+                          // assume fluctuation because rewards amount increases every block
+                          isWithinRangeRel(
+                            stateAfter.balances.user.external_rewards -
+                              stateBefore.balances.user.external_rewards,
+                            +stateBefore.pclUserLockups.claimable_incentives_external_debt,
+                            0.5,
+                          );
+                        });
+                      });
+              
+                      it('lp tokens staked in generator', async () => {
+                        // expect staked LP amount to decrease by amount of withdrawn tokens
+                        expect(
+                          stateBefore.pclAtomStakedInGen - stateAfter.pclAtomStakedInGen,
+                        ).toEqual(
+                          +stateBefore.pclUserLockups.mapped_lockup_infos[atomLockupKey]
+                            .lp_units_locked,
+                        );
+                        expect(
+                          stateBefore.pclUsdcStakedInGen - stateAfter.pclUsdcStakedInGen,
+                        ).toEqual(
+                          +stateBefore.pclUserLockups.mapped_lockup_infos[usdcLockupKey]
+                            .lp_units_locked,
+                        );
+                      });
+              
+                      it('lp tokens received by the user', async () => {
+                        // expect all locked LP transferred to the user
+                        expect(stateAfter.balances.user.atomPclPairLp).toEqual(
+                          stateBefore.balances.user.atomPclPairLp +
+                            +stateBefore.pclUserLockups.mapped_lockup_infos[atomLockupKey]
+                              .lp_units_locked,
+                        );
+                        expect(stateAfter.balances.user.usdcPclPairLp).toEqual(
+                          stateBefore.balances.user.usdcPclPairLp +
+                            +stateBefore.pclUserLockups.mapped_lockup_infos[usdcLockupKey]
+                              .lp_units_locked,
+                        );
+                      });
+              
+                      it('no ntrn received by the user', async () => {
+                        // all ntrn rewards are transferred to the user during migration, so no additional
+                        // rewards are expected to be received by the user for withdrawals
+                        expect(stateAfter.balances.user.ntrn).toEqual(
+                          stateBefore.balances.user.ntrn - ntrnToPayGas * 2, // fees for 5 withdrawal/claim attempts
+                        );
+                      });
+                    });
+                  }                  
+                });
+                
+              }
+        
+            });
+
+
           });
+          isFirstPostMigrationOperation = false;
           break;
         };
         default: {
@@ -2567,6 +3056,60 @@ describe('TGE / Migration / PCL contracts', () => {
       }
       stateIndex++;
     }
+        // make sure there are no generator rewards and LP tokens staked by lockdrop contracts
+    // meaning that all the funds and rewards have been distributed between lockdrop participants
+    describe('confirm lockdrop withdrawal completeness', () => {
+      it('no XYK lp tokens kept by XYK lockdrop', async () => {
+        const stakedAtomLp = await neutronChain.queryContract<string>(
+          liqMigContracts.generator,
+          {
+            deposit: {
+              lp_token: liqMigContracts.atomXykLp,
+              user: liqMigContracts.xykLockdrop,
+            },
+          },
+        );
+        expect(+stakedAtomLp).toBe(0);
+
+        const stakedUsdcLp = await neutronChain.queryContract<string>(
+          liqMigContracts.generator,
+          {
+            deposit: {
+              lp_token: liqMigContracts.usdcXykLp,
+              user: liqMigContracts.xykLockdrop,
+            },
+          },
+        );
+        expect(+stakedUsdcLp).toBe(0);
+      });
+
+      describe('no generator rewards left to be paid', () => {
+        it('for XYK pairs', async () => {
+          const pendingAtomRewards = await neutronChain.queryContract<any>(
+            liqMigContracts.generator,
+            {
+              pending_token: {
+                lp_token: liqMigContracts.atomXykLp,
+                user: liqMigContracts.xykLockdrop,
+              },
+            },
+          );
+          expect(+pendingAtomRewards.pending).toBe(0);
+
+          const pendingUsdcRewards = await neutronChain.queryContract<any>(
+            liqMigContracts.generator,
+            {
+              pending_token: {
+                lp_token: liqMigContracts.usdcXykLp,
+                user: liqMigContracts.xykLockdrop,
+              },
+            },
+          );
+          expect(+pendingUsdcRewards.pending).toBe(0);
+        });
+        
+      });
+    });
   });
 
 }); // end Neutron/TGE/Auction
