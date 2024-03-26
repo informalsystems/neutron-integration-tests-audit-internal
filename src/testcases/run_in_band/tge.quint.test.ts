@@ -2307,36 +2307,61 @@ describe('TGE / Migration / PCL contracts', () => {
                     tgeWallets[sender].wallet.address.toString(),
                   );
                   console.log(`inside test for ${sender}`);
-                  console.log(`${sender} claiming ATOM`);
-                  let res = await tgeWallets[sender].executeContract(
-                    tgeMain.contracts.lockdrop,
-                    JSON.stringify({
-                      claim_rewards_and_optionally_unlock: {
-                        pool_type: 'ATOM',
-                        duration: 1,
-                        withdraw_lp_stake: withdraw,
-                      },
-                    }),
-                  );
+
                   if (success) {
+                    console.log(`${sender} claiming ATOM`);
+                    let res = await tgeWallets[sender].executeContract(
+                      tgeMain.contracts.lockdrop,
+                      JSON.stringify({
+                        claim_rewards_and_optionally_unlock: {
+                          pool_type: 'ATOM',
+                          duration: 1,
+                          withdraw_lp_stake: withdraw,
+                        },
+                      }),
+                    );
                     expect(res.code).toEqual(0);
+                    console.log(`${sender} claiming USDC`);
+                    let res2 = await tgeWallets[sender].executeContract(
+                      tgeMain.contracts.lockdrop,
+                      JSON.stringify({
+                        claim_rewards_and_optionally_unlock: {
+                          pool_type: 'USDC',
+                          duration: 1,
+                          withdraw_lp_stake: withdraw,
+                        },
+                      }),
+                    );
+                    expect(res2.code).toEqual(0);
                   }else {
-                    expect(res.code).not.toEqual(0);
+                    await expect(
+                      tgeWallets[sender].executeContract(
+                        tgeMain.contracts.lockdrop,
+                        JSON.stringify({
+                          claim_rewards_and_optionally_unlock: {
+                            pool_type: 'ATOM',
+                            duration: 1,
+                            withdraw_lp_stake: withdraw,
+                          },
+                        }),
+                      ),
+                    ).rejects.toThrow(/No rewards available to claim!/);
+                    await expect(
+                      tgeWallets[sender].executeContract(
+                        tgeMain.contracts.lockdrop,
+                        JSON.stringify({
+                          claim_rewards_and_optionally_unlock: {
+                            pool_type: 'USDC',
+                            duration: 1,
+                            withdraw_lp_stake: withdraw,
+                          },
+                        }),
+                      ),
+                    ).rejects.toThrow(/No rewards available to claim!/);
                   }
                   
-                  console.log(`${sender} claiming USDC`);
-                  let res2 = await tgeWallets[sender].executeContract(
-                    tgeMain.contracts.lockdrop,
-                    JSON.stringify({
-                      claim_rewards_and_optionally_unlock: {
-                        pool_type: 'USDC',
-                        duration: 1,
-                        withdraw_lp_stake: withdraw,
-                      },
-                    }),
-                  );
+                  
                   if (success) {
-                    expect(res2.code).toEqual(0);
                     const rewardsStateAfterClaim = await tgeMain.generatorRewardsState(
                       tgeWallets[sender].wallet.address.toString(),
                     );
@@ -2391,8 +2416,6 @@ describe('TGE / Migration / PCL contracts', () => {
                     expect(rewardsStateBeforeClaim.usdcNtrnLpTokenBalance).toEqual(
                       rewardsStateAfterClaim.usdcNtrnLpTokenBalance,
                     );
-                  }else {
-                    expect(res2.code).not.toEqual(0);
                   }
                 });
               }else {
@@ -2401,40 +2424,68 @@ describe('TGE / Migration / PCL contracts', () => {
                   const rewardsStateBeforeClaim = await tgeMain.generatorRewardsState(
                     tgeWallets[sender].wallet.address.toString(),
                   );
-                  
-                  console.log(`${sender} claiming USDC`);
-                  let res = await tgeWallets[sender].executeContract(
-                    tgeMain.contracts.lockdrop,
-                    JSON.stringify({
-                      claim_rewards_and_optionally_unlock: {
-                        pool_type: 'USDC',
-                        duration: 1,
-                        withdraw_lp_stake: withdraw,
-                      },
-                    }),
-                  );
-                  console.log(`USER ${sender} EXECUTING USDC CLAIM WITH WITHDRAW OUTCOME: ${res}`)
-
                   if(success){
+                    console.log(`${sender} claiming USDC`);
+                    let res = await tgeWallets[sender].executeContract(
+                      tgeMain.contracts.lockdrop,
+                      JSON.stringify({
+                        claim_rewards_and_optionally_unlock: {
+                          pool_type: 'USDC',
+                          duration: 1,
+                          withdraw_lp_stake: withdraw,
+                        },
+                      }),
+                    );
                     expect(res.code).toEqual(0);
-                  }else{
-                    expect(res.code).not.toEqual(0);
-                  } 
-                  console.log(`${sender} claiming ATOM`);
+
+                    console.log(`USER ${sender} EXECUTING USDC CLAIM WITH WITHDRAW OUTCOME: ${res}`)
   
-                  let res2 = await tgeWallets[sender].executeContract(
-                    tgeMain.contracts.lockdrop,
-                    JSON.stringify({
-                      claim_rewards_and_optionally_unlock: {
-                        pool_type: 'ATOM',
-                        duration: 1,
-                        withdraw_lp_stake: withdraw,
-                      },
-                    }),
-                  );
-                  console.log(`USER ${sender} EXECUTING ATOM CLAIM WITH WITHDRAW OUTCOME: ${res2}`)
-                  if (success) {
+  
+                    console.log(`${sender} claiming ATOM`);
+    
+                    let res2 = await tgeWallets[sender].executeContract(
+                      tgeMain.contracts.lockdrop,
+                      JSON.stringify({
+                        claim_rewards_and_optionally_unlock: {
+                          pool_type: 'ATOM',
+                          duration: 1,
+                          withdraw_lp_stake: withdraw,
+                        },
+                      }),
+                    );
                     expect(res2.code).toEqual(0);
+
+                    console.log(`USER ${sender} EXECUTING ATOM CLAIM WITH WITHDRAW OUTCOME: ${res2}`)
+                  }else{
+                    await expect(
+                      tgeWallets[sender].executeContract(
+                        tgeMain.contracts.lockdrop,
+                        JSON.stringify({
+                          claim_rewards_and_optionally_unlock: {
+                            pool_type: 'ATOM',
+                            duration: 1,
+                            withdraw_lp_stake: withdraw,
+                          },
+                        }),
+                      ),
+                    ).rejects.toThrow(/Astro LP Tokens have already been claimed!/);
+                    await expect(
+                      tgeWallets[sender].executeContract(
+                        tgeMain.contracts.lockdrop,
+                        JSON.stringify({
+                          claim_rewards_and_optionally_unlock: {
+                            pool_type: 'USDC',
+                            duration: 1,
+                            withdraw_lp_stake: withdraw,
+                          },
+                        }),
+                      ),
+                    ).rejects.toThrow(/Astro LP Tokens have already been claimed!/);
+                  }
+
+
+                  
+                  if (success) {
                     const rewardsStateAfterClaim = await tgeMain.generatorRewardsState(
                       tgeWallets[sender].wallet.address.toString(),
                     );
@@ -2493,8 +2544,6 @@ describe('TGE / Migration / PCL contracts', () => {
                     // expect(astroBalanceDiff).toBeLessThan(
                     //   expectedGeneratorRewards + 2 * tgeMain.generatorRewardsPerBlock,
                     // );
-                  }else{
-                    expect(res2.code).not.toEqual(0);
                   }
                 });
               }  
