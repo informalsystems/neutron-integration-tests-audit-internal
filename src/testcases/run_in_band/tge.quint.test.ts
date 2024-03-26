@@ -2334,6 +2334,7 @@ describe('TGE / Migration / PCL contracts', () => {
                     );
                     expect(res2.code).toEqual(0);
                   }else {
+                    let error_msg = stateBefore.users.get(sender)?.xyk_liquidity_withdrawn ? /Astro LP Tokens have already been claimed!/ : /No rewards available to claim!/;
                     await expect(
                       tgeWallets[sender].executeContract(
                         tgeMain.contracts.lockdrop,
@@ -2345,7 +2346,7 @@ describe('TGE / Migration / PCL contracts', () => {
                           },
                         }),
                       ),
-                    ).rejects.toThrow(/No rewards available to claim!/);
+                    ).rejects.toThrow(error_msg);
                     await expect(
                       tgeWallets[sender].executeContract(
                         tgeMain.contracts.lockdrop,
@@ -2357,7 +2358,7 @@ describe('TGE / Migration / PCL contracts', () => {
                           },
                         }),
                       ),
-                    ).rejects.toThrow(/No rewards available to claim!/);
+                    ).rejects.toThrow(error_msg);
                   }
                   
                   
@@ -2420,6 +2421,8 @@ describe('TGE / Migration / PCL contracts', () => {
                 });
               }else {
                 it(`for ${sender} with withdraw`, async () => {
+                  let error_msg = stateBefore.users.get(sender)?.xyk_liquidity_withdrawn ? /Astro LP Tokens have already been claimed!/ : /No rewards available to claim!/;
+
                   console.log(`inside test for ${sender}`);
                   const rewardsStateBeforeClaim = await tgeMain.generatorRewardsState(
                     tgeWallets[sender].wallet.address.toString(),
@@ -2468,7 +2471,7 @@ describe('TGE / Migration / PCL contracts', () => {
                           },
                         }),
                       ),
-                    ).rejects.toThrow(/Astro LP Tokens have already been claimed!/);
+                    ).rejects.toThrow(error_msg);
                     await expect(
                       tgeWallets[sender].executeContract(
                         tgeMain.contracts.lockdrop,
@@ -2480,7 +2483,7 @@ describe('TGE / Migration / PCL contracts', () => {
                           },
                         }),
                       ),
-                    ).rejects.toThrow(/Astro LP Tokens have already been claimed!/);
+                    ).rejects.toThrow(error_msg);
                   }
 
 
