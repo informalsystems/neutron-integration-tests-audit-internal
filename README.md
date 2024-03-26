@@ -115,3 +115,11 @@ DEBUG_SUBMIT_TX - log submitted txs to stdout
 ```
 src/config.json
 ```
+
+# Command to run Quint generated trace test
+
+```bash
+yarn test:tge:quint --TRACE_NUM=<trace_number> 
+```
+
+Instead of `trace_number`, put any trace number (ranging from 0 to 14.)

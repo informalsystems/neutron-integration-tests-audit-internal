@@ -259,9 +259,11 @@ describe('TGE / Migration / PCL contracts', () => {
   let lockdropPclAddr: string;
   let initialStateData: State;
   let otherStatesData: State[];
-  initialStateData = getInitialState();
+
+  const traceNumber = process.env.TRACE_NUM || '0';
+  initialStateData = getInitialState(traceNumber);
   console.log("in init data state: ", initialStateData);
-  otherStatesData = getAllOtherStates();
+  otherStatesData = getAllOtherStates(traceNumber);
   console.log("in all other states: ", otherStatesData);
 
   beforeAll(async () => {

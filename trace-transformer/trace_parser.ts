@@ -2,8 +2,10 @@ import * as fs from 'fs';
 import { Trace, State, User, ReadingState, ReadingTrace, InitAmounts } from "./structs";
 
 
-const readStatesFromFile = () : State[] => {
-  const jsonString = fs.readFileSync('./traces/fullMigrationHappened_trace0.itf.json', 'utf8'); // Replace with your file reading logic
+const readStatesFromFile = (traceNumber : string) : State[] => {
+  let traceName = `./traces/fullMigrationHappened_trace${traceNumber}.itf.json`
+  console.log('************* READING FROM TRACE *************: ', traceName);
+  const jsonString = fs.readFileSync(traceName, 'utf8'); // Replace with your file reading logic
   const data: ReadingTrace = JSON.parse(jsonString);
   const reading_states: ReadingState[] = data.states;
   let states : State[] = []
@@ -18,8 +20,8 @@ const readStatesFromFile = () : State[] => {
   return states;
 };
 
-export const getInitialState = () : State => {
-  let initialState = readStatesFromFile()[0];
+export const getInitialState = (traceNumber : string) : State => {
+  let initialState = readStatesFromFile(traceNumber)[0];
   let usersStatesMap : Map<string, InitAmounts> = new Map<string, InitAmounts>();
   initialState.stepInfo.msgArgs.value["#map"].forEach(function (element) {
       usersStatesMap.set(element[0], { ATOM_locked: element[1].ATOM_locked["#bigint"] as number, NTRN_locked: element[1].NTRN_locked["#bigint"]  as number, USDC_locked: element[1].USDC_locked["#bigint"] as number });
@@ -28,11 +30,11 @@ export const getInitialState = () : State => {
   return initialState;
 };
 
-export const getAllOtherStates = () : State[] => readStatesFromFile().slice(1);
+export const getAllOtherStates = (traceNumber : string) : State[] => readStatesFromFile(traceNumber).slice(1);
 
 function testMatcher() {
   var index = 0;
-  var states = getAllOtherStates();
+  var states = getAllOtherStates('1');
   for(let state of states){
     switch(state.stepInfo.actionTaken){
       case 'advance_block': {

@@ -2,8 +2,10 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.getAllOtherStates = exports.getInitialState = void 0;
 var fs = require("fs");
-var readStatesFromFile = function () {
-    var jsonString = fs.readFileSync('./traces/fullMigrationHappened_trace0.itf.json', 'utf8'); // Replace with your file reading logic
+var readStatesFromFile = function (traceNumber) {
+    var traceName = "./traces/fullMigrationHappened_trace".concat(traceNumber, ".itf.json");
+    console.log('************* READING FROM TRACE *************: ', traceName);
+    var jsonString = fs.readFileSync(traceName, 'utf8'); // Replace with your file reading logic
     var data = JSON.parse(jsonString);
     var reading_states = data.states;
     var states = [];
@@ -16,8 +18,8 @@ var readStatesFromFile = function () {
     });
     return states;
 };
-var getInitialState = function () {
-    var initialState = readStatesFromFile()[0];
+var getInitialState = function (traceNumber) {
+    var initialState = readStatesFromFile(traceNumber)[0];
     var usersStatesMap = new Map();
     initialState.stepInfo.msgArgs.value["#map"].forEach(function (element) {
         usersStatesMap.set(element[0], { ATOM_locked: element[1].ATOM_locked["#bigint"], NTRN_locked: element[1].NTRN_locked["#bigint"], USDC_locked: element[1].USDC_locked["#bigint"] });
@@ -26,12 +28,12 @@ var getInitialState = function () {
     return initialState;
 };
 exports.getInitialState = getInitialState;
-var getAllOtherStates = function () { return readStatesFromFile().slice(1); };
+var getAllOtherStates = function (traceNumber) { return readStatesFromFile(traceNumber).slice(1); };
 exports.getAllOtherStates = getAllOtherStates;
 function testMatcher() {
     var _a;
     var index = 0;
-    var states = (0, exports.getAllOtherStates)();
+    var states = (0, exports.getAllOtherStates)('1');
     for (var _i = 0, states_1 = states; _i < states_1.length; _i++) {
         var state = states_1[_i];
         switch (state.stepInfo.actionTaken) {
