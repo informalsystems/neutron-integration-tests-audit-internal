@@ -1696,7 +1696,6 @@ describe('TGE / Migration / PCL contracts', () => {
     let liqMigContracts: LiquidityMigrationContracts;
     let claimAtomLP;
     let claimUsdcLP;
-    let newVestingLpCodeID: number;
 
     var stateIndex = 0;
     for(let state of otherStatesData){
@@ -1823,14 +1822,18 @@ describe('TGE / Migration / PCL contracts', () => {
                     const atomLockupKey = 'ATOM1';
                     const usdcLockupKey = 'USDC1';
                     describe('XYK user lockups', () => {
-                      let hadRewardsBeforeThisStep = stateIndex == 0 ? initialStateData : otherStatesData[--stateIndex];
-  
+                      let i = stateIndex
+                      let stateBeforeToCheckRewards = stateIndex == 0 ? initialStateData : otherStatesData[--i];
+
                       describe('generator rewards', () => {
                         let userAstroRewards: number;
                         test('claimable generator ntrn debt', async () => {
                           userAstroRewards =
                             +stateBefore.xykUserLockups.claimable_generator_ntrn_debt;
-                          if(hadRewardsBeforeThisStep.users.get(userAddress)?.has_xyk_rewards){
+                          console.log(`MIGRATION FOR USER ${userAddress} AND has rewards ${stateBeforeToCheckRewards.users.get(userAddress)?.has_xyk_rewards}`)
+                          console.log(stateBeforeToCheckRewards)
+        
+                          if(stateBeforeToCheckRewards.users.get(userAddress)?.has_xyk_rewards){
                             expect(userAstroRewards).toBeGreaterThan(0)
                           } else {
                             expect(userAstroRewards).toEqual(0);
@@ -1854,7 +1857,7 @@ describe('TGE / Migration / PCL contracts', () => {
                         test('generator rewards are transferred to the user', async () => {
                           // @audit-issue fix this.\
   
-                          if(hadRewardsBeforeThisStep.users.get(userAddress)?.has_xyk_rewards)
+                          if(stateBeforeToCheckRewards.users.get(userAddress)?.has_xyk_rewards)
                           {
                             expect(stateAfter.balances.user.astro).toBeGreaterThan(
                               stateBefore.balances.user.astro,
@@ -2295,7 +2298,8 @@ describe('TGE / Migration / PCL contracts', () => {
             let withdraw = state.stepInfo.msgArgs.value.withdraw;
             let success = state.stepInfo.actionSuccessful;
             console.log(`CLAIM ACTION BY USER ${sender} in step ${state.numSteps} OUTCOME ${success}`)
-            let hadRewardsBeforeThisStep = stateIndex == 0 ? initialStateData : otherStatesData[--stateIndex];
+            let i = stateIndex
+            let stateBefore = stateIndex === 0 ? initialStateData : otherStatesData[--i];
             if(!state.users.get(sender)?.only_vesting){
               if (!withdraw) {
                 it(`for ${sender} without withdraw`, async () => {
@@ -2360,7 +2364,10 @@ describe('TGE / Migration / PCL contracts', () => {
                     expect(rewardsBeforeClaimUsdc).not.toBeNull();
                     const expectedGeneratorRewards2 =
                       +rewardsBeforeClaimUsdc.claimable_generator_astro_debt;
-                    if(hadRewardsBeforeThisStep.users.get(sender)?.has_xyk_rewards)
+                    
+                    console.log(`USER ${sender} has rewards ${stateBefore.users.get(sender)?.has_xyk_rewards}`)
+                    console.log(stateBefore)
+                    if(stateBefore.users.get(sender)?.has_xyk_rewards)
                     {
                       expect(expectedGeneratorRewards2).toBeGreaterThan(0)
                     } else { 
@@ -2506,7 +2513,7 @@ describe('TGE / Migration / PCL contracts', () => {
         default: {
         }
       }
-      ++stateIndex;
+      stateIndex++;
     }
   });
 
