@@ -2537,7 +2537,12 @@ describe('TGE / Migration / PCL contracts', () => {
                     const expectedGeneratorRewards =
                       +rewardsBeforeClaimUsdc.claimable_generator_astro_debt +
                       +rewardsBeforeClaimAtom.claimable_generator_astro_debt;
-                    expect(expectedGeneratorRewards).toBeGreaterThan(0);
+                    if(stateBefore.users.get(sender)?.has_xyk_rewards){
+                      expect(expectedGeneratorRewards).toBeGreaterThan(0);
+                    }else{
+                      expect(expectedGeneratorRewards).toEqual(0);
+                    }
+                    
     
                     // we expect the astro balance to increase by somewhere between user rewards amount and user
                     // rewards amount plus 2*rewards per block amount because rewards amount increases each block.
