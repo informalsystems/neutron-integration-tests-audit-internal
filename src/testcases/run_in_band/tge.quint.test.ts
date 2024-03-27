@@ -2612,7 +2612,11 @@ describe('TGE / Migration / PCL contracts', () => {
                       },
                     },
                   );
-                  if(stateToGetPCLData.stepInfo.actionTaken == 'advance_block' || stateToGetPCLData.stepInfo.actionTaken == 'claim_rewards_xyk'){
+                  if(stateToGetPCLData.stepInfo.actionTaken == 'advance_block' 
+                    || stateToGetPCLData.stepInfo.actionTaken == 'claim_rewards_xyk'
+                    || (stateToGetPCLData.stepInfo.actionTaken == 'migrate' && !stateToGetPCLData.stepInfo.actionSuccessful)
+                    || (stateToGetPCLData.stepInfo.actionTaken == 'claim_rewards_pcl' && !stateToGetPCLData.stepInfo.actionSuccessful)
+                    ){
                     expect(
                       pendingAtomRewards.reduce((sum, current) => sum + +current.amount, 0),
                     ).toBeGreaterThan(0);
@@ -2714,14 +2718,14 @@ describe('TGE / Migration / PCL contracts', () => {
                       expect(res.code).toEqual(0);
                     });
                     let stateAfter: LiquidityMigrationState;
-                    it('gather state after withdrawal', async () => {
+                    it('gather state after claim', async () => {
                       stateAfter = await gatherLiquidityMigrationState(
                         neutronChain,
                         tgeWallets[sender].wallet.address.toString(),
                         liqMigContracts,
                       );
                       console.log(
-                        `${sender} state after withdrawal:\n${JSON.stringify(
+                        `${sender} state after claim:\n${JSON.stringify(
                           stateAfter,
                         )}`,
                       );
