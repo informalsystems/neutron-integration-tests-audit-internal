@@ -261,9 +261,11 @@ describe('TGE / Migration / PCL contracts', () => {
   let otherStatesData: State[];
 
   const traceNumber = process.env.TRACE_NUM || '0';
-  initialStateData = getInitialState(traceNumber);
+  const propertyType = process.env.PROPERTY_TYPE || '0';
+
+  initialStateData = getInitialState(traceNumber, parseInt(propertyType));
   console.log("in init data state: ", initialStateData);
-  otherStatesData = getAllOtherStates(traceNumber);
+  otherStatesData = getAllOtherStates(traceNumber, parseInt(propertyType));
   console.log("in all other states: ", otherStatesData);
 
   beforeAll(async () => {
@@ -2653,20 +2655,20 @@ describe('TGE / Migration / PCL contracts', () => {
               const ntrnToPayGas = 20000;
               if(!withdraw){
                 describe(`${sender} claim without withdrawal`, () => {
-                  let stateBefore: LiquidityMigrationState;
-                  it('gather state before claim/withdrawal on PCL', async () => {
-                    stateBefore = await gatherLiquidityMigrationState(
-                      neutronChain,
-                      tgeWallets[sender].wallet.address.toString(),
-                      liqMigContracts,
-                    );
-                    console.log(
-                      `${sender} state before claim/withdrawal on PCL:\n${JSON.stringify(
-                        stateBefore,
-                      )}`,
-                    );
-                  });
                   if(success){
+                    let stateBefore: LiquidityMigrationState;
+                    it('gather state before claim/withdrawal on PCL', async () => {
+                      stateBefore = await gatherLiquidityMigrationState(
+                        neutronChain,
+                        tgeWallets[sender].wallet.address.toString(),
+                        liqMigContracts,
+                      );
+                      console.log(
+                        `${sender} state before claim/withdrawal on PCL:\n${JSON.stringify(
+                          stateBefore,
+                        )}`,
+                      );
+                    });
                     it('claim USDC lockup from PCL', async () => {
                       let res = await tgeWallets[sender].executeContract(
                         liqMigContracts.pclLockdrop,
@@ -2703,51 +2705,6 @@ describe('TGE / Migration / PCL contracts', () => {
                       );
                       expect(res.code).toEqual(0);
                     });
-                  }else{
-                    it('claim USDC lockup from PCL fails', async () => {
-                      await expect(
-                        tgeWallets[sender].executeContract(
-                          liqMigContracts.pclLockdrop,
-                          JSON.stringify({
-                            claim_rewards_and_optionally_unlock: {
-                              pool_type: 'USDC',
-                              duration: 1,
-                              withdraw_lp_stake: false,
-                            },
-                          }),
-                          undefined,
-                          {
-                            gas_limit: Long.fromString('5000000'),
-                            amount: [
-                              { denom: NEUTRON_DENOM, amount: ntrnToPayGas.toString() },
-                            ],
-                          },
-                        ),
-                      ).rejects.toThrow(error_msg);
-                    });
-                    it('claim ATOM lockup from PCL fails', async () => {
-                      await expect(
-                        tgeWallets[sender].executeContract(
-                          liqMigContracts.pclLockdrop,
-                          JSON.stringify({
-                            claim_rewards_and_optionally_unlock: {
-                              pool_type: 'ATOM',
-                              duration: 1,
-                              withdraw_lp_stake: false,
-                            },
-                          }),
-                          undefined,
-                          {
-                            gas_limit: Long.fromString('5000000'),
-                            amount: [
-                              { denom: NEUTRON_DENOM, amount: ntrnToPayGas.toString() },
-                            ],
-                          },
-                        ),
-                      ).rejects.toThrow(error_msg);
-                    });
-                  }
-                  if(success){
                     let stateAfter: LiquidityMigrationState;
                     it('gather state after withdrawal', async () => {
                       stateAfter = await gatherLiquidityMigrationState(
@@ -2839,61 +2796,6 @@ describe('TGE / Migration / PCL contracts', () => {
                         );
                       });
                     });
-                  }
-                });
-              }else{
-                describe(`${sender} claim without withdrawal`, () => {
-                  let stateBefore: LiquidityMigrationState;
-                  it('gather state before claim/withdrawal on PCL', async () => {
-                    stateBefore = await gatherLiquidityMigrationState(
-                      neutronChain,
-                      tgeWallets[sender].wallet.address.toString(),
-                      liqMigContracts,
-                    );
-                    console.log(
-                      `${sender} state before claim/withdrawal on PCL:\n${JSON.stringify(
-                        stateBefore,
-                      )}`,
-                    );
-                  });
-
-                  if(success){
-                    it('claim USDC lockup from PCL', async () => {
-                      let res = await tgeWallets[sender].executeContract(
-                        liqMigContracts.pclLockdrop,
-                        JSON.stringify({
-                          claim_rewards_and_optionally_unlock: {
-                            pool_type: 'USDC',
-                            duration: 1,
-                            withdraw_lp_stake: true,
-                          },
-                        }),
-                        undefined,
-                        {
-                          gas_limit: Long.fromString('5000000'),
-                          amount: [{ denom: NEUTRON_DENOM, amount: ntrnToPayGas.toString() }],
-                        },
-                      );
-                      expect(res.code).toEqual(0);
-                    });
-                    it('claim ATOM lockup from PCL', async () => {
-                      let res = await tgeWallets[sender].executeContract(
-                        liqMigContracts.pclLockdrop,
-                        JSON.stringify({
-                          claim_rewards_and_optionally_unlock: {
-                            pool_type: 'ATOM',
-                            duration: 1,
-                            withdraw_lp_stake: true,
-                          },
-                        }),
-                        undefined,
-                        {
-                          gas_limit: Long.fromString('5000000'),
-                          amount: [{ denom: NEUTRON_DENOM, amount: ntrnToPayGas.toString() }],
-                        },
-                      );
-                      expect(res.code).toEqual(0);
-                    });
                   }else{
                     it('claim USDC lockup from PCL fails', async () => {
                       await expect(
@@ -2903,7 +2805,7 @@ describe('TGE / Migration / PCL contracts', () => {
                             claim_rewards_and_optionally_unlock: {
                               pool_type: 'USDC',
                               duration: 1,
-                              withdraw_lp_stake: true,
+                              withdraw_lp_stake: false,
                             },
                           }),
                           undefined,
@@ -2924,7 +2826,7 @@ describe('TGE / Migration / PCL contracts', () => {
                             claim_rewards_and_optionally_unlock: {
                               pool_type: 'ATOM',
                               duration: 1,
-                              withdraw_lp_stake: withdraw,
+                              withdraw_lp_stake: false,
                             },
                           }),
                           undefined,
@@ -2938,8 +2840,60 @@ describe('TGE / Migration / PCL contracts', () => {
                       ).rejects.toThrow(error_msg);
                     });
                   }
-
+                });
+              }else{
+                describe(`${sender} claim with withdrawal`, () => {
                   if(success){
+                    let stateBefore: LiquidityMigrationState;
+                    it('gather state before withdrawal on PCL', async () => {
+                      stateBefore = await gatherLiquidityMigrationState(
+                        neutronChain,
+                        tgeWallets[sender].wallet.address.toString(),
+                        liqMigContracts,
+                      );
+                      console.log(
+                        `${sender} state before claim/withdrawal on PCL:\n${JSON.stringify(
+                          stateBefore,
+                        )}`,
+                      );
+                    });  
+                    it('claim & withdraw USDC lockup from PCL', async () => {
+                      let res = await tgeWallets[sender].executeContract(
+                        liqMigContracts.pclLockdrop,
+                        JSON.stringify({
+                          claim_rewards_and_optionally_unlock: {
+                            pool_type: 'USDC',
+                            duration: 1,
+                            withdraw_lp_stake: true,
+                          },
+                        }),
+                        undefined,
+                        {
+                          gas_limit: Long.fromString('5000000'),
+                          amount: [{ denom: NEUTRON_DENOM, amount: ntrnToPayGas.toString() }],
+                        },
+                      );
+                      expect(res.code).toEqual(0);
+                    });
+                    it('claim & withdraw ATOM lockup from PCL', async () => {
+                      let res = await tgeWallets[sender].executeContract(
+                        liqMigContracts.pclLockdrop,
+                        JSON.stringify({
+                          claim_rewards_and_optionally_unlock: {
+                            pool_type: 'ATOM',
+                            duration: 1,
+                            withdraw_lp_stake: true,
+                          },
+                        }),
+                        undefined,
+                        {
+                          gas_limit: Long.fromString('5000000'),
+                          amount: [{ denom: NEUTRON_DENOM, amount: ntrnToPayGas.toString() }],
+                        },
+                      );
+                      expect(res.code).toEqual(0);
+                    });
+
                     let stateAfter: LiquidityMigrationState;
                     it('gather state after withdrawal', async () => {
                       stateAfter = await gatherLiquidityMigrationState(
@@ -3039,7 +2993,50 @@ describe('TGE / Migration / PCL contracts', () => {
                         );
                       });
                     });
-                  }                  
+                  }else{
+                    it('claim & withdraw USDC lockup from PCL fails', async () => {
+                      await expect(
+                        tgeWallets[sender].executeContract(
+                          liqMigContracts.pclLockdrop,
+                          JSON.stringify({
+                            claim_rewards_and_optionally_unlock: {
+                              pool_type: 'ATOM',
+                              duration: 1,
+                              withdraw_lp_stake: true,
+                            },
+                          }),
+                          undefined,
+                          {
+                            gas_limit: Long.fromString('5000000'),
+                            amount: [
+                              { denom: NEUTRON_DENOM, amount: ntrnToPayGas.toString() },
+                            ],
+                          },
+                        ),
+                      ).rejects.toThrow(error_msg);
+                    });
+                    it('claim & withdraw ATOM lockup from PCL fails', async () => {
+                      await expect(
+                        tgeWallets[sender].executeContract(
+                          liqMigContracts.pclLockdrop,
+                          JSON.stringify({
+                            claim_rewards_and_optionally_unlock: {
+                              pool_type: 'USDC',
+                              duration: 1,
+                              withdraw_lp_stake: true,
+                            },
+                          }),
+                          undefined,
+                          {
+                            gas_limit: Long.fromString('5000000'),
+                            amount: [
+                              { denom: NEUTRON_DENOM, amount: ntrnToPayGas.toString() },
+                            ],
+                          },
+                        ),
+                      ).rejects.toThrow(error_msg);
+                    });
+                  }              
                 });
                 
               }

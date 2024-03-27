@@ -119,7 +119,8 @@ src/config.json
 # Command to run Quint generated trace test
 
 ```bash
-yarn test:tge:quint --TRACE_NUM=<trace_number> 
+yarn test:tge:quint --TRACE_NUM=<trace_number> --PROPERTY_TYPE=<property_type>
 ```
 
 Instead of `trace_number`, put any trace number (ranging from 0 to 14.)
+Instead of `property_type`, put type of trace (0 - allPCLLiquidityWithdrawn; 1 - fullMigrationHappened).

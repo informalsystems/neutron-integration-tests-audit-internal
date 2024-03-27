@@ -2,8 +2,8 @@ import * as fs from 'fs';
 import { Trace, State, User, ReadingState, ReadingTrace, InitAmounts } from "./structs";
 
 
-const readStatesFromFile = (traceNumber : string) : State[] => {
-  let traceName = `./traces/fullMigrationHappened_trace${traceNumber}.itf.json`
+const readStatesFromFile = (traceNumber : string, propertyType: number) : State[] => {
+  let traceName = `./traces/${propertyType==0?'allPCLLiquidityWithdrawn':'fullMigrationHappened'}_trace${traceNumber}.itf.json`
   console.log('************* READING FROM TRACE *************: ', traceName);
   const jsonString = fs.readFileSync(traceName, 'utf8'); // Replace with your file reading logic
   const data: ReadingTrace = JSON.parse(jsonString);
@@ -20,8 +20,8 @@ const readStatesFromFile = (traceNumber : string) : State[] => {
   return states;
 };
 
-export const getInitialState = (traceNumber : string) : State => {
-  let initialState = readStatesFromFile(traceNumber)[0];
+export const getInitialState = (traceNumber : string, propertyType: number) : State => {
+  let initialState = readStatesFromFile(traceNumber, propertyType)[0];
   let usersStatesMap : Map<string, InitAmounts> = new Map<string, InitAmounts>();
   initialState.stepInfo.msgArgs.value["#map"].forEach(function (element) {
       usersStatesMap.set(element[0], { ATOM_locked: element[1].ATOM_locked["#bigint"] as number, NTRN_locked: element[1].NTRN_locked["#bigint"]  as number, USDC_locked: element[1].USDC_locked["#bigint"] as number });
@@ -30,11 +30,11 @@ export const getInitialState = (traceNumber : string) : State => {
   return initialState;
 };
 
-export const getAllOtherStates = (traceNumber : string) : State[] => readStatesFromFile(traceNumber).slice(1);
+export const getAllOtherStates = (traceNumber : string, propertyType: number) : State[] => readStatesFromFile(traceNumber,propertyType).slice(1);
 
 function testMatcher() {
   var index = 0;
-  var states = getAllOtherStates('1');
+  var states = getAllOtherStates('1',1);
   for(let state of states){
     switch(state.stepInfo.actionTaken){
       case 'advance_block': {
