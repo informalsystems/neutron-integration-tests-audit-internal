@@ -2603,10 +2603,6 @@ describe('TGE / Migration / PCL contracts', () => {
                       },
                     },
                   );
-                  expect(
-                    pendingAtomRewards.reduce((sum, current) => sum + +current.amount, 0),
-                  ).toBeGreaterThan(0);
-          
                   const pendingUsdcRewards = await neutronChain.queryContract<Asset[]>(
                     liqMigContracts.incentives,
                     {
@@ -2616,9 +2612,21 @@ describe('TGE / Migration / PCL contracts', () => {
                       },
                     },
                   );
-                  expect(
-                    pendingUsdcRewards.reduce((sum, current) => sum + +current.amount, 0),
-                  ).toBeGreaterThan(0);
+                  if(stateToGetPCLData.stepInfo.actionTaken == 'advance_block' || stateToGetPCLData.stepInfo.actionTaken == 'claim_rewards_xyk'){
+                    expect(
+                      pendingAtomRewards.reduce((sum, current) => sum + +current.amount, 0),
+                    ).toBeGreaterThan(0);
+                    expect(
+                      pendingUsdcRewards.reduce((sum, current) => sum + +current.amount, 0),
+                    ).toBeGreaterThan(0);
+                  }else{
+                    expect(
+                      pendingAtomRewards.reduce((sum, current) => sum + +current.amount, 0),
+                    ).toEqual(0);
+                    expect(
+                      pendingUsdcRewards.reduce((sum, current) => sum + +current.amount, 0),
+                    ).toEqual(0);
+                  }
                 });
               });
             }

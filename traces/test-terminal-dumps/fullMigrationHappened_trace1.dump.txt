@@ -1,0 +1,2497 @@
+************* READING FROM TRACE *************:  ./traces/fullMigrationHappened_trace1.itf.json
+in init data state:  {
+  stepInfo: {
+    actionErrorDescription: '',
+    actionSuccessful: true,
+    actionTaken: 'init',
+    msgArgs: { tag: 'InitArgs', value: [Map] },
+    msgInfo: { sender: '' }
+  },
+  users: Map(3) {
+    'Alice' => {
+      has_pcl_rewards: false,
+      has_xyk_rewards: true,
+      migrated: false,
+      only_vesting: true,
+      pcl_liquidity_withdrawn: false,
+      xyk_liquidity_withdrawn: false
+    },
+    'Bob' => {
+      has_pcl_rewards: false,
+      has_xyk_rewards: true,
+      migrated: false,
+      only_vesting: false,
+      pcl_liquidity_withdrawn: false,
+      xyk_liquidity_withdrawn: false
+    },
+    'Charlie' => {
+      has_pcl_rewards: false,
+      has_xyk_rewards: true,
+      migrated: false,
+      only_vesting: true,
+      pcl_liquidity_withdrawn: false,
+      xyk_liquidity_withdrawn: false
+    }
+  },
+  numSteps: '0'
+}
+************* READING FROM TRACE *************:  ./traces/fullMigrationHappened_trace1.itf.json
+in all other states:  [
+  {
+    stepInfo: {
+      actionErrorDescription: '',
+      actionSuccessful: true,
+      actionTaken: 'advance_block',
+      msgArgs: [Object],
+      msgInfo: [Object]
+    },
+    users: Map(3) {
+      'Alice' => [Object],
+      'Bob' => [Object],
+      'Charlie' => [Object]
+    },
+    numSteps: '1'
+  },
+  {
+    stepInfo: {
+      actionErrorDescription: '',
+      actionSuccessful: true,
+      actionTaken: 'migrate',
+      msgArgs: [Object],
+      msgInfo: [Object]
+    },
+    users: Map(3) {
+      'Alice' => [Object],
+      'Bob' => [Object],
+      'Charlie' => [Object]
+    },
+    numSteps: '2'
+  },
+  {
+    stepInfo: {
+      actionErrorDescription: '',
+      actionSuccessful: true,
+      actionTaken: 'advance_block',
+      msgArgs: [Object],
+      msgInfo: [Object]
+    },
+    users: Map(3) {
+      'Alice' => [Object],
+      'Bob' => [Object],
+      'Charlie' => [Object]
+    },
+    numSteps: '3'
+  },
+  {
+    stepInfo: {
+      actionErrorDescription: '',
+      actionSuccessful: true,
+      actionTaken: 'migrate',
+      msgArgs: [Object],
+      msgInfo: [Object]
+    },
+    users: Map(3) {
+      'Alice' => [Object],
+      'Bob' => [Object],
+      'Charlie' => [Object]
+    },
+    numSteps: '4'
+  },
+  {
+    stepInfo: {
+      actionErrorDescription: '',
+      actionSuccessful: true,
+      actionTaken: 'advance_block',
+      msgArgs: [Object],
+      msgInfo: [Object]
+    },
+    users: Map(3) {
+      'Alice' => [Object],
+      'Bob' => [Object],
+      'Charlie' => [Object]
+    },
+    numSteps: '5'
+  },
+  {
+    stepInfo: {
+      actionErrorDescription: '',
+      actionSuccessful: true,
+      actionTaken: 'claim_rewards_xyk',
+      msgArgs: [Object],
+      msgInfo: [Object]
+    },
+    users: Map(3) {
+      'Alice' => [Object],
+      'Bob' => [Object],
+      'Charlie' => [Object]
+    },
+    numSteps: '6'
+  },
+  {
+    stepInfo: {
+      actionErrorDescription: 'User has already claimed rewards and does not withdraw',
+      actionSuccessful: false,
+      actionTaken: 'claim_rewards_xyk',
+      msgArgs: [Object],
+      msgInfo: [Object]
+    },
+    users: Map(3) {
+      'Alice' => [Object],
+      'Bob' => [Object],
+      'Charlie' => [Object]
+    },
+    numSteps: '7'
+  },
+  {
+    stepInfo: {
+      actionErrorDescription: '',
+      actionSuccessful: true,
+      actionTaken: 'advance_block',
+      msgArgs: [Object],
+      msgInfo: [Object]
+    },
+    users: Map(3) {
+      'Alice' => [Object],
+      'Bob' => [Object],
+      'Charlie' => [Object]
+    },
+    numSteps: '8'
+  },
+  {
+    stepInfo: {
+      actionErrorDescription: 'User has already claimed rewards and does not withdraw',
+      actionSuccessful: false,
+      actionTaken: 'claim_rewards_xyk',
+      msgArgs: [Object],
+      msgInfo: [Object]
+    },
+    users: Map(3) {
+      'Alice' => [Object],
+      'Bob' => [Object],
+      'Charlie' => [Object]
+    },
+    numSteps: '9'
+  },
+  {
+    stepInfo: {
+      actionErrorDescription: '',
+      actionSuccessful: false,
+      actionTaken: 'migrate',
+      msgArgs: [Object],
+      msgInfo: [Object]
+    },
+    users: Map(3) {
+      'Alice' => [Object],
+      'Bob' => [Object],
+      'Charlie' => [Object]
+    },
+    numSteps: '10'
+  },
+  {
+    stepInfo: {
+      actionErrorDescription: '',
+      actionSuccessful: true,
+      actionTaken: 'advance_block',
+      msgArgs: [Object],
+      msgInfo: [Object]
+    },
+    users: Map(3) {
+      'Alice' => [Object],
+      'Bob' => [Object],
+      'Charlie' => [Object]
+    },
+    numSteps: '11'
+  },
+  {
+    stepInfo: {
+      actionErrorDescription: '',
+      actionSuccessful: true,
+      actionTaken: 'claim_rewards_pcl',
+      msgArgs: [Object],
+      msgInfo: [Object]
+    },
+    users: Map(3) {
+      'Alice' => [Object],
+      'Bob' => [Object],
+      'Charlie' => [Object]
+    },
+    numSteps: '12'
+  },
+  {
+    stepInfo: {
+      actionErrorDescription: '',
+      actionSuccessful: true,
+      actionTaken: 'advance_block',
+      msgArgs: [Object],
+      msgInfo: [Object]
+    },
+    users: Map(3) {
+      'Alice' => [Object],
+      'Bob' => [Object],
+      'Charlie' => [Object]
+    },
+    numSteps: '13'
+  },
+  {
+    stepInfo: {
+      actionErrorDescription: '',
+      actionSuccessful: true,
+      actionTaken: 'claim_rewards_pcl',
+      msgArgs: [Object],
+      msgInfo: [Object]
+    },
+    users: Map(3) {
+      'Alice' => [Object],
+      'Bob' => [Object],
+      'Charlie' => [Object]
+    },
+    numSteps: '14'
+  },
+  {
+    stepInfo: {
+      actionErrorDescription: '',
+      actionSuccessful: true,
+      actionTaken: 'advance_block',
+      msgArgs: [Object],
+      msgInfo: [Object]
+    },
+    users: Map(3) {
+      'Alice' => [Object],
+      'Bob' => [Object],
+      'Charlie' => [Object]
+    },
+    numSteps: '15'
+  },
+  {
+    stepInfo: {
+      actionErrorDescription: 'User has already claimed rewards and does not withdraw',
+      actionSuccessful: false,
+      actionTaken: 'claim_rewards_pcl',
+      msgArgs: [Object],
+      msgInfo: [Object]
+    },
+    users: Map(3) {
+      'Alice' => [Object],
+      'Bob' => [Object],
+      'Charlie' => [Object]
+    },
+    numSteps: '16'
+  }
+]
+{
+  tag: 'InitArgs',
+  value: Map(3) {
+    'Alice' => {
+      ATOM_locked: '2000',
+      NTRN_locked: '2000',
+      USDC_locked: '5000000'
+    },
+    'Bob' => {
+      ATOM_locked: '30000',
+      NTRN_locked: '2000',
+      USDC_locked: '5000000'
+    },
+    'Charlie' => { ATOM_locked: '2000', NTRN_locked: '400000', USDC_locked: '2000' }
+  }
+}
+[2][MIGRATE]
+[Executor: Bob]
+[Outcome: true]
+
+[4][MIGRATE]
+[Executor: Alice]
+[Outcome: true]
+
+[6][CLAIM REWARD XYK]
+[Executor: Bob]
+[Outcome: true]
+
+CLAIM ACTION BY USER Bob in step 6 OUTCOME true
+[7][CLAIM REWARD XYK]
+[Executor: Bob]
+[Outcome: false]
+
+CLAIM ACTION BY USER Bob in step 7 OUTCOME false
+[9][CLAIM REWARD XYK]
+[Executor: Bob]
+[Outcome: false]
+
+CLAIM ACTION BY USER Bob in step 9 OUTCOME false
+[10][MIGRATE]
+[Executor: Bob]
+[Outcome: false]
+
+[12][CLAIM REWARD PCL]
+[Executor: Bob]
+[Outcome: true]
+
+[14][CLAIM REWARD PCL]
+[Executor: Bob]
+[Outcome: true]
+
+[16][CLAIM REWARD PCL]
+[Executor: Bob]
+[Outcome: false]
+
+SUCCESS query contract to neutron1yw4xvtc43me9scqfr2jr2gzvcxd3a9y4eq7gaukreugw2yd2f8ts8g30fq:
+	query: {"config":{}}
+	resp: {"name":"Neutron DAO","description":"Neutron DAO is a DAO DAO-based governance of Neutron chain","dao_uri":null}
+
+SUCCESS query contract to neutron1yw4xvtc43me9scqfr2jr2gzvcxd3a9y4eq7gaukreugw2yd2f8ts8g30fq:
+	query: {"voting_module":{}}
+	resp: "neutron13ehuhysn5mqjeaheeuew2gjs785f6k7jm8vfsqg3jhtpkwppcmzqu8vxt2"
+
+SUCCESS query contract to neutron13ehuhysn5mqjeaheeuew2gjs785f6k7jm8vfsqg3jhtpkwppcmzqu8vxt2:
+	query: {"voting_vaults":{}}
+	resp: [{"address":"neutron1jfgr0vgunezkhfmdy7krr4upu6yjhx224nxtjptll2ylkkqhyzesv6dsgg","name":"Neutron Investors Vault","description":"Vault sourcing voting power form investors vesting","state":"Active"},{"address":"neutron1qeyjez6a9dwlghf9d6cy44fxmsajztw257586akk6xn6k88x0gus5djz4e","name":"Neutron Vault","description":"Vault to put NTRN tokens to get voting power","state":"Active"}]
+
+SUCCESS query contract to neutron1yw4xvtc43me9scqfr2jr2gzvcxd3a9y4eq7gaukreugw2yd2f8ts8g30fq:
+	query: {"proposal_modules":{}}
+	resp: [{"address":"neutron149ltwdnpxrhx9al42s359glcjnsuc6x3dalz28f04dsxhlu7jhmqye2lmy","prefix":"C","status":"Enabled"},{"address":"neutron1j08452mqwadp8xu25kn9rleyl2gufgfjnv0sn8dvynynakkjukcq5rctf6","prefix":"A","status":"Enabled"},{"address":"neutron1sr06m8yqg0wzqqyqvzvp5t07dj4nevx9u8qc7j4qa72qu8e3ct8qe9t68v","prefix":"B","status":"Enabled"}]
+
+SUCCESS query contract to neutron149ltwdnpxrhx9al42s359glcjnsuc6x3dalz28f04dsxhlu7jhmqye2lmy:
+	query: {"proposal_creation_policy":{}}
+	resp: {"Module":{"addr":"neutron1xsmqvl8lqr2uwl50aetu0572rss9hrza5kddpfj9ky3jq80fv2ts20n7q2"}}
+
+SUCCESS query contract to neutron1j08452mqwadp8xu25kn9rleyl2gufgfjnv0sn8dvynynakkjukcq5rctf6:
+	query: {"proposal_creation_policy":{}}
+	resp: {"Module":{"addr":"neutron1z7asfxkwv0t863rllul570eh5pf2zk07k3d86ag4vtghaue37l5sw5jnhd"}}
+
+SUCCESS query contract to neutron1z7asfxkwv0t863rllul570eh5pf2zk07k3d86ag4vtghaue37l5sw5jnhd:
+	query: {"query_extension":{"msg":{"timelock_address":{}}}}
+	resp: null
+
+SUCCESS query contract to neutron1sr06m8yqg0wzqqyqvzvp5t07dj4nevx9u8qc7j4qa72qu8e3ct8qe9t68v:
+	query: {"proposal_creation_policy":{}}
+	resp: {"Module":{"addr":"neutron1k8re7jwz6rnnwrktnejdwkwnncte7ek7gt29gvnl3sdrg9mtnqksdg68f7"}}
+
+SUCCESS query contract to neutron1k8re7jwz6rnnwrktnejdwkwnncte7ek7gt29gvnl3sdrg9mtnqksdg68f7:
+	query: {"query_extension":{"msg":{"timelock_address":{}}}}
+	resp: null
+
+SUCCESS query contract to neutron1yw4xvtc43me9scqfr2jr2gzvcxd3a9y4eq7gaukreugw2yd2f8ts8g30fq:
+	query: {"list_sub_daos":{}}
+	resp: [{"addr":"neutron1c2735y6d0px8pjvaw6vfn505hc999q42aearuhyfkx29qaf9stgsgcqm9f","charter":null},{"addr":"neutron1wdnc37yzmjvxksq89wdxwug0knuxau73ume3h6afngsmzsztsvwqmrmfz0","charter":null}]
+
+SUCCESS query contract to neutron1c2735y6d0px8pjvaw6vfn505hc999q42aearuhyfkx29qaf9stgsgcqm9f:
+	query: {"config":{}}
+	resp: {"name":"Grants SubDAO","description":"SubDAO to distribute grants to projects","dao_uri":null,"main_dao":"neutron1yw4xvtc43me9scqfr2jr2gzvcxd3a9y4eq7gaukreugw2yd2f8ts8g30fq","security_dao":"neutron1wdnc37yzmjvxksq89wdxwug0knuxau73ume3h6afngsmzsztsvwqmrmfz0"}
+
+SUCCESS query contract to neutron1c2735y6d0px8pjvaw6vfn505hc999q42aearuhyfkx29qaf9stgsgcqm9f:
+	query: {"voting_module":{}}
+	resp: "neutron1j30wx6kjfsessdx5mlp32hqwklj48ufvtve50ymzg7dc6870sw3s42j44h"
+
+SUCCESS query contract to neutron1j30wx6kjfsessdx5mlp32hqwklj48ufvtve50ymzg7dc6870sw3s42j44h:
+	query: {"group_contract":{}}
+	resp: "neutron14483x4pm76hwpzyvj56ccarl8kls3tdyz2rtve7p0u7lj9dgsjcqtpztjl"
+
+SUCCESS query contract to neutron1c2735y6d0px8pjvaw6vfn505hc999q42aearuhyfkx29qaf9stgsgcqm9f:
+	query: {"proposal_modules":{}}
+	resp: [{"address":"neutron1mas00kamdty6f7halxwm95y8uvzf46yfpmg8mwfyf9ftf7tj7upq2k4dk4","prefix":"A","status":"Enabled"}]
+
+SUCCESS query contract to neutron1mas00kamdty6f7halxwm95y8uvzf46yfpmg8mwfyf9ftf7tj7upq2k4dk4:
+	query: {"proposal_creation_policy":{}}
+	resp: {"Module":{"addr":"neutron105espjya6qc7tazk8drsnvf2675q5wywafnwlhs5tpx9yza7hpmqyancdg"}}
+
+SUCCESS query contract to neutron105espjya6qc7tazk8drsnvf2675q5wywafnwlhs5tpx9yza7hpmqyancdg:
+	query: {"query_extension":{"msg":{"timelock_address":{}}}}
+	resp: "neutron1pzyr2w7vw5watdn9n6mqz95dk0mr23h28eyw5jqu4l8d6wg7mvjsw66klp"
+
+SUCCESS query contract to neutron1wdnc37yzmjvxksq89wdxwug0knuxau73ume3h6afngsmzsztsvwqmrmfz0:
+	query: {"config":{}}
+	resp: {"name":"Security SubDAO","description":"SubDAO with power to pause specific Neutron DAO modules","dao_uri":null,"main_dao":"neutron1yw4xvtc43me9scqfr2jr2gzvcxd3a9y4eq7gaukreugw2yd2f8ts8g30fq","security_dao":"neutron1wdnc37yzmjvxksq89wdxwug0knuxau73ume3h6afngsmzsztsvwqmrmfz0"}
+
+SUCCESS query contract to neutron1wdnc37yzmjvxksq89wdxwug0knuxau73ume3h6afngsmzsztsvwqmrmfz0:
+	query: {"voting_module":{}}
+	resp: "neutron1fxkx7wd4q7z5zgm8qh0vaxptx4gp0ppgjm0ke56jr55azpzecpcse66azt"
+
+SUCCESS query contract to neutron1fxkx7wd4q7z5zgm8qh0vaxptx4gp0ppgjm0ke56jr55azpzecpcse66azt:
+	query: {"group_contract":{}}
+	resp: "neutron105w0chel9d69cdzj62m4h2vqtj6vfuh7yzty2en825t2nyxw74es0qgem6"
+
+SUCCESS query contract to neutron1wdnc37yzmjvxksq89wdxwug0knuxau73ume3h6afngsmzsztsvwqmrmfz0:
+	query: {"proposal_modules":{}}
+	resp: [{"address":"neutron1mx32w9tnfxv0z5j000750h8ver7qf3xpj09w3uzvsr3hq68f4hxqwg06ta","prefix":"A","status":"Enabled"}]
+
+SUCCESS query contract to neutron1mx32w9tnfxv0z5j000750h8ver7qf3xpj09w3uzvsr3hq68f4hxqwg06ta:
+	query: {"proposal_creation_policy":{}}
+	resp: {"Module":{"addr":"neutron1tzv867e4qz06rue60k4v2pk5xevj9gn3r7274qv0nprl68kvykgs305wwj"}}
+
+SUCCESS query contract to neutron1tzv867e4qz06rue60k4v2pk5xevj9gn3r7274qv0nprl68kvykgs305wwj:
+	query: {"query_extension":{"msg":{"timelock_address":{}}}}
+	resp: null
+
+SUCCESS exec contract to neutron1qeyjez6a9dwlghf9d6cy44fxmsajztw257586akk6xn6k88x0gus5djz4e:
+	msg: {"bond":{}}
+	tx hash: F8A5E9A5A08F275BF6B84DC0FFE3CCBA9A94FC07DA03596F7A1A58C30F8D7190
+
+Airdrop accounts:  [
+  {
+    address: 'neutron1clttyxll0a9uhls7cjztc9j9jw859d3g7e6a50',
+    amount: '2000'
+  },
+  {
+    address: 'neutron123r7u7jhwwqxp8fr9yd4cx5g5wmy9zlwkvxkn9',
+    amount: '2000'
+  },
+  {
+    address: 'neutron1jffamdu7mmvhqr655q33dzrmulrsck0msvl5mc',
+    amount: '400000'
+  }
+]
+SUCCESS exec contract to neutron1mgt372t6vjmxpax53746ywcecum7wg0ye5ptaf42rjwat9qcqnhqu7qaw9:
+	msg: {"add":{"native_coins":[["uibcatom",6],["uibcusdc",6],["untrn",6]]}}
+	tx hash: 4EE8B71995FF8A54BD7120278666643C0E80B1802975B6EC984D580343FAD50A
+
+SUCCESS exec contract to neutron1kxy5k02ceuugj782mgq4daufa27u8y5l23cr2fjqlw84j4sgt7us2rn0xm:
+	msg: {"register_vesting_accounts":{"vesting_accounts":[{"address":"neutron1zxy7570wm8r6y9f90u5uhnvda6lncdfkv3qlqvdl6ewd8lhu5enqyt05c5","schedules":[{"start_point":{"time":0,"amount":"1000000"}}]}]}}
+	tx hash: 783F478F22B34EBF1A210AC21EF73D411645D3E173A668306249C0F6DF35564C
+
+SUCCESS exec contract to neutron1z6nfr3l2yvcrvyftksjxpkc6466xtexsdkz4yw6ywpxyyh5jvtnqakth68:
+	msg: {"update_config":{"generator_address":"neutron1zxy7570wm8r6y9f90u5uhnvda6lncdfkv3qlqvdl6ewd8lhu5enqyt05c5"}}
+	tx hash: 1A3988E5CB061AD3A3E93355CB35E565D04C290B054D8054DA44BB313315C15A
+
+SUCCESS exec contract to neutron1z6nfr3l2yvcrvyftksjxpkc6466xtexsdkz4yw6ywpxyyh5jvtnqakth68:
+	msg: {"create_pair":{"pair_type":{"xyk":{}},"asset_infos":[{"native_token":{"denom":"uibcatom"}},{"native_token":{"denom":"untrn"}}]}}
+	tx hash: 39220848E58DCFFEE48785E0026C0EF6DB4C923D66B2135731ABB472165BA455
+
+SUCCESS exec contract to neutron1z6nfr3l2yvcrvyftksjxpkc6466xtexsdkz4yw6ywpxyyh5jvtnqakth68:
+	msg: {"create_pair":{"pair_type":{"xyk":{}},"asset_infos":[{"native_token":{"denom":"uibcusdc"}},{"native_token":{"denom":"untrn"}}]}}
+	tx hash: EA264EF5139DF019372047204B1DDAA87AC264BC80863FB529A93B3A5BE4D7BF
+
+SUCCESS query contract to neutron1z6nfr3l2yvcrvyftksjxpkc6466xtexsdkz4yw6ywpxyyh5jvtnqakth68:
+	query: {"pairs":{}}
+	resp: {"pairs":[{"asset_infos":[{"native_token":{"denom":"uibcatom"}},{"native_token":{"denom":"untrn"}}],"contract_addr":"neutron105ml67ymwlznz8twk2nyxu5xaqnsp2h24t50995ucp8ffu5wut7q2ewhj4","liquidity_token":"neutron1yt7fdzjpk3nmlmvl3epmsxayrt6vd39wxncg6pju2rcs7mz2np6seqzc6w","pair_type":{"xyk":{}}},{"asset_infos":[{"native_token":{"denom":"uibcusdc"}},{"native_token":{"denom":"untrn"}}],"contract_addr":"neutron12zrv9md6lwjd83fjhfy32n9yr0yjx52fan0t70sn3phh5xh6rztqwn49tw","liquidity_token":"neutron1mzq6xzynh002x090rzt6us37scfexpu8ca4sllc3p3scn5mvsp0qw7qw56","pair_type":{"xyk":{}}}]}
+
+SUCCESS exec contract to neutron1zxy7570wm8r6y9f90u5uhnvda6lncdfkv3qlqvdl6ewd8lhu5enqyt05c5:
+	msg: {"setup_pools":{"pools":[["neutron1yt7fdzjpk3nmlmvl3epmsxayrt6vd39wxncg6pju2rcs7mz2np6seqzc6w","1"],["neutron1mzq6xzynh002x090rzt6us37scfexpu8ca4sllc3p3scn5mvsp0qw7qw56","1"]]}}
+	tx hash: 33DE380E38ED4A586B27F5F59A29DE5814AD5FA5CBC27C60177F150FB6B2D41D
+
+SUCCESS exec contract to neutron14hpg9wup26t2t2ppfjfaj6w3knxrwasw9sjwzhd7ru0gl83xkxxqv2phqg:
+	msg: {"set_vesting_token":{"vesting_token":{"token":{"contract_addr":"neutron1yt7fdzjpk3nmlmvl3epmsxayrt6vd39wxncg6pju2rcs7mz2np6seqzc6w"}}}}
+	tx hash: 23DED50A289AA5F6D421C423E547A6F8D4A33D6790A77AA349C24212397854D4
+
+SUCCESS exec contract to neutron1qm62qvux86w8ex36tpl24lz5qcanaql8t0zhs974m08r8u8jzlxs8jlwyg:
+	msg: {"set_vesting_token":{"vesting_token":{"token":{"contract_addr":"neutron1mzq6xzynh002x090rzt6us37scfexpu8ca4sllc3p3scn5mvsp0qw7qw56"}}}}
+	tx hash: 675AD942070750AA3EE888DF166A7E362BC5A2DAE60AD1D2D83808148D11D1F3
+
+SUCCESS exec contract to neutron15nxhrnv0kwc22ez5fyd6qfdvjjzk6h8sqtwma6c2ykqndlyukqwqm9y8e3:
+	msg: {"set_token_info":{"atom_denom":"uibcatom","usdc_denom":"uibcusdc"}}
+	tx hash: 0DF30B852962EDE62438AEB1BEF5A77DDDDB0060A882EE57A5EC73F8BA4CDCF3
+
+SUCCESS exec contract to neutron192x7hkwxhg4lw4p6jqsq0rkl8vvznz54p2xamz9qln4cj7zu5hws82luug:
+	msg: {"set_token_info":{"atom_token":"neutron1yt7fdzjpk3nmlmvl3epmsxayrt6vd39wxncg6pju2rcs7mz2np6seqzc6w","usdc_token":"neutron1mzq6xzynh002x090rzt6us37scfexpu8ca4sllc3p3scn5mvsp0qw7qw56","generator":"neutron1zxy7570wm8r6y9f90u5uhnvda6lncdfkv3qlqvdl6ewd8lhu5enqyt05c5"}}
+	tx hash: E697FEB1BE831EEF267B402BF85FF562B657675C6180453581E643A87A1A006F
+
+SUCCESS exec contract to neutron15nxhrnv0kwc22ez5fyd6qfdvjjzk6h8sqtwma6c2ykqndlyukqwqm9y8e3:
+	msg: {"update_config":{"new_config":{"lockdrop_contract_address":"neutron192x7hkwxhg4lw4p6jqsq0rkl8vvznz54p2xamz9qln4cj7zu5hws82luug","pool_info":{"ntrn_usdc_pool_address":"neutron12zrv9md6lwjd83fjhfy32n9yr0yjx52fan0t70sn3phh5xh6rztqwn49tw","ntrn_atom_pool_address":"neutron105ml67ymwlznz8twk2nyxu5xaqnsp2h24t50995ucp8ffu5wut7q2ewhj4","ntrn_usdc_lp_token_address":"neutron1mzq6xzynh002x090rzt6us37scfexpu8ca4sllc3p3scn5mvsp0qw7qw56","ntrn_atom_lp_token_address":"neutron1yt7fdzjpk3nmlmvl3epmsxayrt6vd39wxncg6pju2rcs7mz2np6seqzc6w"}}}}
+	tx hash: 9C5975EF489A4A5805EBC2163E2A7516CA6EAD327C832D38B4CAAABFD2F501F8
+
+SUCCESS exec contract to neutron14hpg9wup26t2t2ppfjfaj6w3knxrwasw9sjwzhd7ru0gl83xkxxqv2phqg:
+	msg: {"with_managers_extension":{"msg":{"add_vesting_managers":{"managers":["neutron15nxhrnv0kwc22ez5fyd6qfdvjjzk6h8sqtwma6c2ykqndlyukqwqm9y8e3"]}}}}
+	tx hash: 1D93A7043A4931DE8C1361DDD08B763364CA7A4639AA15C70C86487DCA473CA6
+
+SUCCESS exec contract to neutron1qm62qvux86w8ex36tpl24lz5qcanaql8t0zhs974m08r8u8jzlxs8jlwyg:
+	msg: {"with_managers_extension":{"msg":{"add_vesting_managers":{"managers":["neutron15nxhrnv0kwc22ez5fyd6qfdvjjzk6h8sqtwma6c2ykqndlyukqwqm9y8e3"]}}}}
+	tx hash: F4A09BEC042296D8DFAD1F989414CB4DEA9397C96239E1B74BAED2577E4BABFF
+
+SUCCESS exec contract to neutron1nyuryl5u5z04dx4zsqgvsuw7fe8gl2f77yufynauuhklnnmnjncqcls0tj:
+	msg: {"update_config":{"config":{"airdrop_address":"neutron1470dyhz2paeutte607l5ahyfeq3rc3xy4lajfxhftgahxevrm5cq4mvz3t","lockdrop_address":"neutron192x7hkwxhg4lw4p6jqsq0rkl8vvznz54p2xamz9qln4cj7zu5hws82luug"}}}
+	tx hash: 8DB0D4E7F88C4647C7EA5EA21DF3A9A3C1AD0B7F934B293CBFDA7D7CA950D846
+
+SUCCESS exec contract to neutron1nyuryl5u5z04dx4zsqgvsuw7fe8gl2f77yufynauuhklnnmnjncqcls0tj:
+	msg: {"mint":{}}
+	tx hash: C78D629C5313BA589EDB03110069D812F54E085DEE517C2BAC761667DF9A62DB
+
+SUCCESS exec contract to neutron1v6a0pv0pd3etcd7atyr06efg4q56p4czu30lfycff7sf0n55ed8qhvfcl2:
+	msg: {"set_asset_infos":[{"native_token":{"denom":"uibcatom"}},{"native_token":{"denom":"untrn"}}]}
+	tx hash: 7EDF2026CFDFF9B6197F76976CCB9683CFEF9C1ECF2FC1C7BA867FC836F1D0BD
+
+SUCCESS exec contract to neutron1anqktcx3sz9qsn4x6udh34fzqdpu5acx66gup79sxlqw8ejxf5fqvtdyg6:
+	msg: {"set_asset_infos":[{"native_token":{"denom":"uibcusdc"}},{"native_token":{"denom":"untrn"}}]}
+	tx hash: 95EDD8D63A76560B72B3F500CBF9C7B472F2E2591CD175DE5F264AFAA0AA276E
+
+SUCCESS exec contract to neutron1470dyhz2paeutte607l5ahyfeq3rc3xy4lajfxhftgahxevrm5cq4mvz3t:
+	msg: {"claim":{"address":"neutron1clttyxll0a9uhls7cjztc9j9jw859d3g7e6a50","amount":"2000","proof":["4901c32ccfab9b1dee0138bae8ba374f6d37b6f581f673eaa5005343afd44822","9700e61156756fd9bc67e23087ede10e181300b7fc6001ba69d7b8767f4f6cad"]}}
+	tx hash: 2D096584AA556AF9F898952C84169B8C5DFA809523D7C3BA184F118752557D73
+
+SUCCESS exec contract to neutron1470dyhz2paeutte607l5ahyfeq3rc3xy4lajfxhftgahxevrm5cq4mvz3t:
+	msg: {"claim":{"address":"neutron123r7u7jhwwqxp8fr9yd4cx5g5wmy9zlwkvxkn9","amount":"2000","proof":["947bbdd758f0da19db8541d3014338036edbdfff64be0e6941ad27535c1fd708"]}}
+	tx hash: 6B42D989ADDC68ABBD83FCA0ACF4457ACCC21ACDFA0CF31DBBF06EFCBB748FD0
+
+SUCCESS exec contract to neutron1470dyhz2paeutte607l5ahyfeq3rc3xy4lajfxhftgahxevrm5cq4mvz3t:
+	msg: {"claim":{"address":"neutron1jffamdu7mmvhqr655q33dzrmulrsck0msvl5mc","amount":"400000","proof":["3e41db09092ddecfc82bf5f8521f57ad126fbbe97fce672133fb835d98ef8630","9700e61156756fd9bc67e23087ede10e181300b7fc6001ba69d7b8767f4f6cad"]}}
+	tx hash: CC6C0D27B4E2B438EEE7B222ED9BCB3B99E6F302A381DB0D759B50274C28FF84
+
+GOTTEN INTO SHOULD ALLOW DEPOSIT ATOM
+{"ATOM_locked":"2000","NTRN_locked":"2000","USDC_locked":"5000000"}
+FOR Alice ATOM LOCKED: 2000
+for  Alice  atom balance before  10000000
+SUCCESS exec contract to neutron15nxhrnv0kwc22ez5fyd6qfdvjjzk6h8sqtwma6c2ykqndlyukqwqm9y8e3:
+	msg: {"deposit":{}}
+	tx hash: 49F0BB8FCBC6FACBA4EB046178AFDE833D39F53CFCAF3708ABFBEF6D87A715EA
+
+value.ATOM_locked
+for  Alice  atom balance after  9998000
+SUCCESS query contract to neutron15nxhrnv0kwc22ez5fyd6qfdvjjzk6h8sqtwma6c2ykqndlyukqwqm9y8e3:
+	query: {"user_info":{"address":"neutron1clttyxll0a9uhls7cjztc9j9jw859d3g7e6a50"}}
+	resp: {"usdc_deposited":"0","atom_deposited":"2000","withdrawn":false,"atom_lp_amount":"0","usdc_lp_amount":"0","atom_lp_locked":"0","usdc_lp_locked":"0"}
+
+for  Alice  atom deposited  2000
+{"ATOM_locked":"30000","NTRN_locked":"2000","USDC_locked":"5000000"}
+FOR Bob ATOM LOCKED: 30000
+for  Bob  atom balance before  10000000
+SUCCESS exec contract to neutron15nxhrnv0kwc22ez5fyd6qfdvjjzk6h8sqtwma6c2ykqndlyukqwqm9y8e3:
+	msg: {"deposit":{}}
+	tx hash: E46782D7A21ED0DD75FE9EB89DC3DCA55F718C99AD741D000E063C4F09732090
+
+value.ATOM_locked
+for  Bob  atom balance after  9970000
+SUCCESS query contract to neutron15nxhrnv0kwc22ez5fyd6qfdvjjzk6h8sqtwma6c2ykqndlyukqwqm9y8e3:
+	query: {"user_info":{"address":"neutron123r7u7jhwwqxp8fr9yd4cx5g5wmy9zlwkvxkn9"}}
+	resp: {"usdc_deposited":"0","atom_deposited":"30000","withdrawn":false,"atom_lp_amount":"0","usdc_lp_amount":"0","atom_lp_locked":"0","usdc_lp_locked":"0"}
+
+for  Bob  atom deposited  30000
+{"ATOM_locked":"2000","NTRN_locked":"400000","USDC_locked":"2000"}
+FOR Charlie ATOM LOCKED: 2000
+for  Charlie  atom balance before  10000000
+SUCCESS exec contract to neutron15nxhrnv0kwc22ez5fyd6qfdvjjzk6h8sqtwma6c2ykqndlyukqwqm9y8e3:
+	msg: {"deposit":{}}
+	tx hash: C61DB7E4AD55DB53ADEEF342E04B2B210865AD1A1058366FF8D86BC8DB49522F
+
+value.ATOM_locked
+for  Charlie  atom balance after  9998000
+SUCCESS query contract to neutron15nxhrnv0kwc22ez5fyd6qfdvjjzk6h8sqtwma6c2ykqndlyukqwqm9y8e3:
+	query: {"user_info":{"address":"neutron1jffamdu7mmvhqr655q33dzrmulrsck0msvl5mc"}}
+	resp: {"usdc_deposited":"0","atom_deposited":"2000","withdrawn":false,"atom_lp_amount":"0","usdc_lp_amount":"0","atom_lp_locked":"0","usdc_lp_locked":"0"}
+
+for  Charlie  atom deposited  2000
+for  Alice  USDC balance before  10000000
+SUCCESS exec contract to neutron15nxhrnv0kwc22ez5fyd6qfdvjjzk6h8sqtwma6c2ykqndlyukqwqm9y8e3:
+	msg: {"deposit":{}}
+	tx hash: 0786D4E42E7A24AC06CAA813DDFB95D7ED7FD67208B44940233D5024A4A9ECE4
+
+for  Alice  USDC balance after  5000000
+SUCCESS query contract to neutron15nxhrnv0kwc22ez5fyd6qfdvjjzk6h8sqtwma6c2ykqndlyukqwqm9y8e3:
+	query: {"user_info":{"address":"neutron1clttyxll0a9uhls7cjztc9j9jw859d3g7e6a50"}}
+	resp: {"usdc_deposited":"5000000","atom_deposited":"2000","withdrawn":false,"atom_lp_amount":"0","usdc_lp_amount":"0","atom_lp_locked":"0","usdc_lp_locked":"0"}
+
+for  Alice  USDC deposited  5000000
+for  Bob  USDC balance before  10000000
+SUCCESS exec contract to neutron15nxhrnv0kwc22ez5fyd6qfdvjjzk6h8sqtwma6c2ykqndlyukqwqm9y8e3:
+	msg: {"deposit":{}}
+	tx hash: 786B220F88FAC4E7F2027910B7F7CA774387231578553F24CB5D80CED6291290
+
+for  Bob  USDC balance after  5000000
+SUCCESS query contract to neutron15nxhrnv0kwc22ez5fyd6qfdvjjzk6h8sqtwma6c2ykqndlyukqwqm9y8e3:
+	query: {"user_info":{"address":"neutron123r7u7jhwwqxp8fr9yd4cx5g5wmy9zlwkvxkn9"}}
+	resp: {"usdc_deposited":"5000000","atom_deposited":"30000","withdrawn":false,"atom_lp_amount":"0","usdc_lp_amount":"0","atom_lp_locked":"0","usdc_lp_locked":"0"}
+
+for  Bob  USDC deposited  5000000
+for  Charlie  USDC balance before  10000000
+SUCCESS exec contract to neutron15nxhrnv0kwc22ez5fyd6qfdvjjzk6h8sqtwma6c2ykqndlyukqwqm9y8e3:
+	msg: {"deposit":{}}
+	tx hash: FDCC91B84AC496FE7DCC538D2415C4548E8762BC15D0F8D1CA6063EA4FE33422
+
+for  Charlie  USDC balance after  9998000
+SUCCESS query contract to neutron15nxhrnv0kwc22ez5fyd6qfdvjjzk6h8sqtwma6c2ykqndlyukqwqm9y8e3:
+	query: {"user_info":{"address":"neutron1jffamdu7mmvhqr655q33dzrmulrsck0msvl5mc"}}
+	resp: {"usdc_deposited":"2000","atom_deposited":"2000","withdrawn":false,"atom_lp_amount":"0","usdc_lp_amount":"0","atom_lp_locked":"0","usdc_lp_locked":"0"}
+
+for  Charlie  USDC deposited  2000
+SUCCESS exec contract to neutron192x7hkwxhg4lw4p6jqsq0rkl8vvznz54p2xamz9qln4cj7zu5hws82luug:
+	msg: {"increase_ntrn_incentives":{}}
+	tx hash: DBB1D0AC0A49A0E422426C3F3CE4A8DE9B1D9B7CC9932CAC30D7963846037557
+
+SUCCESS exec contract to neutron1jrs7f3sr5f0qzm0dtf85mlyfw79ley46ruumgqnm4l4hyplu7pdq4cqw3q:
+	msg: {"set_rate":{"symbol":"ATOM","rate":{"rate":"10000000","resolve_time":"1711544802","request_id":"1"}}}
+	tx hash: 2682E711622E0497DE4CB1520FCB9F617044A4AAE3DD3AE2D34B7B4912E80DF9
+
+SUCCESS exec contract to neutron1jrs7f3sr5f0qzm0dtf85mlyfw79ley46ruumgqnm4l4hyplu7pdq4cqw3q:
+	msg: {"set_rate":{"symbol":"USDC","rate":{"rate":"1000000","resolve_time":"1711544802","request_id":"1"}}}
+	tx hash: 812056DF868B9439C3DC0E270F6612316D8FB5B6888D77177094017D73E996C7
+
+SUCCESS exec contract to neutron15nxhrnv0kwc22ez5fyd6qfdvjjzk6h8sqtwma6c2ykqndlyukqwqm9y8e3:
+	msg: {"set_pool_size":{}}
+	tx hash: 478CA132DE80915B698BA05D9C8867761942029DAC20B50B76BB6C9DA679B893
+
+SUCCESS query contract to neutron15nxhrnv0kwc22ez5fyd6qfdvjjzk6h8sqtwma6c2ykqndlyukqwqm9y8e3:
+	query: {"state":{}}
+	resp: {"total_usdc_deposited":"10002000","total_atom_deposited":"34000","is_rest_lp_vested":false,"lp_usdc_shares_minted":null,"lp_atom_shares_minted":null,"pool_init_timestamp":0,"usdc_ntrn_size":"193424","atom_ntrn_size":"6576","usdc_lp_size":"1389908","atom_lp_size":"13952","usdc_lp_locked":"0","atom_lp_locked":"0"}
+
+state is  {
+  total_usdc_deposited: '10002000',
+  total_atom_deposited: '34000',
+  is_rest_lp_vested: false,
+  lp_usdc_shares_minted: null,
+  lp_atom_shares_minted: null,
+  pool_init_timestamp: 0,
+  usdc_ntrn_size: '193424',
+  atom_ntrn_size: '6576',
+  usdc_lp_size: '1389908',
+  atom_lp_size: '13952',
+  usdc_lp_locked: '0',
+  atom_lp_locked: '0'
+}
+atom lp size:  13951
+usdc lp size:  1389912
+ntrnAtomSize:  6575
+usdc balance:  10002000
+ntrnUsdcSize:  193425
+Alice user is only vesting
+Bob user is not only vesting
+SUCCESS query contract to neutron15nxhrnv0kwc22ez5fyd6qfdvjjzk6h8sqtwma6c2ykqndlyukqwqm9y8e3:
+	query: {"user_info":{"address":"neutron123r7u7jhwwqxp8fr9yd4cx5g5wmy9zlwkvxkn9"}}
+	resp: {"usdc_deposited":"5000000","atom_deposited":"30000","withdrawn":false,"atom_lp_amount":"6155","usdc_lp_amount":"347407","atom_lp_locked":"0","usdc_lp_locked":"0"}
+
+SUCCESS exec contract to neutron15nxhrnv0kwc22ez5fyd6qfdvjjzk6h8sqtwma6c2ykqndlyukqwqm9y8e3:
+	msg: {"lock_lp":{"amount":"6155","asset":"ATOM","duration":1}}
+	tx hash: 8D440A840B0EA72C2260A58D26B0BD15AD0C6CAC2DBF08D4BFED4A2D5909324A
+
+user  Bob  locked atom lp amount  6155
+SUCCESS query contract to neutron15nxhrnv0kwc22ez5fyd6qfdvjjzk6h8sqtwma6c2ykqndlyukqwqm9y8e3:
+	query: {"user_info":{"address":"neutron123r7u7jhwwqxp8fr9yd4cx5g5wmy9zlwkvxkn9"}}
+	resp: {"usdc_deposited":"5000000","atom_deposited":"30000","withdrawn":false,"atom_lp_amount":"6155","usdc_lp_amount":"347407","atom_lp_locked":"6155","usdc_lp_locked":"0"}
+
+SUCCESS query contract to neutron192x7hkwxhg4lw4p6jqsq0rkl8vvznz54p2xamz9qln4cj7zu5hws82luug:
+	query: {"user_info":{"address":"neutron123r7u7jhwwqxp8fr9yd4cx5g5wmy9zlwkvxkn9"}}
+	resp: {"total_ntrn_rewards":"0","ntrn_transferred":false,"lockup_infos":[{"pool_type":"ATOM","lp_units_locked":"6155","withdrawal_flag":false,"ntrn_rewards":"0","duration":1,"generator_ntrn_debt":"0","claimable_generator_astro_debt":"0","generator_proxy_debt":[],"claimable_generator_proxy_debt":[],"unlock_timestamp":1711544923,"astroport_lp_units":"0","astroport_lp_token":"neutron1yt7fdzjpk3nmlmvl3epmsxayrt6vd39wxncg6pju2rcs7mz2np6seqzc6w","astroport_lp_transferred":null}],"claimable_generator_ntrn_debt":"0","lockup_positions_index":1}
+
+Charlie user is only vesting
+Alice user is only vesting
+Bob user is not only vesting
+SUCCESS query contract to neutron15nxhrnv0kwc22ez5fyd6qfdvjjzk6h8sqtwma6c2ykqndlyukqwqm9y8e3:
+	query: {"user_info":{"address":"neutron123r7u7jhwwqxp8fr9yd4cx5g5wmy9zlwkvxkn9"}}
+	resp: {"usdc_deposited":"5000000","atom_deposited":"30000","withdrawn":false,"atom_lp_amount":"6155","usdc_lp_amount":"347407","atom_lp_locked":"6155","usdc_lp_locked":"0"}
+
+SUCCESS exec contract to neutron15nxhrnv0kwc22ez5fyd6qfdvjjzk6h8sqtwma6c2ykqndlyukqwqm9y8e3:
+	msg: {"lock_lp":{"amount":"347407","asset":"USDC","duration":1}}
+	tx hash: 1FB65E9D9F5410D150D9AEAFCABD41F0127E1F64A9570F100AFABFC20F2D72F3
+
+user  Bob  locked usdc lp amount  347407
+SUCCESS query contract to neutron15nxhrnv0kwc22ez5fyd6qfdvjjzk6h8sqtwma6c2ykqndlyukqwqm9y8e3:
+	query: {"user_info":{"address":"neutron123r7u7jhwwqxp8fr9yd4cx5g5wmy9zlwkvxkn9"}}
+	resp: {"usdc_deposited":"5000000","atom_deposited":"30000","withdrawn":false,"atom_lp_amount":"6155","usdc_lp_amount":"347407","atom_lp_locked":"6155","usdc_lp_locked":"347407"}
+
+SUCCESS query contract to neutron192x7hkwxhg4lw4p6jqsq0rkl8vvznz54p2xamz9qln4cj7zu5hws82luug:
+	query: {"user_info":{"address":"neutron123r7u7jhwwqxp8fr9yd4cx5g5wmy9zlwkvxkn9"}}
+	resp: {"total_ntrn_rewards":"0","ntrn_transferred":false,"lockup_infos":[{"pool_type":"ATOM","lp_units_locked":"6155","withdrawal_flag":false,"ntrn_rewards":"0","duration":1,"generator_ntrn_debt":"0","claimable_generator_astro_debt":"0","generator_proxy_debt":[],"claimable_generator_proxy_debt":[],"unlock_timestamp":1711544923,"astroport_lp_units":"0","astroport_lp_token":"neutron1yt7fdzjpk3nmlmvl3epmsxayrt6vd39wxncg6pju2rcs7mz2np6seqzc6w","astroport_lp_transferred":null},{"pool_type":"USDC","lp_units_locked":"347407","withdrawal_flag":false,"ntrn_rewards":"0","duration":1,"generator_ntrn_debt":"0","claimable_generator_astro_debt":"0","generator_proxy_debt":[],"claimable_generator_proxy_debt":[],"unlock_timestamp":1711544923,"astroport_lp_units":"0","astroport_lp_token":"neutron1mzq6xzynh002x090rzt6us37scfexpu8ca4sllc3p3scn5mvsp0qw7qw56","astroport_lp_transferred":null}],"claimable_generator_ntrn_debt":"0","lockup_positions_index":2}
+
+Charlie user is only vesting
+SUCCESS exec contract to neutron192x7hkwxhg4lw4p6jqsq0rkl8vvznz54p2xamz9qln4cj7zu5hws82luug:
+	msg: {"update_config":{"new_config":{"generator_address":"neutron1zxy7570wm8r6y9f90u5uhnvda6lncdfkv3qlqvdl6ewd8lhu5enqyt05c5"}}}
+	tx hash: 1ED00558309ED7902176B6DB7F736F6C23D8D41475406DD26DD3D3529B77C1F9
+
+SUCCESS exec contract to neutron15nxhrnv0kwc22ez5fyd6qfdvjjzk6h8sqtwma6c2ykqndlyukqwqm9y8e3:
+	msg: {"init_pool":{}}
+	tx hash: 33DFB7E12282772478D9DA56523531CF568ED6D80A4384F24BCB439564EC7575
+
+SUCCESS query contract to neutron1mzq6xzynh002x090rzt6us37scfexpu8ca4sllc3p3scn5mvsp0qw7qw56:
+	query: {"balance":{"address":"neutron1nxshmmwrvxa2cp80nwvf03t8u5kvl2ttr8m8f43vamudsqrdvs8qqvfwpj"}}
+	resp: {"balance":"694954"}
+
+SUCCESS query contract to neutron1mzq6xzynh002x090rzt6us37scfexpu8ca4sllc3p3scn5mvsp0qw7qw56:
+	query: {"balance":{"address":"neutron15nxhrnv0kwc22ez5fyd6qfdvjjzk6h8sqtwma6c2ykqndlyukqwqm9y8e3"}}
+	resp: {"balance":"347547"}
+
+SUCCESS query contract to neutron1yt7fdzjpk3nmlmvl3epmsxayrt6vd39wxncg6pju2rcs7mz2np6seqzc6w:
+	query: {"balance":{"address":"neutron15nxhrnv0kwc22ez5fyd6qfdvjjzk6h8sqtwma6c2ykqndlyukqwqm9y8e3"}}
+	resp: {"balance":"821"}
+
+SUCCESS query contract to neutron1yt7fdzjpk3nmlmvl3epmsxayrt6vd39wxncg6pju2rcs7mz2np6seqzc6w:
+	query: {"balance":{"address":"neutron192x7hkwxhg4lw4p6jqsq0rkl8vvznz54p2xamz9qln4cj7zu5hws82luug"}}
+	resp: {"balance":"0"}
+
+SUCCESS query contract to neutron15nxhrnv0kwc22ez5fyd6qfdvjjzk6h8sqtwma6c2ykqndlyukqwqm9y8e3:
+	query: {"state":{}}
+	resp: {"total_usdc_deposited":"10002000","total_atom_deposited":"34000","is_rest_lp_vested":false,"lp_usdc_shares_minted":"1389908","lp_atom_shares_minted":"13952","pool_init_timestamp":1711544926,"usdc_ntrn_size":"193424","atom_ntrn_size":"6576","usdc_lp_size":"1389908","atom_lp_size":"13952","usdc_lp_locked":"347407","atom_lp_locked":"6155"}
+
+SUCCESS query contract to neutron1mzq6xzynh002x090rzt6us37scfexpu8ca4sllc3p3scn5mvsp0qw7qw56:
+	query: {"balance":{"address":"neutron192x7hkwxhg4lw4p6jqsq0rkl8vvznz54p2xamz9qln4cj7zu5hws82luug"}}
+	resp: {"balance":"0"}
+
+SUCCESS query contract to neutron1yt7fdzjpk3nmlmvl3epmsxayrt6vd39wxncg6pju2rcs7mz2np6seqzc6w:
+	query: {"balance":{"address":"neutron1nxshmmwrvxa2cp80nwvf03t8u5kvl2ttr8m8f43vamudsqrdvs8qqvfwpj"}}
+	resp: {"balance":"6976"}
+
+SUCCESS query contract to neutron1yt7fdzjpk3nmlmvl3epmsxayrt6vd39wxncg6pju2rcs7mz2np6seqzc6w:
+	query: {"balance":{"address":"neutron1zxy7570wm8r6y9f90u5uhnvda6lncdfkv3qlqvdl6ewd8lhu5enqyt05c5"}}
+	resp: {"balance":"6155"}
+
+SUCCESS query contract to neutron12zrv9md6lwjd83fjhfy32n9yr0yjx52fan0t70sn3phh5xh6rztqwn49tw:
+	query: {"pool":{}}
+	resp: {"assets":[{"info":{"native_token":{"denom":"uibcusdc"}},"amount":"10002000"},{"info":{"native_token":{"denom":"untrn"}},"amount":"193424"}],"total_share":"1390908"}
+
+SUCCESS query contract to neutron1mzq6xzynh002x090rzt6us37scfexpu8ca4sllc3p3scn5mvsp0qw7qw56:
+	query: {"balance":{"address":"neutron1zxy7570wm8r6y9f90u5uhnvda6lncdfkv3qlqvdl6ewd8lhu5enqyt05c5"}}
+	resp: {"balance":"347407"}
+
+SUCCESS query contract to neutron105ml67ymwlznz8twk2nyxu5xaqnsp2h24t50995ucp8ffu5wut7q2ewhj4:
+	query: {"pool":{}}
+	resp: {"assets":[{"info":{"native_token":{"denom":"uibcatom"}},"amount":"34000"},{"info":{"native_token":{"denom":"untrn"}},"amount":"6576"}],"total_share":"14952"}
+
+at init pool
+auction state:  {
+  total_usdc_deposited: '10002000',
+  total_atom_deposited: '34000',
+  is_rest_lp_vested: false,
+  lp_usdc_shares_minted: '1389908',
+  lp_atom_shares_minted: '13952',
+  pool_init_timestamp: 1711544926,
+  usdc_ntrn_size: '193424',
+  atom_ntrn_size: '6576',
+  usdc_lp_size: '1389908',
+  atom_lp_size: '13952',
+  usdc_lp_locked: '347407',
+  atom_lp_locked: '6155'
+}
+atom pool info:  {
+  assets: [
+    { info: [Object], amount: '34000' },
+    { info: [Object], amount: '6576' }
+  ],
+  total_share: '14952'
+}
+usdc pool info:  {
+  assets: [
+    { info: [Object], amount: '10002000' },
+    { info: [Object], amount: '193424' }
+  ],
+  total_share: '1390908'
+}
+auctionLPBalanceAtomNtrn:  { balance: '821' }
+auctionLPBalanceUsdcNtrn:  { balance: '347547' }
+lockdropLPBalanceAtomNtrn:  { balance: '0' }
+lockdropLPBalanceUsdcNtrn:  { balance: '0' }
+generatorLPBalanceAtomNtrn:  { balance: '6155' }
+generatorLPBalanceUsdcNtrn:  { balance: '347407' }
+SUCCESS exec contract to neutron1v6a0pv0pd3etcd7atyr06efg4q56p4czu30lfycff7sf0n55ed8qhvfcl2:
+	msg: {"update":{}}
+	tx hash: 000A0ECA0E9799566AE1EB8088C469E700223F19A5A14F2E60EF5A78024CBF03
+
+SUCCESS exec contract to neutron1anqktcx3sz9qsn4x6udh34fzqdpu5acx66gup79sxlqw8ejxf5fqvtdyg6:
+	msg: {"update":{}}
+	tx hash: 94AAF469729016B7A129693F1C5FBF1E8FFDDAEC6B150DFF9E896D53253CAEA9
+
+SUCCESS exec contract to neutron1v6a0pv0pd3etcd7atyr06efg4q56p4czu30lfycff7sf0n55ed8qhvfcl2:
+	msg: {"update":{}}
+	tx hash: 85FFB641DD4E31518EACE60217415CAB6134117DD97726F1DDB68D885C9F477C
+
+SUCCESS exec contract to neutron1anqktcx3sz9qsn4x6udh34fzqdpu5acx66gup79sxlqw8ejxf5fqvtdyg6:
+	msg: {"update":{}}
+	tx hash: D45FDEF03339779E74B1F5F627E4762B774C66193387926C5CD264B32D703CEC
+
+SUCCESS exec contract to neutron15nxhrnv0kwc22ez5fyd6qfdvjjzk6h8sqtwma6c2ykqndlyukqwqm9y8e3:
+	msg: {"migrate_to_vesting":{}}
+	tx hash: 5634CE5A14BF38944D049E4485B098D6ADB7AF84B714828FC55BE8DFFC48D6A7
+
+SUCCESS exec contract to neutron1z6nfr3l2yvcrvyftksjxpkc6466xtexsdkz4yw6ywpxyyh5jvtnqakth68:
+	msg: {"deregister":{"asset_infos":[{"native_token":{"denom":"untrn"}},{"native_token":{"denom":"uibcatom"}}]}}
+	tx hash: B7946696CC6B7A35FC688B2FEC84761BFF85F58A671282B2915E36AA35B782F4
+
+SUCCESS exec contract to neutron1z6nfr3l2yvcrvyftksjxpkc6466xtexsdkz4yw6ywpxyyh5jvtnqakth68:
+	msg: {"deregister":{"asset_infos":[{"native_token":{"denom":"untrn"}},{"native_token":{"denom":"uibcusdc"}}]}}
+	tx hash: A70ED1FE7697F537C9C5C9A7983128C80E1FB44B131F354A20D8EB2245BC8ECD
+
+SUCCESS query contract to neutron105ml67ymwlznz8twk2nyxu5xaqnsp2h24t50995ucp8ffu5wut7q2ewhj4:
+	query: {"pool":{}}
+	resp: {"assets":[{"info":{"native_token":{"denom":"uibcatom"}},"amount":"34000"},{"info":{"native_token":{"denom":"untrn"}},"amount":"6576"}],"total_share":"14952"}
+
+SUCCESS exec contract to neutron1z6nfr3l2yvcrvyftksjxpkc6466xtexsdkz4yw6ywpxyyh5jvtnqakth68:
+	msg: {"create_pair":{"pair_type":{"custom":"concentrated"},"asset_infos":[{"native_token":{"denom":"uibcatom"}},{"native_token":{"denom":"untrn"}}],"init_params":"eyJhbXAiOiI0MCIsImdhbW1hIjoiMC4wMDAxNDUiLCJtaWRfZmVlIjoiMC4wMDI2Iiwib3V0X2ZlZSI6IjAuMDA0NSIsImZlZV9nYW1tYSI6IjAuMDAwMjMiLCJyZXBlZ19wcm9maXRfdGhyZXNob2xkIjoiMC4wMDAwMDIiLCJtaW5fcHJpY2Vfc2NhbGVfZGVsdGEiOiIwLjAwMDE0NiIsInByaWNlX3NjYWxlIjoiNS4xNzAzMTYzMDE3MDMxNjMiLCJtYV9oYWxmX3RpbWUiOjYwMCwidHJhY2tfYXNzZXRfYmFsYW5jZXMiOnRydWV9"}}
+	tx hash: 04B41AD6FF4095FF925A12D73DCB02F6E331A0FCFB84A9518BF7D7E907B20C2C
+
+SUCCESS query contract to neutron1z6nfr3l2yvcrvyftksjxpkc6466xtexsdkz4yw6ywpxyyh5jvtnqakth68:
+	query: {"pair":{"asset_infos":[{"native_token":{"denom":"uibcatom"}},{"native_token":{"denom":"untrn"}}]}}
+	resp: {"asset_infos":[{"native_token":{"denom":"uibcatom"}},{"native_token":{"denom":"untrn"}}],"contract_addr":"neutron1zw2fh3tl8th848d2dgecm6kd9rjaa6q6z7pxzp9xzv4pmf76c97syu0rgn","liquidity_token":"neutron18tsv2jfx2l0t7ru45lyv57prefwqac8fu4xzsglv7k4l3kke2mxqfem7hm","pair_type":{"custom":"concentrated"}}
+
+SUCCESS exec contract to neutron1zw2fh3tl8th848d2dgecm6kd9rjaa6q6z7pxzp9xzv4pmf76c97syu0rgn:
+	msg: {"provide_liquidity":{"assets":[{"info":{"native_token":{"denom":"uibcatom"}},"amount":"1034063"},{"info":{"native_token":{"denom":"untrn"}},"amount":"200000"}],"slippage_tolerance":"0.01"}}
+	tx hash: CF130581EC4E745F6C7B48954A497E37F1C6052F8349BF35C4321D433E4990E7
+
+SUCCESS query contract to neutron12zrv9md6lwjd83fjhfy32n9yr0yjx52fan0t70sn3phh5xh6rztqwn49tw:
+	query: {"pool":{}}
+	resp: {"assets":[{"info":{"native_token":{"denom":"uibcusdc"}},"amount":"10002000"},{"info":{"native_token":{"denom":"untrn"}},"amount":"193424"}],"total_share":"1390908"}
+
+SUCCESS exec contract to neutron1z6nfr3l2yvcrvyftksjxpkc6466xtexsdkz4yw6ywpxyyh5jvtnqakth68:
+	msg: {"create_pair":{"pair_type":{"custom":"concentrated"},"asset_infos":[{"native_token":{"denom":"uibcusdc"}},{"native_token":{"denom":"untrn"}}],"init_params":"eyJhbXAiOiI0MCIsImdhbW1hIjoiMC4wMDAxNDUiLCJtaWRfZmVlIjoiMC4wMDI2Iiwib3V0X2ZlZSI6IjAuMDA0NSIsImZlZV9nYW1tYSI6IjAuMDAwMjMiLCJyZXBlZ19wcm9maXRfdGhyZXNob2xkIjoiMC4wMDAwMDIiLCJtaW5fcHJpY2Vfc2NhbGVfZGVsdGEiOiIwLjAwMDE0NiIsInByaWNlX3NjYWxlIjoiNTEuNzEwMjMyNDQyNzE2NTIiLCJtYV9oYWxmX3RpbWUiOjYwMCwidHJhY2tfYXNzZXRfYmFsYW5jZXMiOnRydWV9"}}
+	tx hash: C5E56CB53C7B6975976CD399DACAF5F30540E408599FDC1412D46374E2E064EC
+
+SUCCESS query contract to neutron1z6nfr3l2yvcrvyftksjxpkc6466xtexsdkz4yw6ywpxyyh5jvtnqakth68:
+	query: {"pair":{"asset_infos":[{"native_token":{"denom":"uibcusdc"}},{"native_token":{"denom":"untrn"}}]}}
+	resp: {"asset_infos":[{"native_token":{"denom":"uibcusdc"}},{"native_token":{"denom":"untrn"}}],"contract_addr":"neutron13k6g4ch5lj40ku9lvxceam9gakqwy7te49scvcyj4tvdmserp0vs5pqnkm","liquidity_token":"neutron1rnraxu54huv7wkmpff3v8mzhqh49g0e60x4ehzws4ee6upcy78sqlqx4gn","pair_type":{"custom":"concentrated"}}
+
+SUCCESS exec contract to neutron13k6g4ch5lj40ku9lvxceam9gakqwy7te49scvcyj4tvdmserp0vs5pqnkm:
+	msg: {"provide_liquidity":{"assets":[{"info":{"native_token":{"denom":"uibcusdc"}},"amount":"10342046"},{"info":{"native_token":{"denom":"untrn"}},"amount":"200000"}],"slippage_tolerance":"0.01"}}
+	tx hash: 0FB2C3C3774F71B00F5538C0F2726CF4FBC23406BCB74ABFF86B506F54A125AA
+
+SUCCESS exec contract to neutron1zxy7570wm8r6y9f90u5uhnvda6lncdfkv3qlqvdl6ewd8lhu5enqyt05c5:
+	msg: {"set_tokens_per_block":{"amount":"0"}}
+	tx hash: 640E357DCF8E5ECF7575963A9DC7A685372DC5ED7A39CF5C9EA6F6681C63B679
+
+SUCCESS exec contract to neutron1zxy7570wm8r6y9f90u5uhnvda6lncdfkv3qlqvdl6ewd8lhu5enqyt05c5:
+	msg: {"setup_pools":{"pools":[["neutron18tsv2jfx2l0t7ru45lyv57prefwqac8fu4xzsglv7k4l3kke2mxqfem7hm","0"],["neutron1rnraxu54huv7wkmpff3v8mzhqh49g0e60x4ehzws4ee6upcy78sqlqx4gn","0"]]}}
+	tx hash: 39F092A345BED995A29AD94DCF48194740D2D287565DCFA5B3B50A38D1666E70
+
+SUCCESS exec contract to neutron1z6nfr3l2yvcrvyftksjxpkc6466xtexsdkz4yw6ywpxyyh5jvtnqakth68:
+	msg: {"update_config":{"generator_address":"neutron1lffp94kk9h8hhk3q4xv9pwdqtlervfh8h8rmq7yrnxpacl7k4dequnjzmz"}}
+	tx hash: FD675F49254BF16018B0409F23EE5469C71E758E8237DCA6D46C705A8A786E37
+
+SUCCESS exec contract to neutron1kxy5k02ceuugj782mgq4daufa27u8y5l23cr2fjqlw84j4sgt7us2rn0xm:
+	msg: {"register_vesting_accounts":{"vesting_accounts":[{"address":"neutron1lffp94kk9h8hhk3q4xv9pwdqtlervfh8h8rmq7yrnxpacl7k4dequnjzmz","schedules":[{"start_point":{"time":0,"amount":"1000000"}}]}]}}
+	tx hash: B3E433F64B8253E89693DD9B0992FBAFF2EB9C9BEBC655E8B155FD6FEBEC5DC6
+
+SUCCESS exec contract to neutron1lffp94kk9h8hhk3q4xv9pwdqtlervfh8h8rmq7yrnxpacl7k4dequnjzmz:
+	msg: {"set_tokens_per_second":{"amount":"500"}}
+	tx hash: B92A223D80D7FEB1AF62DC3AAE2002C768712E047915839CE732FDBE52B3FC77
+
+SUCCESS exec contract to neutron1lffp94kk9h8hhk3q4xv9pwdqtlervfh8h8rmq7yrnxpacl7k4dequnjzmz:
+	msg: {"incentivize":{"lp_token":"neutron18tsv2jfx2l0t7ru45lyv57prefwqac8fu4xzsglv7k4l3kke2mxqfem7hm","schedule":{"reward":{"info":{"native_token":{"denom":"factory/neutron1hm34gdfygjnlh5ku6sfqcd4fnkyzrjamcy783k/urwrd"}},"amount":"1000000000"},"duration_periods":1}}}
+	tx hash: C1C3C5B09628FD7B9C9DB171DCC122A3750482FC986599C50215DE7B2101FE1A
+
+SUCCESS exec contract to neutron1lffp94kk9h8hhk3q4xv9pwdqtlervfh8h8rmq7yrnxpacl7k4dequnjzmz:
+	msg: {"setup_pools":{"pools":[["neutron18tsv2jfx2l0t7ru45lyv57prefwqac8fu4xzsglv7k4l3kke2mxqfem7hm","1"],["neutron1rnraxu54huv7wkmpff3v8mzhqh49g0e60x4ehzws4ee6upcy78sqlqx4gn","1"]]}}
+	tx hash: C49D69FCF4F92B4BE3DE53DC92EE307F7276D40B46273E464AD66BD862F500FE
+
+SUCCESS query contract to neutron192x7hkwxhg4lw4p6jqsq0rkl8vvznz54p2xamz9qln4cj7zu5hws82luug:
+	query: {"config":{}}
+	resp: {"owner":"neutron1hm34gdfygjnlh5ku6sfqcd4fnkyzrjamcy783k","token_info_manager":"neutron15kmm0gf0h2nenmmhudyelhux93l42uj2y89mua","credits_contract":"neutron1nyuryl5u5z04dx4zsqgvsuw7fe8gl2f77yufynauuhklnnmnjncqcls0tj","auction_contract":"neutron15nxhrnv0kwc22ez5fyd6qfdvjjzk6h8sqtwma6c2ykqndlyukqwqm9y8e3","generator":"neutron1zxy7570wm8r6y9f90u5uhnvda6lncdfkv3qlqvdl6ewd8lhu5enqyt05c5","init_timestamp":1711544802,"lock_window":60,"withdrawal_window":60,"min_lock_duration":1,"max_lock_duration":2,"lockdrop_incentives":"10000","max_positions_per_user":3,"lockup_rewards_info":[{"duration":1,"coefficient":"0"},{"duration":2,"coefficient":"1"}]}
+
+SUCCESS query contract to neutron192x7hkwxhg4lw4p6jqsq0rkl8vvznz54p2xamz9qln4cj7zu5hws82luug:
+	query: {"pool":{"pool_type":"USDC"}}
+	resp: {"lp_token":"neutron1mzq6xzynh002x090rzt6us37scfexpu8ca4sllc3p3scn5mvsp0qw7qw56","amount_in_lockups":"347407","incentives_share":"193424","weighted_amount":"347407","generator_ntrn_per_share":"0","generator_proxy_per_share":[],"is_staked":true}
+
+SUCCESS query contract to neutron192x7hkwxhg4lw4p6jqsq0rkl8vvznz54p2xamz9qln4cj7zu5hws82luug:
+	query: {"pool":{"pool_type":"ATOM"}}
+	resp: {"lp_token":"neutron1yt7fdzjpk3nmlmvl3epmsxayrt6vd39wxncg6pju2rcs7mz2np6seqzc6w","amount_in_lockups":"6155","incentives_share":"6576","weighted_amount":"6155","generator_ntrn_per_share":"0","generator_proxy_per_share":[],"is_staked":true}
+
+SUCCESS query contract to neutron105ml67ymwlznz8twk2nyxu5xaqnsp2h24t50995ucp8ffu5wut7q2ewhj4:
+	query: {"pair":{}}
+	resp: {"asset_infos":[{"native_token":{"denom":"uibcatom"}},{"native_token":{"denom":"untrn"}}],"contract_addr":"neutron105ml67ymwlznz8twk2nyxu5xaqnsp2h24t50995ucp8ffu5wut7q2ewhj4","liquidity_token":"neutron1yt7fdzjpk3nmlmvl3epmsxayrt6vd39wxncg6pju2rcs7mz2np6seqzc6w","pair_type":{"xyk":{}}}
+
+SUCCESS query contract to neutron1yt7fdzjpk3nmlmvl3epmsxayrt6vd39wxncg6pju2rcs7mz2np6seqzc6w:
+	query: {"balance":{"address":"neutron1nxshmmwrvxa2cp80nwvf03t8u5kvl2ttr8m8f43vamudsqrdvs8qqvfwpj"}}
+	resp: {"balance":"6976"}
+
+SUCCESS query contract to neutron105ml67ymwlznz8twk2nyxu5xaqnsp2h24t50995ucp8ffu5wut7q2ewhj4:
+	query: {"share":{"amount":"6976"}}
+	resp: [{"info":{"native_token":{"denom":"uibcatom"}},"amount":"15863"},{"info":{"native_token":{"denom":"untrn"}},"amount":"3068"}]
+
+SUCCESS query contract to neutron12zrv9md6lwjd83fjhfy32n9yr0yjx52fan0t70sn3phh5xh6rztqwn49tw:
+	query: {"pair":{}}
+	resp: {"asset_infos":[{"native_token":{"denom":"uibcusdc"}},{"native_token":{"denom":"untrn"}}],"contract_addr":"neutron12zrv9md6lwjd83fjhfy32n9yr0yjx52fan0t70sn3phh5xh6rztqwn49tw","liquidity_token":"neutron1mzq6xzynh002x090rzt6us37scfexpu8ca4sllc3p3scn5mvsp0qw7qw56","pair_type":{"xyk":{}}}
+
+SUCCESS query contract to neutron1mzq6xzynh002x090rzt6us37scfexpu8ca4sllc3p3scn5mvsp0qw7qw56:
+	query: {"balance":{"address":"neutron1nxshmmwrvxa2cp80nwvf03t8u5kvl2ttr8m8f43vamudsqrdvs8qqvfwpj"}}
+	resp: {"balance":"694954"}
+
+SUCCESS query contract to neutron12zrv9md6lwjd83fjhfy32n9yr0yjx52fan0t70sn3phh5xh6rztqwn49tw:
+	query: {"share":{"amount":"694954"}}
+	resp: [{"info":{"native_token":{"denom":"uibcusdc"}},"amount":"4997404"},{"info":{"native_token":{"denom":"untrn"}},"amount":"96642"}]
+
+SUCCESS query contract to neutron1zw2fh3tl8th848d2dgecm6kd9rjaa6q6z7pxzp9xzv4pmf76c97syu0rgn:
+	query: {"pair":{}}
+	resp: {"asset_infos":[{"native_token":{"denom":"uibcatom"}},{"native_token":{"denom":"untrn"}}],"contract_addr":"neutron1zw2fh3tl8th848d2dgecm6kd9rjaa6q6z7pxzp9xzv4pmf76c97syu0rgn","liquidity_token":"neutron18tsv2jfx2l0t7ru45lyv57prefwqac8fu4xzsglv7k4l3kke2mxqfem7hm","pair_type":{"custom":"concentrated"}}
+
+SUCCESS query contract to neutron18tsv2jfx2l0t7ru45lyv57prefwqac8fu4xzsglv7k4l3kke2mxqfem7hm:
+	query: {"balance":{"address":"neutron1suhgf5svhu4usrurvxzlgn54ksxmn8gljarjtxqnapv8kjnp4nrstdxvff"}}
+	resp: {"balance":"0"}
+
+SUCCESS query contract to neutron1zw2fh3tl8th848d2dgecm6kd9rjaa6q6z7pxzp9xzv4pmf76c97syu0rgn:
+	query: {"share":{"amount":"0"}}
+	resp: [{"info":{"native_token":{"denom":"uibcatom"}},"amount":"0"},{"info":{"native_token":{"denom":"untrn"}},"amount":"0"}]
+
+SUCCESS query contract to neutron13k6g4ch5lj40ku9lvxceam9gakqwy7te49scvcyj4tvdmserp0vs5pqnkm:
+	query: {"pair":{}}
+	resp: {"asset_infos":[{"native_token":{"denom":"uibcusdc"}},{"native_token":{"denom":"untrn"}}],"contract_addr":"neutron13k6g4ch5lj40ku9lvxceam9gakqwy7te49scvcyj4tvdmserp0vs5pqnkm","liquidity_token":"neutron1rnraxu54huv7wkmpff3v8mzhqh49g0e60x4ehzws4ee6upcy78sqlqx4gn","pair_type":{"custom":"concentrated"}}
+
+SUCCESS query contract to neutron1rnraxu54huv7wkmpff3v8mzhqh49g0e60x4ehzws4ee6upcy78sqlqx4gn:
+	query: {"balance":{"address":"neutron1suhgf5svhu4usrurvxzlgn54ksxmn8gljarjtxqnapv8kjnp4nrstdxvff"}}
+	resp: {"balance":"0"}
+
+SUCCESS query contract to neutron13k6g4ch5lj40ku9lvxceam9gakqwy7te49scvcyj4tvdmserp0vs5pqnkm:
+	query: {"share":{"amount":"0"}}
+	resp: [{"info":{"native_token":{"denom":"uibcusdc"}},"amount":"0"},{"info":{"native_token":{"denom":"untrn"}},"amount":"0"}]
+
+SUCCESS exec contract to neutron1nxshmmwrvxa2cp80nwvf03t8u5kvl2ttr8m8f43vamudsqrdvs8qqvfwpj:
+	msg: {"migrate_from_xyk_to_cl":{"slippage_tolerance":"0.05"}}
+	tx hash: 05359C073967FCD933A36C2D16CD5F9C9A715AD64577F6B6196D706EE574717D
+
+SUCCESS query contract to neutron105ml67ymwlznz8twk2nyxu5xaqnsp2h24t50995ucp8ffu5wut7q2ewhj4:
+	query: {"pair":{}}
+	resp: {"asset_infos":[{"native_token":{"denom":"uibcatom"}},{"native_token":{"denom":"untrn"}}],"contract_addr":"neutron105ml67ymwlznz8twk2nyxu5xaqnsp2h24t50995ucp8ffu5wut7q2ewhj4","liquidity_token":"neutron1yt7fdzjpk3nmlmvl3epmsxayrt6vd39wxncg6pju2rcs7mz2np6seqzc6w","pair_type":{"xyk":{}}}
+
+SUCCESS query contract to neutron1yt7fdzjpk3nmlmvl3epmsxayrt6vd39wxncg6pju2rcs7mz2np6seqzc6w:
+	query: {"balance":{"address":"neutron1nxshmmwrvxa2cp80nwvf03t8u5kvl2ttr8m8f43vamudsqrdvs8qqvfwpj"}}
+	resp: {"balance":"0"}
+
+SUCCESS query contract to neutron105ml67ymwlznz8twk2nyxu5xaqnsp2h24t50995ucp8ffu5wut7q2ewhj4:
+	query: {"share":{"amount":"0"}}
+	resp: [{"info":{"native_token":{"denom":"uibcatom"}},"amount":"0"},{"info":{"native_token":{"denom":"untrn"}},"amount":"0"}]
+
+SUCCESS query contract to neutron12zrv9md6lwjd83fjhfy32n9yr0yjx52fan0t70sn3phh5xh6rztqwn49tw:
+	query: {"pair":{}}
+	resp: {"asset_infos":[{"native_token":{"denom":"uibcusdc"}},{"native_token":{"denom":"untrn"}}],"contract_addr":"neutron12zrv9md6lwjd83fjhfy32n9yr0yjx52fan0t70sn3phh5xh6rztqwn49tw","liquidity_token":"neutron1mzq6xzynh002x090rzt6us37scfexpu8ca4sllc3p3scn5mvsp0qw7qw56","pair_type":{"xyk":{}}}
+
+SUCCESS query contract to neutron1mzq6xzynh002x090rzt6us37scfexpu8ca4sllc3p3scn5mvsp0qw7qw56:
+	query: {"balance":{"address":"neutron1nxshmmwrvxa2cp80nwvf03t8u5kvl2ttr8m8f43vamudsqrdvs8qqvfwpj"}}
+	resp: {"balance":"0"}
+
+SUCCESS query contract to neutron12zrv9md6lwjd83fjhfy32n9yr0yjx52fan0t70sn3phh5xh6rztqwn49tw:
+	query: {"share":{"amount":"0"}}
+	resp: [{"info":{"native_token":{"denom":"uibcusdc"}},"amount":"0"},{"info":{"native_token":{"denom":"untrn"}},"amount":"0"}]
+
+SUCCESS query contract to neutron1zw2fh3tl8th848d2dgecm6kd9rjaa6q6z7pxzp9xzv4pmf76c97syu0rgn:
+	query: {"pair":{}}
+	resp: {"asset_infos":[{"native_token":{"denom":"uibcatom"}},{"native_token":{"denom":"untrn"}}],"contract_addr":"neutron1zw2fh3tl8th848d2dgecm6kd9rjaa6q6z7pxzp9xzv4pmf76c97syu0rgn","liquidity_token":"neutron18tsv2jfx2l0t7ru45lyv57prefwqac8fu4xzsglv7k4l3kke2mxqfem7hm","pair_type":{"custom":"concentrated"}}
+
+SUCCESS query contract to neutron18tsv2jfx2l0t7ru45lyv57prefwqac8fu4xzsglv7k4l3kke2mxqfem7hm:
+	query: {"balance":{"address":"neutron1suhgf5svhu4usrurvxzlgn54ksxmn8gljarjtxqnapv8kjnp4nrstdxvff"}}
+	resp: {"balance":"6976"}
+
+SUCCESS query contract to neutron1zw2fh3tl8th848d2dgecm6kd9rjaa6q6z7pxzp9xzv4pmf76c97syu0rgn:
+	query: {"share":{"amount":"6976"}}
+	resp: [{"info":{"native_token":{"denom":"uibcatom"}},"amount":"15860"},{"info":{"native_token":{"denom":"untrn"}},"amount":"3067"}]
+
+SUCCESS query contract to neutron13k6g4ch5lj40ku9lvxceam9gakqwy7te49scvcyj4tvdmserp0vs5pqnkm:
+	query: {"pair":{}}
+	resp: {"asset_infos":[{"native_token":{"denom":"uibcusdc"}},{"native_token":{"denom":"untrn"}}],"contract_addr":"neutron13k6g4ch5lj40ku9lvxceam9gakqwy7te49scvcyj4tvdmserp0vs5pqnkm","liquidity_token":"neutron1rnraxu54huv7wkmpff3v8mzhqh49g0e60x4ehzws4ee6upcy78sqlqx4gn","pair_type":{"custom":"concentrated"}}
+
+SUCCESS query contract to neutron1rnraxu54huv7wkmpff3v8mzhqh49g0e60x4ehzws4ee6upcy78sqlqx4gn:
+	query: {"balance":{"address":"neutron1suhgf5svhu4usrurvxzlgn54ksxmn8gljarjtxqnapv8kjnp4nrstdxvff"}}
+	resp: {"balance":"694952"}
+
+SUCCESS query contract to neutron13k6g4ch5lj40ku9lvxceam9gakqwy7te49scvcyj4tvdmserp0vs5pqnkm:
+	query: {"share":{"amount":"694952"}}
+	resp: [{"info":{"native_token":{"denom":"uibcusdc"}},"amount":"4997387"},{"info":{"native_token":{"denom":"untrn"}},"amount":"96641"}]
+
+SUCCESS query contract to neutron1qm62qvux86w8ex36tpl24lz5qcanaql8t0zhs974m08r8u8jzlxs8jlwyg:
+	query: {"vesting_account":{"address":"neutron1clttyxll0a9uhls7cjztc9j9jw859d3g7e6a50"}}
+	resp: {"address":"neutron1clttyxll0a9uhls7cjztc9j9jw859d3g7e6a50","info":{"schedules":[{"start_point":{"time":1711544931,"amount":"0"},"end_point":{"time":1711544951,"amount":"347407"}}],"released_amount":"0"}}
+
+SUCCESS query contract to neutron14hpg9wup26t2t2ppfjfaj6w3knxrwasw9sjwzhd7ru0gl83xkxxqv2phqg:
+	query: {"vesting_account":{"address":"neutron1clttyxll0a9uhls7cjztc9j9jw859d3g7e6a50"}}
+	resp: {"address":"neutron1clttyxll0a9uhls7cjztc9j9jw859d3g7e6a50","info":{"schedules":[{"start_point":{"time":1711544931,"amount":"0"},"end_point":{"time":1711544951,"amount":"410"}}],"released_amount":"0"}}
+
+SUCCESS exec contract to neutron14hpg9wup26t2t2ppfjfaj6w3knxrwasw9sjwzhd7ru0gl83xkxxqv2phqg:
+	msg: {"migrate_liquidity_to_pcl_pool":{"user":"neutron1clttyxll0a9uhls7cjztc9j9jw859d3g7e6a50"}}
+	tx hash: 89EC4141887764A985330112E8EC2333A1B2C76BE7123E3E89FFA680CCF178E1
+
+SUCCESS exec contract to neutron1qm62qvux86w8ex36tpl24lz5qcanaql8t0zhs974m08r8u8jzlxs8jlwyg:
+	msg: {"migrate_liquidity_to_pcl_pool":{"user":"neutron1clttyxll0a9uhls7cjztc9j9jw859d3g7e6a50"}}
+	tx hash: 5D7D3B10756958197B77A603DC837162E439A5BA9E0460947C2EC5135E3DF45D
+
+SUCCESS query contract to neutron1tde0x4ltkpx5c66eqw9gc0zqj2efvkkk2x7nm0rly796vhx5svgqppy0e4:
+	query: {"vesting_state":{}}
+	resp: {"total_granted":"347405","total_released":"0"}
+
+SUCCESS exec contract to neutron1hcy3umu40wqcgumg6y55x6svstah6ayepxfr28ff3l80vthat4dsjp2hm4:
+	msg: {"claim":{}}
+	tx hash: 8010DD87EA824BB7D16672D860FDF0B2D96F4C48059C30FC0EB0AD176C3EF3FA
+
+SUCCESS exec contract to neutron1tde0x4ltkpx5c66eqw9gc0zqj2efvkkk2x7nm0rly796vhx5svgqppy0e4:
+	msg: {"claim":{}}
+	tx hash: 99C69D6559EBEE9258160995A47A95C92F62985DC840A5386EE337CE6AE0C589
+
+SUCCESS query contract to neutron1rnraxu54huv7wkmpff3v8mzhqh49g0e60x4ehzws4ee6upcy78sqlqx4gn:
+	query: {"balance":{"address":"neutron1clttyxll0a9uhls7cjztc9j9jw859d3g7e6a50"}}
+	resp: {"balance":"347405"}
+
+SUCCESS query contract to neutron18tsv2jfx2l0t7ru45lyv57prefwqac8fu4xzsglv7k4l3kke2mxqfem7hm:
+	query: {"balance":{"address":"neutron1clttyxll0a9uhls7cjztc9j9jw859d3g7e6a50"}}
+	resp: {"balance":"409"}
+
+SUCCESS query contract to neutron14hpg9wup26t2t2ppfjfaj6w3knxrwasw9sjwzhd7ru0gl83xkxxqv2phqg:
+	query: {"vesting_account":{"address":"neutron1jffamdu7mmvhqr655q33dzrmulrsck0msvl5mc"}}
+	resp: {"address":"neutron1jffamdu7mmvhqr655q33dzrmulrsck0msvl5mc","info":{"schedules":[{"start_point":{"time":1711544931,"amount":"0"},"end_point":{"time":1711544951,"amount":"410"}}],"released_amount":"0"}}
+
+SUCCESS query contract to neutron1qm62qvux86w8ex36tpl24lz5qcanaql8t0zhs974m08r8u8jzlxs8jlwyg:
+	query: {"vesting_account":{"address":"neutron1jffamdu7mmvhqr655q33dzrmulrsck0msvl5mc"}}
+	resp: {"address":"neutron1jffamdu7mmvhqr655q33dzrmulrsck0msvl5mc","info":{"schedules":[{"start_point":{"time":1711544931,"amount":"0"},"end_point":{"time":1711544951,"amount":"138"}}],"released_amount":"0"}}
+
+SUCCESS exec contract to neutron14hpg9wup26t2t2ppfjfaj6w3knxrwasw9sjwzhd7ru0gl83xkxxqv2phqg:
+	msg: {"migrate_liquidity_to_pcl_pool":{"user":"neutron1jffamdu7mmvhqr655q33dzrmulrsck0msvl5mc"}}
+	tx hash: 8BB81015693B53DE18177C249E9F7CBFEFCE120A050CDDBD96DD29FE0922B85E
+
+SUCCESS exec contract to neutron1qm62qvux86w8ex36tpl24lz5qcanaql8t0zhs974m08r8u8jzlxs8jlwyg:
+	msg: {"migrate_liquidity_to_pcl_pool":{"user":"neutron1jffamdu7mmvhqr655q33dzrmulrsck0msvl5mc"}}
+	tx hash: 1A070C15B95C9D6A27A51017C5598F0EEF67947632434DA2480ABA5494625B13
+
+SUCCESS query contract to neutron1tde0x4ltkpx5c66eqw9gc0zqj2efvkkk2x7nm0rly796vhx5svgqppy0e4:
+	query: {"vesting_state":{}}
+	resp: {"total_granted":"347542","total_released":"347405"}
+
+SUCCESS exec contract to neutron1hcy3umu40wqcgumg6y55x6svstah6ayepxfr28ff3l80vthat4dsjp2hm4:
+	msg: {"claim":{}}
+	tx hash: 4AA2C83AEC86F74C321A46B936C6C2EAA53377E358A0BEF67542EE9F93F4BC97
+
+SUCCESS exec contract to neutron1tde0x4ltkpx5c66eqw9gc0zqj2efvkkk2x7nm0rly796vhx5svgqppy0e4:
+	msg: {"claim":{}}
+	tx hash: 8B5B57A6DE6C16C2C24D339F15969888F00559AF434782F9FCDCE2C4FCCFDDBE
+
+SUCCESS query contract to neutron18tsv2jfx2l0t7ru45lyv57prefwqac8fu4xzsglv7k4l3kke2mxqfem7hm:
+	query: {"balance":{"address":"neutron1jffamdu7mmvhqr655q33dzrmulrsck0msvl5mc"}}
+	resp: {"balance":"409"}
+
+SUCCESS query contract to neutron1rnraxu54huv7wkmpff3v8mzhqh49g0e60x4ehzws4ee6upcy78sqlqx4gn:
+	query: {"balance":{"address":"neutron1jffamdu7mmvhqr655q33dzrmulrsck0msvl5mc"}}
+	resp: {"balance":"137"}
+
+inside test for Bob
+SUCCESS query contract to neutron192x7hkwxhg4lw4p6jqsq0rkl8vvznz54p2xamz9qln4cj7zu5hws82luug:
+	query: {"user_info":{"address":"neutron123r7u7jhwwqxp8fr9yd4cx5g5wmy9zlwkvxkn9"}}
+	resp: {"total_ntrn_rewards":"9999","ntrn_transferred":false,"lockup_infos":[{"pool_type":"ATOM","lp_units_locked":"6155","withdrawal_flag":false,"ntrn_rewards":"328","duration":1,"generator_ntrn_debt":"0","claimable_generator_astro_debt":"3998","generator_proxy_debt":[],"claimable_generator_proxy_debt":[],"unlock_timestamp":1711544923,"astroport_lp_units":"6155","astroport_lp_token":"neutron1yt7fdzjpk3nmlmvl3epmsxayrt6vd39wxncg6pju2rcs7mz2np6seqzc6w","astroport_lp_transferred":null},{"pool_type":"USDC","lp_units_locked":"347407","withdrawal_flag":false,"ntrn_rewards":"9671","duration":1,"generator_ntrn_debt":"0","claimable_generator_astro_debt":"4498","generator_proxy_debt":[],"claimable_generator_proxy_debt":[],"unlock_timestamp":1711544923,"astroport_lp_units":"347407","astroport_lp_token":"neutron1mzq6xzynh002x090rzt6us37scfexpu8ca4sllc3p3scn5mvsp0qw7qw56","astroport_lp_transferred":null}],"claimable_generator_ntrn_debt":"8496","lockup_positions_index":2}
+
+SUCCESS query contract to neutron1yt7fdzjpk3nmlmvl3epmsxayrt6vd39wxncg6pju2rcs7mz2np6seqzc6w:
+	query: {"balance":{"address":"neutron123r7u7jhwwqxp8fr9yd4cx5g5wmy9zlwkvxkn9"}}
+	resp: {"balance":"0"}
+
+SUCCESS query contract to neutron1mzq6xzynh002x090rzt6us37scfexpu8ca4sllc3p3scn5mvsp0qw7qw56:
+	query: {"balance":{"address":"neutron123r7u7jhwwqxp8fr9yd4cx5g5wmy9zlwkvxkn9"}}
+	resp: {"balance":"0"}
+
+Bob claiming USDC
+SUCCESS exec contract to neutron192x7hkwxhg4lw4p6jqsq0rkl8vvznz54p2xamz9qln4cj7zu5hws82luug:
+	msg: {"claim_rewards_and_optionally_unlock":{"pool_type":"USDC","duration":1,"withdraw_lp_stake":true}}
+	tx hash: C904309566106279DA34F55E7B1B20406B55F3AC3C0670510C5C99A1B8725450
+
+USER Bob EXECUTING USDC CLAIM WITH WITHDRAW OUTCOME: [object Object]
+Bob claiming ATOM
+SUCCESS exec contract to neutron192x7hkwxhg4lw4p6jqsq0rkl8vvznz54p2xamz9qln4cj7zu5hws82luug:
+	msg: {"claim_rewards_and_optionally_unlock":{"pool_type":"ATOM","duration":1,"withdraw_lp_stake":true}}
+	tx hash: 25E23158383ED83340BC4E6809406BC13362C49466CD1235C7FB998B19584999
+
+USER Bob EXECUTING ATOM CLAIM WITH WITHDRAW OUTCOME: [object Object]
+SUCCESS query contract to neutron192x7hkwxhg4lw4p6jqsq0rkl8vvznz54p2xamz9qln4cj7zu5hws82luug:
+	query: {"user_info":{"address":"neutron123r7u7jhwwqxp8fr9yd4cx5g5wmy9zlwkvxkn9"}}
+	resp: {"total_ntrn_rewards":"9999","ntrn_transferred":true,"lockup_infos":[{"pool_type":"ATOM","lp_units_locked":"6155","withdrawal_flag":false,"ntrn_rewards":"328","duration":1,"generator_ntrn_debt":"3998","claimable_generator_astro_debt":"0","generator_proxy_debt":[],"claimable_generator_proxy_debt":[],"unlock_timestamp":1711544923,"astroport_lp_units":"6155","astroport_lp_token":"neutron1yt7fdzjpk3nmlmvl3epmsxayrt6vd39wxncg6pju2rcs7mz2np6seqzc6w","astroport_lp_transferred":"6155"},{"pool_type":"USDC","lp_units_locked":"347407","withdrawal_flag":false,"ntrn_rewards":"9671","duration":1,"generator_ntrn_debt":"4498","claimable_generator_astro_debt":"0","generator_proxy_debt":[],"claimable_generator_proxy_debt":[],"unlock_timestamp":1711544923,"astroport_lp_units":"347407","astroport_lp_token":"neutron1mzq6xzynh002x090rzt6us37scfexpu8ca4sllc3p3scn5mvsp0qw7qw56","astroport_lp_transferred":"347407"}],"claimable_generator_ntrn_debt":"0","lockup_positions_index":2}
+
+SUCCESS query contract to neutron1yt7fdzjpk3nmlmvl3epmsxayrt6vd39wxncg6pju2rcs7mz2np6seqzc6w:
+	query: {"balance":{"address":"neutron123r7u7jhwwqxp8fr9yd4cx5g5wmy9zlwkvxkn9"}}
+	resp: {"balance":"6155"}
+
+SUCCESS query contract to neutron1mzq6xzynh002x090rzt6us37scfexpu8ca4sllc3p3scn5mvsp0qw7qw56:
+	query: {"balance":{"address":"neutron123r7u7jhwwqxp8fr9yd4cx5g5wmy9zlwkvxkn9"}}
+	resp: {"balance":"347407"}
+
+{
+  balanceNtrn: 49941999,
+  balanceAstro: 8496,
+  userInfo: {
+    total_ntrn_rewards: '9999',
+    ntrn_transferred: true,
+    lockup_infos: [ [Object], [Object] ],
+    claimable_generator_ntrn_debt: '0',
+    lockup_positions_index: 2
+  },
+  atomNtrnLpTokenBalance: 6155,
+  usdcNtrnLpTokenBalance: 347407
+}
+inside test for Bob
+SUCCESS query contract to neutron192x7hkwxhg4lw4p6jqsq0rkl8vvznz54p2xamz9qln4cj7zu5hws82luug:
+	query: {"user_info":{"address":"neutron123r7u7jhwwqxp8fr9yd4cx5g5wmy9zlwkvxkn9"}}
+	resp: {"total_ntrn_rewards":"9999","ntrn_transferred":true,"lockup_infos":[{"pool_type":"ATOM","lp_units_locked":"6155","withdrawal_flag":false,"ntrn_rewards":"328","duration":1,"generator_ntrn_debt":"3998","claimable_generator_astro_debt":"0","generator_proxy_debt":[],"claimable_generator_proxy_debt":[],"unlock_timestamp":1711544923,"astroport_lp_units":"6155","astroport_lp_token":"neutron1yt7fdzjpk3nmlmvl3epmsxayrt6vd39wxncg6pju2rcs7mz2np6seqzc6w","astroport_lp_transferred":"6155"},{"pool_type":"USDC","lp_units_locked":"347407","withdrawal_flag":false,"ntrn_rewards":"9671","duration":1,"generator_ntrn_debt":"4498","claimable_generator_astro_debt":"0","generator_proxy_debt":[],"claimable_generator_proxy_debt":[],"unlock_timestamp":1711544923,"astroport_lp_units":"347407","astroport_lp_token":"neutron1mzq6xzynh002x090rzt6us37scfexpu8ca4sllc3p3scn5mvsp0qw7qw56","astroport_lp_transferred":"347407"}],"claimable_generator_ntrn_debt":"0","lockup_positions_index":2}
+
+SUCCESS query contract to neutron1yt7fdzjpk3nmlmvl3epmsxayrt6vd39wxncg6pju2rcs7mz2np6seqzc6w:
+	query: {"balance":{"address":"neutron123r7u7jhwwqxp8fr9yd4cx5g5wmy9zlwkvxkn9"}}
+	resp: {"balance":"6155"}
+
+SUCCESS query contract to neutron1mzq6xzynh002x090rzt6us37scfexpu8ca4sllc3p3scn5mvsp0qw7qw56:
+	query: {"balance":{"address":"neutron123r7u7jhwwqxp8fr9yd4cx5g5wmy9zlwkvxkn9"}}
+	resp: {"balance":"347407"}
+
+FAILED exec contract to neutron192x7hkwxhg4lw4p6jqsq0rkl8vvznz54p2xamz9qln4cj7zu5hws82luug:
+	msg: {"claim_rewards_and_optionally_unlock":{"pool_type":"ATOM","duration":1,"withdraw_lp_stake":true}}
+	tx hash: AA3ED13D6C1146D4E87D3600016AD98EB8CE387B2DA90A96843DE4D3D505665E
+
+FAILED exec contract to neutron192x7hkwxhg4lw4p6jqsq0rkl8vvznz54p2xamz9qln4cj7zu5hws82luug:
+	msg: {"claim_rewards_and_optionally_unlock":{"pool_type":"USDC","duration":1,"withdraw_lp_stake":true}}
+	tx hash: 13BCFD7EC735B8CB87731E5E44C40CBB348501444D03EF18B9490D5567CA522A
+
+inside test for Bob
+SUCCESS query contract to neutron192x7hkwxhg4lw4p6jqsq0rkl8vvznz54p2xamz9qln4cj7zu5hws82luug:
+	query: {"user_info":{"address":"neutron123r7u7jhwwqxp8fr9yd4cx5g5wmy9zlwkvxkn9"}}
+	resp: {"total_ntrn_rewards":"9999","ntrn_transferred":true,"lockup_infos":[{"pool_type":"ATOM","lp_units_locked":"6155","withdrawal_flag":false,"ntrn_rewards":"328","duration":1,"generator_ntrn_debt":"3998","claimable_generator_astro_debt":"0","generator_proxy_debt":[],"claimable_generator_proxy_debt":[],"unlock_timestamp":1711544923,"astroport_lp_units":"6155","astroport_lp_token":"neutron1yt7fdzjpk3nmlmvl3epmsxayrt6vd39wxncg6pju2rcs7mz2np6seqzc6w","astroport_lp_transferred":"6155"},{"pool_type":"USDC","lp_units_locked":"347407","withdrawal_flag":false,"ntrn_rewards":"9671","duration":1,"generator_ntrn_debt":"4498","claimable_generator_astro_debt":"0","generator_proxy_debt":[],"claimable_generator_proxy_debt":[],"unlock_timestamp":1711544923,"astroport_lp_units":"347407","astroport_lp_token":"neutron1mzq6xzynh002x090rzt6us37scfexpu8ca4sllc3p3scn5mvsp0qw7qw56","astroport_lp_transferred":"347407"}],"claimable_generator_ntrn_debt":"0","lockup_positions_index":2}
+
+SUCCESS query contract to neutron1yt7fdzjpk3nmlmvl3epmsxayrt6vd39wxncg6pju2rcs7mz2np6seqzc6w:
+	query: {"balance":{"address":"neutron123r7u7jhwwqxp8fr9yd4cx5g5wmy9zlwkvxkn9"}}
+	resp: {"balance":"6155"}
+
+SUCCESS query contract to neutron1mzq6xzynh002x090rzt6us37scfexpu8ca4sllc3p3scn5mvsp0qw7qw56:
+	query: {"balance":{"address":"neutron123r7u7jhwwqxp8fr9yd4cx5g5wmy9zlwkvxkn9"}}
+	resp: {"balance":"347407"}
+
+FAILED exec contract to neutron192x7hkwxhg4lw4p6jqsq0rkl8vvznz54p2xamz9qln4cj7zu5hws82luug:
+	msg: {"claim_rewards_and_optionally_unlock":{"pool_type":"ATOM","duration":1,"withdraw_lp_stake":true}}
+	tx hash: 317CC7D2FD51A4AE4281B9A0BE1A7F3D1E21F82FC1406FD4FEEE4A3E8FA347B9
+
+FAILED exec contract to neutron192x7hkwxhg4lw4p6jqsq0rkl8vvznz54p2xamz9qln4cj7zu5hws82luug:
+	msg: {"claim_rewards_and_optionally_unlock":{"pool_type":"USDC","duration":1,"withdraw_lp_stake":true}}
+	tx hash: C1AE71F4BC22C3B9D3C8D88479ABBB04ADB69B7C0DDB6A70D18E8086E42C066D
+
+SUCCESS query contract to neutron192x7hkwxhg4lw4p6jqsq0rkl8vvznz54p2xamz9qln4cj7zu5hws82luug:
+	query: {"user_info":{"address":"neutron123r7u7jhwwqxp8fr9yd4cx5g5wmy9zlwkvxkn9"}}
+	resp: {"total_ntrn_rewards":"9999","ntrn_transferred":true,"lockup_infos":[{"pool_type":"ATOM","lp_units_locked":"6155","withdrawal_flag":false,"ntrn_rewards":"328","duration":1,"generator_ntrn_debt":"3998","claimable_generator_astro_debt":"0","generator_proxy_debt":[],"claimable_generator_proxy_debt":[],"unlock_timestamp":1711544923,"astroport_lp_units":"6155","astroport_lp_token":"neutron1yt7fdzjpk3nmlmvl3epmsxayrt6vd39wxncg6pju2rcs7mz2np6seqzc6w","astroport_lp_transferred":"6155"},{"pool_type":"USDC","lp_units_locked":"347407","withdrawal_flag":false,"ntrn_rewards":"9671","duration":1,"generator_ntrn_debt":"4498","claimable_generator_astro_debt":"0","generator_proxy_debt":[],"claimable_generator_proxy_debt":[],"unlock_timestamp":1711544923,"astroport_lp_units":"347407","astroport_lp_token":"neutron1mzq6xzynh002x090rzt6us37scfexpu8ca4sllc3p3scn5mvsp0qw7qw56","astroport_lp_transferred":"347407"}],"claimable_generator_ntrn_debt":"0","lockup_positions_index":2}
+
+SUCCESS query contract to neutron1m5ftsp8ywahn39raagtdwglk4fz5skxwgv9szu8an3kusu3az37sx9cexg:
+	query: {"user_info":{"address":"neutron123r7u7jhwwqxp8fr9yd4cx5g5wmy9zlwkvxkn9"}}
+	resp: {"total_ntrn_rewards":"0","ntrn_transferred":false,"lockup_infos":[],"claimable_incentives_debt":[],"lockup_positions_index":0}
+
+SUCCESS query contract to neutron1yt7fdzjpk3nmlmvl3epmsxayrt6vd39wxncg6pju2rcs7mz2np6seqzc6w:
+	query: {"minter":{}}
+	resp: {"minter":"neutron105ml67ymwlznz8twk2nyxu5xaqnsp2h24t50995ucp8ffu5wut7q2ewhj4","cap":null}
+
+SUCCESS query contract to neutron1mzq6xzynh002x090rzt6us37scfexpu8ca4sllc3p3scn5mvsp0qw7qw56:
+	query: {"minter":{}}
+	resp: {"minter":"neutron12zrv9md6lwjd83fjhfy32n9yr0yjx52fan0t70sn3phh5xh6rztqwn49tw","cap":null}
+
+SUCCESS query contract to neutron12zrv9md6lwjd83fjhfy32n9yr0yjx52fan0t70sn3phh5xh6rztqwn49tw:
+	query: {"share":{"amount":"347407"}}
+	resp: [{"info":{"native_token":{"denom":"uibcusdc"}},"amount":"2498199"},{"info":{"native_token":{"denom":"untrn"}},"amount":"48312"}]
+
+SUCCESS query contract to neutron105ml67ymwlznz8twk2nyxu5xaqnsp2h24t50995ucp8ffu5wut7q2ewhj4:
+	query: {"share":{"amount":"6155"}}
+	resp: [{"info":{"native_token":{"denom":"uibcatom"}},"amount":"13996"},{"info":{"native_token":{"denom":"untrn"}},"amount":"2707"}]
+
+SUCCESS query contract to neutron1mzq6xzynh002x090rzt6us37scfexpu8ca4sllc3p3scn5mvsp0qw7qw56:
+	query: {"balance":{"address":"neutron192x7hkwxhg4lw4p6jqsq0rkl8vvznz54p2xamz9qln4cj7zu5hws82luug"}}
+	resp: {"balance":"0"}
+
+SUCCESS query contract to neutron1yt7fdzjpk3nmlmvl3epmsxayrt6vd39wxncg6pju2rcs7mz2np6seqzc6w:
+	query: {"balance":{"address":"neutron192x7hkwxhg4lw4p6jqsq0rkl8vvznz54p2xamz9qln4cj7zu5hws82luug"}}
+	resp: {"balance":"0"}
+
+SUCCESS query contract to neutron1rnraxu54huv7wkmpff3v8mzhqh49g0e60x4ehzws4ee6upcy78sqlqx4gn:
+	query: {"balance":{"address":"neutron192x7hkwxhg4lw4p6jqsq0rkl8vvznz54p2xamz9qln4cj7zu5hws82luug"}}
+	resp: {"balance":"0"}
+
+SUCCESS query contract to neutron18tsv2jfx2l0t7ru45lyv57prefwqac8fu4xzsglv7k4l3kke2mxqfem7hm:
+	query: {"balance":{"address":"neutron192x7hkwxhg4lw4p6jqsq0rkl8vvznz54p2xamz9qln4cj7zu5hws82luug"}}
+	resp: {"balance":"0"}
+
+SUCCESS query contract to neutron1zxy7570wm8r6y9f90u5uhnvda6lncdfkv3qlqvdl6ewd8lhu5enqyt05c5:
+	query: {"config":{}}
+	resp: {"owner":"neutron1hm34gdfygjnlh5ku6sfqcd4fnkyzrjamcy783k","factory":"neutron1z6nfr3l2yvcrvyftksjxpkc6466xtexsdkz4yw6ywpxyyh5jvtnqakth68","generator_controller":null,"voting_escrow":null,"voting_escrow_delegation":null,"astro_token":{"native_token":{"denom":"factory/neutron1hm34gdfygjnlh5ku6sfqcd4fnkyzrjamcy783k/uastro"}},"tokens_per_block":"0","total_alloc_point":"0","start_block":"1","vesting_contract":"neutron1kxy5k02ceuugj782mgq4daufa27u8y5l23cr2fjqlw84j4sgt7us2rn0xm","active_pools":[["neutron18tsv2jfx2l0t7ru45lyv57prefwqac8fu4xzsglv7k4l3kke2mxqfem7hm","0"],["neutron1rnraxu54huv7wkmpff3v8mzhqh49g0e60x4ehzws4ee6upcy78sqlqx4gn","0"]],"blocked_tokens_list":[],"guardian":null,"checkpoint_generator_limit":null}
+
+SUCCESS query contract to neutron1mzq6xzynh002x090rzt6us37scfexpu8ca4sllc3p3scn5mvsp0qw7qw56:
+	query: {"balance":{"address":"neutron1m5ftsp8ywahn39raagtdwglk4fz5skxwgv9szu8an3kusu3az37sx9cexg"}}
+	resp: {"balance":"0"}
+
+SUCCESS query contract to neutron1yt7fdzjpk3nmlmvl3epmsxayrt6vd39wxncg6pju2rcs7mz2np6seqzc6w:
+	query: {"balance":{"address":"neutron1m5ftsp8ywahn39raagtdwglk4fz5skxwgv9szu8an3kusu3az37sx9cexg"}}
+	resp: {"balance":"0"}
+
+SUCCESS query contract to neutron1rnraxu54huv7wkmpff3v8mzhqh49g0e60x4ehzws4ee6upcy78sqlqx4gn:
+	query: {"balance":{"address":"neutron1m5ftsp8ywahn39raagtdwglk4fz5skxwgv9szu8an3kusu3az37sx9cexg"}}
+	resp: {"balance":"0"}
+
+SUCCESS query contract to neutron18tsv2jfx2l0t7ru45lyv57prefwqac8fu4xzsglv7k4l3kke2mxqfem7hm:
+	query: {"balance":{"address":"neutron1m5ftsp8ywahn39raagtdwglk4fz5skxwgv9szu8an3kusu3az37sx9cexg"}}
+	resp: {"balance":"0"}
+
+SUCCESS query contract to neutron1zxy7570wm8r6y9f90u5uhnvda6lncdfkv3qlqvdl6ewd8lhu5enqyt05c5:
+	query: {"config":{}}
+	resp: {"owner":"neutron1hm34gdfygjnlh5ku6sfqcd4fnkyzrjamcy783k","factory":"neutron1z6nfr3l2yvcrvyftksjxpkc6466xtexsdkz4yw6ywpxyyh5jvtnqakth68","generator_controller":null,"voting_escrow":null,"voting_escrow_delegation":null,"astro_token":{"native_token":{"denom":"factory/neutron1hm34gdfygjnlh5ku6sfqcd4fnkyzrjamcy783k/uastro"}},"tokens_per_block":"0","total_alloc_point":"0","start_block":"1","vesting_contract":"neutron1kxy5k02ceuugj782mgq4daufa27u8y5l23cr2fjqlw84j4sgt7us2rn0xm","active_pools":[["neutron18tsv2jfx2l0t7ru45lyv57prefwqac8fu4xzsglv7k4l3kke2mxqfem7hm","0"],["neutron1rnraxu54huv7wkmpff3v8mzhqh49g0e60x4ehzws4ee6upcy78sqlqx4gn","0"]],"blocked_tokens_list":[],"guardian":null,"checkpoint_generator_limit":null}
+
+SUCCESS query contract to neutron1mzq6xzynh002x090rzt6us37scfexpu8ca4sllc3p3scn5mvsp0qw7qw56:
+	query: {"balance":{"address":"neutron123r7u7jhwwqxp8fr9yd4cx5g5wmy9zlwkvxkn9"}}
+	resp: {"balance":"347407"}
+
+SUCCESS query contract to neutron1yt7fdzjpk3nmlmvl3epmsxayrt6vd39wxncg6pju2rcs7mz2np6seqzc6w:
+	query: {"balance":{"address":"neutron123r7u7jhwwqxp8fr9yd4cx5g5wmy9zlwkvxkn9"}}
+	resp: {"balance":"6155"}
+
+SUCCESS query contract to neutron1rnraxu54huv7wkmpff3v8mzhqh49g0e60x4ehzws4ee6upcy78sqlqx4gn:
+	query: {"balance":{"address":"neutron123r7u7jhwwqxp8fr9yd4cx5g5wmy9zlwkvxkn9"}}
+	resp: {"balance":"0"}
+
+SUCCESS query contract to neutron18tsv2jfx2l0t7ru45lyv57prefwqac8fu4xzsglv7k4l3kke2mxqfem7hm:
+	query: {"balance":{"address":"neutron123r7u7jhwwqxp8fr9yd4cx5g5wmy9zlwkvxkn9"}}
+	resp: {"balance":"0"}
+
+SUCCESS query contract to neutron1zxy7570wm8r6y9f90u5uhnvda6lncdfkv3qlqvdl6ewd8lhu5enqyt05c5:
+	query: {"config":{}}
+	resp: {"owner":"neutron1hm34gdfygjnlh5ku6sfqcd4fnkyzrjamcy783k","factory":"neutron1z6nfr3l2yvcrvyftksjxpkc6466xtexsdkz4yw6ywpxyyh5jvtnqakth68","generator_controller":null,"voting_escrow":null,"voting_escrow_delegation":null,"astro_token":{"native_token":{"denom":"factory/neutron1hm34gdfygjnlh5ku6sfqcd4fnkyzrjamcy783k/uastro"}},"tokens_per_block":"0","total_alloc_point":"0","start_block":"1","vesting_contract":"neutron1kxy5k02ceuugj782mgq4daufa27u8y5l23cr2fjqlw84j4sgt7us2rn0xm","active_pools":[["neutron18tsv2jfx2l0t7ru45lyv57prefwqac8fu4xzsglv7k4l3kke2mxqfem7hm","0"],["neutron1rnraxu54huv7wkmpff3v8mzhqh49g0e60x4ehzws4ee6upcy78sqlqx4gn","0"]],"blocked_tokens_list":[],"guardian":null,"checkpoint_generator_limit":null}
+
+SUCCESS query contract to neutron1zxy7570wm8r6y9f90u5uhnvda6lncdfkv3qlqvdl6ewd8lhu5enqyt05c5:
+	query: {"deposit":{"lp_token":"neutron1mzq6xzynh002x090rzt6us37scfexpu8ca4sllc3p3scn5mvsp0qw7qw56","user":"neutron192x7hkwxhg4lw4p6jqsq0rkl8vvznz54p2xamz9qln4cj7zu5hws82luug"}}
+	resp: "0"
+
+SUCCESS query contract to neutron1zxy7570wm8r6y9f90u5uhnvda6lncdfkv3qlqvdl6ewd8lhu5enqyt05c5:
+	query: {"deposit":{"lp_token":"neutron1yt7fdzjpk3nmlmvl3epmsxayrt6vd39wxncg6pju2rcs7mz2np6seqzc6w","user":"neutron192x7hkwxhg4lw4p6jqsq0rkl8vvznz54p2xamz9qln4cj7zu5hws82luug"}}
+	resp: "0"
+
+SUCCESS query contract to neutron1lffp94kk9h8hhk3q4xv9pwdqtlervfh8h8rmq7yrnxpacl7k4dequnjzmz:
+	query: {"deposit":{"lp_token":"neutron1rnraxu54huv7wkmpff3v8mzhqh49g0e60x4ehzws4ee6upcy78sqlqx4gn","user":"neutron1m5ftsp8ywahn39raagtdwglk4fz5skxwgv9szu8an3kusu3az37sx9cexg"}}
+	resp: "0"
+
+SUCCESS query contract to neutron1lffp94kk9h8hhk3q4xv9pwdqtlervfh8h8rmq7yrnxpacl7k4dequnjzmz:
+	query: {"deposit":{"lp_token":"neutron18tsv2jfx2l0t7ru45lyv57prefwqac8fu4xzsglv7k4l3kke2mxqfem7hm","user":"neutron1m5ftsp8ywahn39raagtdwglk4fz5skxwgv9szu8an3kusu3az37sx9cexg"}}
+	resp: "0"
+
+Bob migration state before:
+{"xykUserLockups":{"claimable_generator_ntrn_debt":"0","mapped_lockup_infos":{"USDC1":{"astroport_lp_token":"neutron1mzq6xzynh002x090rzt6us37scfexpu8ca4sllc3p3scn5mvsp0qw7qw56","astroport_lp_transferred":"347407","astroport_lp_units":"347407","claimable_generator_astro_debt":"0","claimable_generator_proxy_debt":[],"duration":1,"generator_ntrn_debt":"4498","generator_proxy_debt":[],"lp_units_locked":"347407","ntrn_rewards":"9671","pool_type":"USDC","unlock_timestamp":1711544923,"withdrawal_flag":false,"expected_ntrn_share":48312,"expected_paired_asset_share":2498199},"ATOM1":{"astroport_lp_token":"neutron1yt7fdzjpk3nmlmvl3epmsxayrt6vd39wxncg6pju2rcs7mz2np6seqzc6w","astroport_lp_transferred":"6155","astroport_lp_units":"6155","claimable_generator_astro_debt":"0","claimable_generator_proxy_debt":[],"duration":1,"generator_ntrn_debt":"3998","generator_proxy_debt":[],"lp_units_locked":"6155","ntrn_rewards":"328","pool_type":"ATOM","unlock_timestamp":1711544923,"withdrawal_flag":false,"expected_ntrn_share":2707,"expected_paired_asset_share":13996}},"lockup_positions_index":2,"ntrn_transferred":true,"total_ntrn_rewards":"9999"},"pclUserLockups":{"claimable_incentives_debt":"0","claimable_incentives_external_debt":"0","mapped_lockup_infos":{},"lockup_positions_index":0,"ntrn_transferred":false,"total_ntrn_rewards":"0"},"balances":{"xykLockdrop":{"ntrn":1,"usdc":0,"atom":0,"usdcXykPairLp":0,"atomXykPairLp":0,"usdcPclPairLp":0,"atomPclPairLp":0,"astro":2,"external_rewards":0},"pclLockdrop":{"ntrn":0,"usdc":0,"atom":0,"usdcXykPairLp":0,"atomXykPairLp":0,"usdcPclPairLp":0,"atomPclPairLp":0,"astro":0,"external_rewards":0},"user":{"ntrn":49901999,"usdc":5000000,"atom":9970000,"usdcXykPairLp":347407,"atomXykPairLp":6155,"usdcPclPairLp":0,"atomPclPairLp":0,"astro":8496,"external_rewards":0}},"xykUsdcStakedInGen":0,"xykAtomStakedInGen":0,"pclUsdcStakedInGen":0,"pclAtomStakedInGen":0}
+SUCCESS exec contract to neutron192x7hkwxhg4lw4p6jqsq0rkl8vvznz54p2xamz9qln4cj7zu5hws82luug:
+	msg: {"migrate_liquidity_to_pcl_pools":{"user_address_raw":"neutron123r7u7jhwwqxp8fr9yd4cx5g5wmy9zlwkvxkn9"}}
+	tx hash: 3BAC8EFA9249F97548CE80E10CEA841456925FDD493D126282AF405A821D9DC7
+
+SUCCESS query contract to neutron192x7hkwxhg4lw4p6jqsq0rkl8vvznz54p2xamz9qln4cj7zu5hws82luug:
+	query: {"user_info":{"address":"neutron123r7u7jhwwqxp8fr9yd4cx5g5wmy9zlwkvxkn9"}}
+	resp: {"total_ntrn_rewards":"9999","ntrn_transferred":true,"lockup_infos":[{"pool_type":"ATOM","lp_units_locked":"6155","withdrawal_flag":false,"ntrn_rewards":"328","duration":1,"generator_ntrn_debt":"3998","claimable_generator_astro_debt":"0","generator_proxy_debt":[],"claimable_generator_proxy_debt":[],"unlock_timestamp":1711544923,"astroport_lp_units":"6155","astroport_lp_token":"neutron1yt7fdzjpk3nmlmvl3epmsxayrt6vd39wxncg6pju2rcs7mz2np6seqzc6w","astroport_lp_transferred":"6155"},{"pool_type":"USDC","lp_units_locked":"347407","withdrawal_flag":false,"ntrn_rewards":"9671","duration":1,"generator_ntrn_debt":"4498","claimable_generator_astro_debt":"0","generator_proxy_debt":[],"claimable_generator_proxy_debt":[],"unlock_timestamp":1711544923,"astroport_lp_units":"347407","astroport_lp_token":"neutron1mzq6xzynh002x090rzt6us37scfexpu8ca4sllc3p3scn5mvsp0qw7qw56","astroport_lp_transferred":"347407"}],"claimable_generator_ntrn_debt":"0","lockup_positions_index":2}
+
+SUCCESS query contract to neutron1m5ftsp8ywahn39raagtdwglk4fz5skxwgv9szu8an3kusu3az37sx9cexg:
+	query: {"user_info":{"address":"neutron123r7u7jhwwqxp8fr9yd4cx5g5wmy9zlwkvxkn9"}}
+	resp: {"total_ntrn_rewards":"0","ntrn_transferred":false,"lockup_infos":[],"claimable_incentives_debt":[],"lockup_positions_index":0}
+
+SUCCESS query contract to neutron1mzq6xzynh002x090rzt6us37scfexpu8ca4sllc3p3scn5mvsp0qw7qw56:
+	query: {"minter":{}}
+	resp: {"minter":"neutron12zrv9md6lwjd83fjhfy32n9yr0yjx52fan0t70sn3phh5xh6rztqwn49tw","cap":null}
+
+SUCCESS query contract to neutron1yt7fdzjpk3nmlmvl3epmsxayrt6vd39wxncg6pju2rcs7mz2np6seqzc6w:
+	query: {"minter":{}}
+	resp: {"minter":"neutron105ml67ymwlznz8twk2nyxu5xaqnsp2h24t50995ucp8ffu5wut7q2ewhj4","cap":null}
+
+SUCCESS query contract to neutron105ml67ymwlznz8twk2nyxu5xaqnsp2h24t50995ucp8ffu5wut7q2ewhj4:
+	query: {"share":{"amount":"6155"}}
+	resp: [{"info":{"native_token":{"denom":"uibcatom"}},"amount":"13996"},{"info":{"native_token":{"denom":"untrn"}},"amount":"2707"}]
+
+SUCCESS query contract to neutron12zrv9md6lwjd83fjhfy32n9yr0yjx52fan0t70sn3phh5xh6rztqwn49tw:
+	query: {"share":{"amount":"347407"}}
+	resp: [{"info":{"native_token":{"denom":"uibcusdc"}},"amount":"2498199"},{"info":{"native_token":{"denom":"untrn"}},"amount":"48312"}]
+
+SUCCESS query contract to neutron1mzq6xzynh002x090rzt6us37scfexpu8ca4sllc3p3scn5mvsp0qw7qw56:
+	query: {"balance":{"address":"neutron192x7hkwxhg4lw4p6jqsq0rkl8vvznz54p2xamz9qln4cj7zu5hws82luug"}}
+	resp: {"balance":"0"}
+
+SUCCESS query contract to neutron1yt7fdzjpk3nmlmvl3epmsxayrt6vd39wxncg6pju2rcs7mz2np6seqzc6w:
+	query: {"balance":{"address":"neutron192x7hkwxhg4lw4p6jqsq0rkl8vvznz54p2xamz9qln4cj7zu5hws82luug"}}
+	resp: {"balance":"0"}
+
+SUCCESS query contract to neutron1rnraxu54huv7wkmpff3v8mzhqh49g0e60x4ehzws4ee6upcy78sqlqx4gn:
+	query: {"balance":{"address":"neutron192x7hkwxhg4lw4p6jqsq0rkl8vvznz54p2xamz9qln4cj7zu5hws82luug"}}
+	resp: {"balance":"0"}
+
+SUCCESS query contract to neutron18tsv2jfx2l0t7ru45lyv57prefwqac8fu4xzsglv7k4l3kke2mxqfem7hm:
+	query: {"balance":{"address":"neutron192x7hkwxhg4lw4p6jqsq0rkl8vvznz54p2xamz9qln4cj7zu5hws82luug"}}
+	resp: {"balance":"0"}
+
+SUCCESS query contract to neutron1zxy7570wm8r6y9f90u5uhnvda6lncdfkv3qlqvdl6ewd8lhu5enqyt05c5:
+	query: {"config":{}}
+	resp: {"owner":"neutron1hm34gdfygjnlh5ku6sfqcd4fnkyzrjamcy783k","factory":"neutron1z6nfr3l2yvcrvyftksjxpkc6466xtexsdkz4yw6ywpxyyh5jvtnqakth68","generator_controller":null,"voting_escrow":null,"voting_escrow_delegation":null,"astro_token":{"native_token":{"denom":"factory/neutron1hm34gdfygjnlh5ku6sfqcd4fnkyzrjamcy783k/uastro"}},"tokens_per_block":"0","total_alloc_point":"0","start_block":"1","vesting_contract":"neutron1kxy5k02ceuugj782mgq4daufa27u8y5l23cr2fjqlw84j4sgt7us2rn0xm","active_pools":[["neutron18tsv2jfx2l0t7ru45lyv57prefwqac8fu4xzsglv7k4l3kke2mxqfem7hm","0"],["neutron1rnraxu54huv7wkmpff3v8mzhqh49g0e60x4ehzws4ee6upcy78sqlqx4gn","0"]],"blocked_tokens_list":[],"guardian":null,"checkpoint_generator_limit":null}
+
+SUCCESS query contract to neutron1mzq6xzynh002x090rzt6us37scfexpu8ca4sllc3p3scn5mvsp0qw7qw56:
+	query: {"balance":{"address":"neutron1m5ftsp8ywahn39raagtdwglk4fz5skxwgv9szu8an3kusu3az37sx9cexg"}}
+	resp: {"balance":"0"}
+
+SUCCESS query contract to neutron1yt7fdzjpk3nmlmvl3epmsxayrt6vd39wxncg6pju2rcs7mz2np6seqzc6w:
+	query: {"balance":{"address":"neutron1m5ftsp8ywahn39raagtdwglk4fz5skxwgv9szu8an3kusu3az37sx9cexg"}}
+	resp: {"balance":"0"}
+
+SUCCESS query contract to neutron1rnraxu54huv7wkmpff3v8mzhqh49g0e60x4ehzws4ee6upcy78sqlqx4gn:
+	query: {"balance":{"address":"neutron1m5ftsp8ywahn39raagtdwglk4fz5skxwgv9szu8an3kusu3az37sx9cexg"}}
+	resp: {"balance":"0"}
+
+SUCCESS query contract to neutron18tsv2jfx2l0t7ru45lyv57prefwqac8fu4xzsglv7k4l3kke2mxqfem7hm:
+	query: {"balance":{"address":"neutron1m5ftsp8ywahn39raagtdwglk4fz5skxwgv9szu8an3kusu3az37sx9cexg"}}
+	resp: {"balance":"0"}
+
+SUCCESS query contract to neutron1zxy7570wm8r6y9f90u5uhnvda6lncdfkv3qlqvdl6ewd8lhu5enqyt05c5:
+	query: {"config":{}}
+	resp: {"owner":"neutron1hm34gdfygjnlh5ku6sfqcd4fnkyzrjamcy783k","factory":"neutron1z6nfr3l2yvcrvyftksjxpkc6466xtexsdkz4yw6ywpxyyh5jvtnqakth68","generator_controller":null,"voting_escrow":null,"voting_escrow_delegation":null,"astro_token":{"native_token":{"denom":"factory/neutron1hm34gdfygjnlh5ku6sfqcd4fnkyzrjamcy783k/uastro"}},"tokens_per_block":"0","total_alloc_point":"0","start_block":"1","vesting_contract":"neutron1kxy5k02ceuugj782mgq4daufa27u8y5l23cr2fjqlw84j4sgt7us2rn0xm","active_pools":[["neutron18tsv2jfx2l0t7ru45lyv57prefwqac8fu4xzsglv7k4l3kke2mxqfem7hm","0"],["neutron1rnraxu54huv7wkmpff3v8mzhqh49g0e60x4ehzws4ee6upcy78sqlqx4gn","0"]],"blocked_tokens_list":[],"guardian":null,"checkpoint_generator_limit":null}
+
+SUCCESS query contract to neutron1mzq6xzynh002x090rzt6us37scfexpu8ca4sllc3p3scn5mvsp0qw7qw56:
+	query: {"balance":{"address":"neutron123r7u7jhwwqxp8fr9yd4cx5g5wmy9zlwkvxkn9"}}
+	resp: {"balance":"347407"}
+
+SUCCESS query contract to neutron1yt7fdzjpk3nmlmvl3epmsxayrt6vd39wxncg6pju2rcs7mz2np6seqzc6w:
+	query: {"balance":{"address":"neutron123r7u7jhwwqxp8fr9yd4cx5g5wmy9zlwkvxkn9"}}
+	resp: {"balance":"6155"}
+
+SUCCESS query contract to neutron1rnraxu54huv7wkmpff3v8mzhqh49g0e60x4ehzws4ee6upcy78sqlqx4gn:
+	query: {"balance":{"address":"neutron123r7u7jhwwqxp8fr9yd4cx5g5wmy9zlwkvxkn9"}}
+	resp: {"balance":"0"}
+
+SUCCESS query contract to neutron18tsv2jfx2l0t7ru45lyv57prefwqac8fu4xzsglv7k4l3kke2mxqfem7hm:
+	query: {"balance":{"address":"neutron123r7u7jhwwqxp8fr9yd4cx5g5wmy9zlwkvxkn9"}}
+	resp: {"balance":"0"}
+
+SUCCESS query contract to neutron1zxy7570wm8r6y9f90u5uhnvda6lncdfkv3qlqvdl6ewd8lhu5enqyt05c5:
+	query: {"config":{}}
+	resp: {"owner":"neutron1hm34gdfygjnlh5ku6sfqcd4fnkyzrjamcy783k","factory":"neutron1z6nfr3l2yvcrvyftksjxpkc6466xtexsdkz4yw6ywpxyyh5jvtnqakth68","generator_controller":null,"voting_escrow":null,"voting_escrow_delegation":null,"astro_token":{"native_token":{"denom":"factory/neutron1hm34gdfygjnlh5ku6sfqcd4fnkyzrjamcy783k/uastro"}},"tokens_per_block":"0","total_alloc_point":"0","start_block":"1","vesting_contract":"neutron1kxy5k02ceuugj782mgq4daufa27u8y5l23cr2fjqlw84j4sgt7us2rn0xm","active_pools":[["neutron18tsv2jfx2l0t7ru45lyv57prefwqac8fu4xzsglv7k4l3kke2mxqfem7hm","0"],["neutron1rnraxu54huv7wkmpff3v8mzhqh49g0e60x4ehzws4ee6upcy78sqlqx4gn","0"]],"blocked_tokens_list":[],"guardian":null,"checkpoint_generator_limit":null}
+
+SUCCESS query contract to neutron1zxy7570wm8r6y9f90u5uhnvda6lncdfkv3qlqvdl6ewd8lhu5enqyt05c5:
+	query: {"deposit":{"lp_token":"neutron1mzq6xzynh002x090rzt6us37scfexpu8ca4sllc3p3scn5mvsp0qw7qw56","user":"neutron192x7hkwxhg4lw4p6jqsq0rkl8vvznz54p2xamz9qln4cj7zu5hws82luug"}}
+	resp: "0"
+
+SUCCESS query contract to neutron1zxy7570wm8r6y9f90u5uhnvda6lncdfkv3qlqvdl6ewd8lhu5enqyt05c5:
+	query: {"deposit":{"lp_token":"neutron1yt7fdzjpk3nmlmvl3epmsxayrt6vd39wxncg6pju2rcs7mz2np6seqzc6w","user":"neutron192x7hkwxhg4lw4p6jqsq0rkl8vvznz54p2xamz9qln4cj7zu5hws82luug"}}
+	resp: "0"
+
+SUCCESS query contract to neutron1lffp94kk9h8hhk3q4xv9pwdqtlervfh8h8rmq7yrnxpacl7k4dequnjzmz:
+	query: {"deposit":{"lp_token":"neutron1rnraxu54huv7wkmpff3v8mzhqh49g0e60x4ehzws4ee6upcy78sqlqx4gn","user":"neutron1m5ftsp8ywahn39raagtdwglk4fz5skxwgv9szu8an3kusu3az37sx9cexg"}}
+	resp: "0"
+
+SUCCESS query contract to neutron1lffp94kk9h8hhk3q4xv9pwdqtlervfh8h8rmq7yrnxpacl7k4dequnjzmz:
+	query: {"deposit":{"lp_token":"neutron18tsv2jfx2l0t7ru45lyv57prefwqac8fu4xzsglv7k4l3kke2mxqfem7hm","user":"neutron1m5ftsp8ywahn39raagtdwglk4fz5skxwgv9szu8an3kusu3az37sx9cexg"}}
+	resp: "0"
+
+Bob migration state after:
+{"xykUserLockups":{"claimable_generator_ntrn_debt":"0","mapped_lockup_infos":{"ATOM1":{"astroport_lp_token":"neutron1yt7fdzjpk3nmlmvl3epmsxayrt6vd39wxncg6pju2rcs7mz2np6seqzc6w","astroport_lp_transferred":"6155","astroport_lp_units":"6155","claimable_generator_astro_debt":"0","claimable_generator_proxy_debt":[],"duration":1,"generator_ntrn_debt":"3998","generator_proxy_debt":[],"lp_units_locked":"6155","ntrn_rewards":"328","pool_type":"ATOM","unlock_timestamp":1711544923,"withdrawal_flag":false,"expected_ntrn_share":2707,"expected_paired_asset_share":13996},"USDC1":{"astroport_lp_token":"neutron1mzq6xzynh002x090rzt6us37scfexpu8ca4sllc3p3scn5mvsp0qw7qw56","astroport_lp_transferred":"347407","astroport_lp_units":"347407","claimable_generator_astro_debt":"0","claimable_generator_proxy_debt":[],"duration":1,"generator_ntrn_debt":"4498","generator_proxy_debt":[],"lp_units_locked":"347407","ntrn_rewards":"9671","pool_type":"USDC","unlock_timestamp":1711544923,"withdrawal_flag":false,"expected_ntrn_share":48312,"expected_paired_asset_share":2498199}},"lockup_positions_index":2,"ntrn_transferred":true,"total_ntrn_rewards":"9999"},"pclUserLockups":{"claimable_incentives_debt":"0","claimable_incentives_external_debt":"0","mapped_lockup_infos":{},"lockup_positions_index":0,"ntrn_transferred":false,"total_ntrn_rewards":"0"},"balances":{"xykLockdrop":{"ntrn":1,"usdc":0,"atom":0,"usdcXykPairLp":0,"atomXykPairLp":0,"usdcPclPairLp":0,"atomPclPairLp":0,"astro":2,"external_rewards":0},"pclLockdrop":{"ntrn":0,"usdc":0,"atom":0,"usdcXykPairLp":0,"atomXykPairLp":0,"usdcPclPairLp":0,"atomPclPairLp":0,"astro":0,"external_rewards":0},"user":{"ntrn":49901999,"usdc":5000000,"atom":9970000,"usdcXykPairLp":347407,"atomXykPairLp":6155,"usdcPclPairLp":0,"atomPclPairLp":0,"astro":8496,"external_rewards":0}},"xykUsdcStakedInGen":0,"xykAtomStakedInGen":0,"pclUsdcStakedInGen":0,"pclAtomStakedInGen":0}
+Bob balances before:  {"xykLockdrop":{"ntrn":1,"usdc":0,"atom":0,"usdcXykPairLp":0,"atomXykPairLp":0,"usdcPclPairLp":0,"atomPclPairLp":0,"astro":2,"external_rewards":0},"pclLockdrop":{"ntrn":0,"usdc":0,"atom":0,"usdcXykPairLp":0,"atomXykPairLp":0,"usdcPclPairLp":0,"atomPclPairLp":0,"astro":0,"external_rewards":0},"user":{"ntrn":49901999,"usdc":5000000,"atom":9970000,"usdcXykPairLp":347407,"atomXykPairLp":6155,"usdcPclPairLp":0,"atomPclPairLp":0,"astro":8496,"external_rewards":0}}
+Bob balances after:  {"xykLockdrop":{"ntrn":1,"usdc":0,"atom":0,"usdcXykPairLp":0,"atomXykPairLp":0,"usdcPclPairLp":0,"atomPclPairLp":0,"astro":2,"external_rewards":0},"pclLockdrop":{"ntrn":0,"usdc":0,"atom":0,"usdcXykPairLp":0,"atomXykPairLp":0,"usdcPclPairLp":0,"atomPclPairLp":0,"astro":0,"external_rewards":0},"user":{"ntrn":49901999,"usdc":5000000,"atom":9970000,"usdcXykPairLp":347407,"atomXykPairLp":6155,"usdcPclPairLp":0,"atomPclPairLp":0,"astro":8496,"external_rewards":0}}
+SUCCESS query contract to neutron1lffp94kk9h8hhk3q4xv9pwdqtlervfh8h8rmq7yrnxpacl7k4dequnjzmz:
+	query: {"deposit":{"lp_token":"neutron18tsv2jfx2l0t7ru45lyv57prefwqac8fu4xzsglv7k4l3kke2mxqfem7hm","user":"neutron1m5ftsp8ywahn39raagtdwglk4fz5skxwgv9szu8an3kusu3az37sx9cexg"}}
+	resp: "0"
+
+FAILED exec contract to neutron192x7hkwxhg4lw4p6jqsq0rkl8vvznz54p2xamz9qln4cj7zu5hws82luug:
+	msg: {"claim_rewards_and_optionally_unlock":{"pool_type":"USDC","duration":1,"withdraw_lp_stake":true}}
+	tx hash: 80F26C3C932BD6CF244783967E1231A14FE160AF0EAC489F07A7B7BA501A1C62
+
+FAILED exec contract to neutron192x7hkwxhg4lw4p6jqsq0rkl8vvznz54p2xamz9qln4cj7zu5hws82luug:
+	msg: {"claim_rewards_and_optionally_unlock":{"pool_type":"ATOM","duration":1,"withdraw_lp_stake":false}}
+	tx hash: 35FA9263D3657D7470AECDCBFE5053A1A058852AFF1A5509E28BA8D42FD294A7
+
+SUCCESS query contract to neutron192x7hkwxhg4lw4p6jqsq0rkl8vvznz54p2xamz9qln4cj7zu5hws82luug:
+	query: {"user_info":{"address":"neutron123r7u7jhwwqxp8fr9yd4cx5g5wmy9zlwkvxkn9"}}
+	resp: {"total_ntrn_rewards":"9999","ntrn_transferred":true,"lockup_infos":[{"pool_type":"ATOM","lp_units_locked":"6155","withdrawal_flag":false,"ntrn_rewards":"328","duration":1,"generator_ntrn_debt":"3998","claimable_generator_astro_debt":"0","generator_proxy_debt":[],"claimable_generator_proxy_debt":[],"unlock_timestamp":1711544923,"astroport_lp_units":"6155","astroport_lp_token":"neutron1yt7fdzjpk3nmlmvl3epmsxayrt6vd39wxncg6pju2rcs7mz2np6seqzc6w","astroport_lp_transferred":"6155"},{"pool_type":"USDC","lp_units_locked":"347407","withdrawal_flag":false,"ntrn_rewards":"9671","duration":1,"generator_ntrn_debt":"4498","claimable_generator_astro_debt":"0","generator_proxy_debt":[],"claimable_generator_proxy_debt":[],"unlock_timestamp":1711544923,"astroport_lp_units":"347407","astroport_lp_token":"neutron1mzq6xzynh002x090rzt6us37scfexpu8ca4sllc3p3scn5mvsp0qw7qw56","astroport_lp_transferred":"347407"}],"claimable_generator_ntrn_debt":"0","lockup_positions_index":2}
+
+SUCCESS query contract to neutron1m5ftsp8ywahn39raagtdwglk4fz5skxwgv9szu8an3kusu3az37sx9cexg:
+	query: {"user_info":{"address":"neutron123r7u7jhwwqxp8fr9yd4cx5g5wmy9zlwkvxkn9"}}
+	resp: {"total_ntrn_rewards":"0","ntrn_transferred":false,"lockup_infos":[],"claimable_incentives_debt":[],"lockup_positions_index":0}
+
+SUCCESS query contract to neutron1yt7fdzjpk3nmlmvl3epmsxayrt6vd39wxncg6pju2rcs7mz2np6seqzc6w:
+	query: {"minter":{}}
+	resp: {"minter":"neutron105ml67ymwlznz8twk2nyxu5xaqnsp2h24t50995ucp8ffu5wut7q2ewhj4","cap":null}
+
+SUCCESS query contract to neutron1mzq6xzynh002x090rzt6us37scfexpu8ca4sllc3p3scn5mvsp0qw7qw56:
+	query: {"minter":{}}
+	resp: {"minter":"neutron12zrv9md6lwjd83fjhfy32n9yr0yjx52fan0t70sn3phh5xh6rztqwn49tw","cap":null}
+
+SUCCESS query contract to neutron12zrv9md6lwjd83fjhfy32n9yr0yjx52fan0t70sn3phh5xh6rztqwn49tw:
+	query: {"share":{"amount":"347407"}}
+	resp: [{"info":{"native_token":{"denom":"uibcusdc"}},"amount":"2498199"},{"info":{"native_token":{"denom":"untrn"}},"amount":"48312"}]
+
+SUCCESS query contract to neutron105ml67ymwlznz8twk2nyxu5xaqnsp2h24t50995ucp8ffu5wut7q2ewhj4:
+	query: {"share":{"amount":"6155"}}
+	resp: [{"info":{"native_token":{"denom":"uibcatom"}},"amount":"13996"},{"info":{"native_token":{"denom":"untrn"}},"amount":"2707"}]
+
+SUCCESS query contract to neutron1mzq6xzynh002x090rzt6us37scfexpu8ca4sllc3p3scn5mvsp0qw7qw56:
+	query: {"balance":{"address":"neutron192x7hkwxhg4lw4p6jqsq0rkl8vvznz54p2xamz9qln4cj7zu5hws82luug"}}
+	resp: {"balance":"0"}
+
+SUCCESS query contract to neutron1yt7fdzjpk3nmlmvl3epmsxayrt6vd39wxncg6pju2rcs7mz2np6seqzc6w:
+	query: {"balance":{"address":"neutron192x7hkwxhg4lw4p6jqsq0rkl8vvznz54p2xamz9qln4cj7zu5hws82luug"}}
+	resp: {"balance":"0"}
+
+SUCCESS query contract to neutron1rnraxu54huv7wkmpff3v8mzhqh49g0e60x4ehzws4ee6upcy78sqlqx4gn:
+	query: {"balance":{"address":"neutron192x7hkwxhg4lw4p6jqsq0rkl8vvznz54p2xamz9qln4cj7zu5hws82luug"}}
+	resp: {"balance":"0"}
+
+SUCCESS query contract to neutron18tsv2jfx2l0t7ru45lyv57prefwqac8fu4xzsglv7k4l3kke2mxqfem7hm:
+	query: {"balance":{"address":"neutron192x7hkwxhg4lw4p6jqsq0rkl8vvznz54p2xamz9qln4cj7zu5hws82luug"}}
+	resp: {"balance":"0"}
+
+SUCCESS query contract to neutron1zxy7570wm8r6y9f90u5uhnvda6lncdfkv3qlqvdl6ewd8lhu5enqyt05c5:
+	query: {"config":{}}
+	resp: {"owner":"neutron1hm34gdfygjnlh5ku6sfqcd4fnkyzrjamcy783k","factory":"neutron1z6nfr3l2yvcrvyftksjxpkc6466xtexsdkz4yw6ywpxyyh5jvtnqakth68","generator_controller":null,"voting_escrow":null,"voting_escrow_delegation":null,"astro_token":{"native_token":{"denom":"factory/neutron1hm34gdfygjnlh5ku6sfqcd4fnkyzrjamcy783k/uastro"}},"tokens_per_block":"0","total_alloc_point":"0","start_block":"1","vesting_contract":"neutron1kxy5k02ceuugj782mgq4daufa27u8y5l23cr2fjqlw84j4sgt7us2rn0xm","active_pools":[["neutron18tsv2jfx2l0t7ru45lyv57prefwqac8fu4xzsglv7k4l3kke2mxqfem7hm","0"],["neutron1rnraxu54huv7wkmpff3v8mzhqh49g0e60x4ehzws4ee6upcy78sqlqx4gn","0"]],"blocked_tokens_list":[],"guardian":null,"checkpoint_generator_limit":null}
+
+SUCCESS query contract to neutron1mzq6xzynh002x090rzt6us37scfexpu8ca4sllc3p3scn5mvsp0qw7qw56:
+	query: {"balance":{"address":"neutron1m5ftsp8ywahn39raagtdwglk4fz5skxwgv9szu8an3kusu3az37sx9cexg"}}
+	resp: {"balance":"0"}
+
+SUCCESS query contract to neutron1yt7fdzjpk3nmlmvl3epmsxayrt6vd39wxncg6pju2rcs7mz2np6seqzc6w:
+	query: {"balance":{"address":"neutron1m5ftsp8ywahn39raagtdwglk4fz5skxwgv9szu8an3kusu3az37sx9cexg"}}
+	resp: {"balance":"0"}
+
+SUCCESS query contract to neutron1rnraxu54huv7wkmpff3v8mzhqh49g0e60x4ehzws4ee6upcy78sqlqx4gn:
+	query: {"balance":{"address":"neutron1m5ftsp8ywahn39raagtdwglk4fz5skxwgv9szu8an3kusu3az37sx9cexg"}}
+	resp: {"balance":"0"}
+
+SUCCESS query contract to neutron18tsv2jfx2l0t7ru45lyv57prefwqac8fu4xzsglv7k4l3kke2mxqfem7hm:
+	query: {"balance":{"address":"neutron1m5ftsp8ywahn39raagtdwglk4fz5skxwgv9szu8an3kusu3az37sx9cexg"}}
+	resp: {"balance":"0"}
+
+SUCCESS query contract to neutron1zxy7570wm8r6y9f90u5uhnvda6lncdfkv3qlqvdl6ewd8lhu5enqyt05c5:
+	query: {"config":{}}
+	resp: {"owner":"neutron1hm34gdfygjnlh5ku6sfqcd4fnkyzrjamcy783k","factory":"neutron1z6nfr3l2yvcrvyftksjxpkc6466xtexsdkz4yw6ywpxyyh5jvtnqakth68","generator_controller":null,"voting_escrow":null,"voting_escrow_delegation":null,"astro_token":{"native_token":{"denom":"factory/neutron1hm34gdfygjnlh5ku6sfqcd4fnkyzrjamcy783k/uastro"}},"tokens_per_block":"0","total_alloc_point":"0","start_block":"1","vesting_contract":"neutron1kxy5k02ceuugj782mgq4daufa27u8y5l23cr2fjqlw84j4sgt7us2rn0xm","active_pools":[["neutron18tsv2jfx2l0t7ru45lyv57prefwqac8fu4xzsglv7k4l3kke2mxqfem7hm","0"],["neutron1rnraxu54huv7wkmpff3v8mzhqh49g0e60x4ehzws4ee6upcy78sqlqx4gn","0"]],"blocked_tokens_list":[],"guardian":null,"checkpoint_generator_limit":null}
+
+SUCCESS query contract to neutron1mzq6xzynh002x090rzt6us37scfexpu8ca4sllc3p3scn5mvsp0qw7qw56:
+	query: {"balance":{"address":"neutron123r7u7jhwwqxp8fr9yd4cx5g5wmy9zlwkvxkn9"}}
+	resp: {"balance":"347407"}
+
+SUCCESS query contract to neutron1yt7fdzjpk3nmlmvl3epmsxayrt6vd39wxncg6pju2rcs7mz2np6seqzc6w:
+	query: {"balance":{"address":"neutron123r7u7jhwwqxp8fr9yd4cx5g5wmy9zlwkvxkn9"}}
+	resp: {"balance":"6155"}
+
+SUCCESS query contract to neutron1rnraxu54huv7wkmpff3v8mzhqh49g0e60x4ehzws4ee6upcy78sqlqx4gn:
+	query: {"balance":{"address":"neutron123r7u7jhwwqxp8fr9yd4cx5g5wmy9zlwkvxkn9"}}
+	resp: {"balance":"0"}
+
+SUCCESS query contract to neutron18tsv2jfx2l0t7ru45lyv57prefwqac8fu4xzsglv7k4l3kke2mxqfem7hm:
+	query: {"balance":{"address":"neutron123r7u7jhwwqxp8fr9yd4cx5g5wmy9zlwkvxkn9"}}
+	resp: {"balance":"0"}
+
+SUCCESS query contract to neutron1zxy7570wm8r6y9f90u5uhnvda6lncdfkv3qlqvdl6ewd8lhu5enqyt05c5:
+	query: {"config":{}}
+	resp: {"owner":"neutron1hm34gdfygjnlh5ku6sfqcd4fnkyzrjamcy783k","factory":"neutron1z6nfr3l2yvcrvyftksjxpkc6466xtexsdkz4yw6ywpxyyh5jvtnqakth68","generator_controller":null,"voting_escrow":null,"voting_escrow_delegation":null,"astro_token":{"native_token":{"denom":"factory/neutron1hm34gdfygjnlh5ku6sfqcd4fnkyzrjamcy783k/uastro"}},"tokens_per_block":"0","total_alloc_point":"0","start_block":"1","vesting_contract":"neutron1kxy5k02ceuugj782mgq4daufa27u8y5l23cr2fjqlw84j4sgt7us2rn0xm","active_pools":[["neutron18tsv2jfx2l0t7ru45lyv57prefwqac8fu4xzsglv7k4l3kke2mxqfem7hm","0"],["neutron1rnraxu54huv7wkmpff3v8mzhqh49g0e60x4ehzws4ee6upcy78sqlqx4gn","0"]],"blocked_tokens_list":[],"guardian":null,"checkpoint_generator_limit":null}
+
+SUCCESS query contract to neutron1zxy7570wm8r6y9f90u5uhnvda6lncdfkv3qlqvdl6ewd8lhu5enqyt05c5:
+	query: {"deposit":{"lp_token":"neutron1mzq6xzynh002x090rzt6us37scfexpu8ca4sllc3p3scn5mvsp0qw7qw56","user":"neutron192x7hkwxhg4lw4p6jqsq0rkl8vvznz54p2xamz9qln4cj7zu5hws82luug"}}
+	resp: "0"
+
+SUCCESS query contract to neutron1zxy7570wm8r6y9f90u5uhnvda6lncdfkv3qlqvdl6ewd8lhu5enqyt05c5:
+	query: {"deposit":{"lp_token":"neutron1yt7fdzjpk3nmlmvl3epmsxayrt6vd39wxncg6pju2rcs7mz2np6seqzc6w","user":"neutron192x7hkwxhg4lw4p6jqsq0rkl8vvznz54p2xamz9qln4cj7zu5hws82luug"}}
+	resp: "0"
+
+SUCCESS query contract to neutron1lffp94kk9h8hhk3q4xv9pwdqtlervfh8h8rmq7yrnxpacl7k4dequnjzmz:
+	query: {"deposit":{"lp_token":"neutron1rnraxu54huv7wkmpff3v8mzhqh49g0e60x4ehzws4ee6upcy78sqlqx4gn","user":"neutron1m5ftsp8ywahn39raagtdwglk4fz5skxwgv9szu8an3kusu3az37sx9cexg"}}
+	resp: "0"
+
+SUCCESS query contract to neutron1lffp94kk9h8hhk3q4xv9pwdqtlervfh8h8rmq7yrnxpacl7k4dequnjzmz:
+	query: {"deposit":{"lp_token":"neutron18tsv2jfx2l0t7ru45lyv57prefwqac8fu4xzsglv7k4l3kke2mxqfem7hm","user":"neutron1m5ftsp8ywahn39raagtdwglk4fz5skxwgv9szu8an3kusu3az37sx9cexg"}}
+	resp: "0"
+
+Bob state before claim/withdrawal on PCL:
+{"xykUserLockups":{"claimable_generator_ntrn_debt":"0","mapped_lockup_infos":{"USDC1":{"astroport_lp_token":"neutron1mzq6xzynh002x090rzt6us37scfexpu8ca4sllc3p3scn5mvsp0qw7qw56","astroport_lp_transferred":"347407","astroport_lp_units":"347407","claimable_generator_astro_debt":"0","claimable_generator_proxy_debt":[],"duration":1,"generator_ntrn_debt":"4498","generator_proxy_debt":[],"lp_units_locked":"347407","ntrn_rewards":"9671","pool_type":"USDC","unlock_timestamp":1711544923,"withdrawal_flag":false,"expected_ntrn_share":48312,"expected_paired_asset_share":2498199},"ATOM1":{"astroport_lp_token":"neutron1yt7fdzjpk3nmlmvl3epmsxayrt6vd39wxncg6pju2rcs7mz2np6seqzc6w","astroport_lp_transferred":"6155","astroport_lp_units":"6155","claimable_generator_astro_debt":"0","claimable_generator_proxy_debt":[],"duration":1,"generator_ntrn_debt":"3998","generator_proxy_debt":[],"lp_units_locked":"6155","ntrn_rewards":"328","pool_type":"ATOM","unlock_timestamp":1711544923,"withdrawal_flag":false,"expected_ntrn_share":2707,"expected_paired_asset_share":13996}},"lockup_positions_index":2,"ntrn_transferred":true,"total_ntrn_rewards":"9999"},"pclUserLockups":{"claimable_incentives_debt":"0","claimable_incentives_external_debt":"0","mapped_lockup_infos":{},"lockup_positions_index":0,"ntrn_transferred":false,"total_ntrn_rewards":"0"},"balances":{"xykLockdrop":{"ntrn":1,"usdc":0,"atom":0,"usdcXykPairLp":0,"atomXykPairLp":0,"usdcPclPairLp":0,"atomPclPairLp":0,"astro":2,"external_rewards":0},"pclLockdrop":{"ntrn":0,"usdc":0,"atom":0,"usdcXykPairLp":0,"atomXykPairLp":0,"usdcPclPairLp":0,"atomPclPairLp":0,"astro":0,"external_rewards":0},"user":{"ntrn":49881999,"usdc":5000000,"atom":9970000,"usdcXykPairLp":347407,"atomXykPairLp":6155,"usdcPclPairLp":0,"atomPclPairLp":0,"astro":8496,"external_rewards":0}},"xykUsdcStakedInGen":0,"xykAtomStakedInGen":0,"pclUsdcStakedInGen":0,"pclAtomStakedInGen":0}
+FAILED exec contract to neutron1m5ftsp8ywahn39raagtdwglk4fz5skxwgv9szu8an3kusu3az37sx9cexg:
+	msg: {"claim_rewards_and_optionally_unlock":{"pool_type":"USDC","duration":1,"withdraw_lp_stake":false}}
+	tx hash: DDCCE9DABC9731D6ED994E249D6FC3B5AB6FA8C8B2A2A4C61AEA8025125DBA28
+
+FAILED exec contract to neutron1m5ftsp8ywahn39raagtdwglk4fz5skxwgv9szu8an3kusu3az37sx9cexg:
+	msg: {"claim_rewards_and_optionally_unlock":{"pool_type":"ATOM","duration":1,"withdraw_lp_stake":false}}
+	tx hash: 7FDC007316F1AE969C1832C7CC4DF80C59EB62441424F0EBA63D620361B9EBDD
+
+SUCCESS query contract to neutron192x7hkwxhg4lw4p6jqsq0rkl8vvznz54p2xamz9qln4cj7zu5hws82luug:
+	query: {"user_info":{"address":"neutron123r7u7jhwwqxp8fr9yd4cx5g5wmy9zlwkvxkn9"}}
+	resp: {"total_ntrn_rewards":"9999","ntrn_transferred":true,"lockup_infos":[{"pool_type":"ATOM","lp_units_locked":"6155","withdrawal_flag":false,"ntrn_rewards":"328","duration":1,"generator_ntrn_debt":"3998","claimable_generator_astro_debt":"0","generator_proxy_debt":[],"claimable_generator_proxy_debt":[],"unlock_timestamp":1711544923,"astroport_lp_units":"6155","astroport_lp_token":"neutron1yt7fdzjpk3nmlmvl3epmsxayrt6vd39wxncg6pju2rcs7mz2np6seqzc6w","astroport_lp_transferred":"6155"},{"pool_type":"USDC","lp_units_locked":"347407","withdrawal_flag":false,"ntrn_rewards":"9671","duration":1,"generator_ntrn_debt":"4498","claimable_generator_astro_debt":"0","generator_proxy_debt":[],"claimable_generator_proxy_debt":[],"unlock_timestamp":1711544923,"astroport_lp_units":"347407","astroport_lp_token":"neutron1mzq6xzynh002x090rzt6us37scfexpu8ca4sllc3p3scn5mvsp0qw7qw56","astroport_lp_transferred":"347407"}],"claimable_generator_ntrn_debt":"0","lockup_positions_index":2}
+
+SUCCESS query contract to neutron1m5ftsp8ywahn39raagtdwglk4fz5skxwgv9szu8an3kusu3az37sx9cexg:
+	query: {"user_info":{"address":"neutron123r7u7jhwwqxp8fr9yd4cx5g5wmy9zlwkvxkn9"}}
+	resp: {"total_ntrn_rewards":"0","ntrn_transferred":false,"lockup_infos":[],"claimable_incentives_debt":[],"lockup_positions_index":0}
+
+SUCCESS query contract to neutron1yt7fdzjpk3nmlmvl3epmsxayrt6vd39wxncg6pju2rcs7mz2np6seqzc6w:
+	query: {"minter":{}}
+	resp: {"minter":"neutron105ml67ymwlznz8twk2nyxu5xaqnsp2h24t50995ucp8ffu5wut7q2ewhj4","cap":null}
+
+SUCCESS query contract to neutron1mzq6xzynh002x090rzt6us37scfexpu8ca4sllc3p3scn5mvsp0qw7qw56:
+	query: {"minter":{}}
+	resp: {"minter":"neutron12zrv9md6lwjd83fjhfy32n9yr0yjx52fan0t70sn3phh5xh6rztqwn49tw","cap":null}
+
+SUCCESS query contract to neutron12zrv9md6lwjd83fjhfy32n9yr0yjx52fan0t70sn3phh5xh6rztqwn49tw:
+	query: {"share":{"amount":"347407"}}
+	resp: [{"info":{"native_token":{"denom":"uibcusdc"}},"amount":"2498199"},{"info":{"native_token":{"denom":"untrn"}},"amount":"48312"}]
+
+SUCCESS query contract to neutron105ml67ymwlznz8twk2nyxu5xaqnsp2h24t50995ucp8ffu5wut7q2ewhj4:
+	query: {"share":{"amount":"6155"}}
+	resp: [{"info":{"native_token":{"denom":"uibcatom"}},"amount":"13996"},{"info":{"native_token":{"denom":"untrn"}},"amount":"2707"}]
+
+SUCCESS query contract to neutron1mzq6xzynh002x090rzt6us37scfexpu8ca4sllc3p3scn5mvsp0qw7qw56:
+	query: {"balance":{"address":"neutron192x7hkwxhg4lw4p6jqsq0rkl8vvznz54p2xamz9qln4cj7zu5hws82luug"}}
+	resp: {"balance":"0"}
+
+SUCCESS query contract to neutron1yt7fdzjpk3nmlmvl3epmsxayrt6vd39wxncg6pju2rcs7mz2np6seqzc6w:
+	query: {"balance":{"address":"neutron192x7hkwxhg4lw4p6jqsq0rkl8vvznz54p2xamz9qln4cj7zu5hws82luug"}}
+	resp: {"balance":"0"}
+
+SUCCESS query contract to neutron1rnraxu54huv7wkmpff3v8mzhqh49g0e60x4ehzws4ee6upcy78sqlqx4gn:
+	query: {"balance":{"address":"neutron192x7hkwxhg4lw4p6jqsq0rkl8vvznz54p2xamz9qln4cj7zu5hws82luug"}}
+	resp: {"balance":"0"}
+
+SUCCESS query contract to neutron18tsv2jfx2l0t7ru45lyv57prefwqac8fu4xzsglv7k4l3kke2mxqfem7hm:
+	query: {"balance":{"address":"neutron192x7hkwxhg4lw4p6jqsq0rkl8vvznz54p2xamz9qln4cj7zu5hws82luug"}}
+	resp: {"balance":"0"}
+
+SUCCESS query contract to neutron1zxy7570wm8r6y9f90u5uhnvda6lncdfkv3qlqvdl6ewd8lhu5enqyt05c5:
+	query: {"config":{}}
+	resp: {"owner":"neutron1hm34gdfygjnlh5ku6sfqcd4fnkyzrjamcy783k","factory":"neutron1z6nfr3l2yvcrvyftksjxpkc6466xtexsdkz4yw6ywpxyyh5jvtnqakth68","generator_controller":null,"voting_escrow":null,"voting_escrow_delegation":null,"astro_token":{"native_token":{"denom":"factory/neutron1hm34gdfygjnlh5ku6sfqcd4fnkyzrjamcy783k/uastro"}},"tokens_per_block":"0","total_alloc_point":"0","start_block":"1","vesting_contract":"neutron1kxy5k02ceuugj782mgq4daufa27u8y5l23cr2fjqlw84j4sgt7us2rn0xm","active_pools":[["neutron18tsv2jfx2l0t7ru45lyv57prefwqac8fu4xzsglv7k4l3kke2mxqfem7hm","0"],["neutron1rnraxu54huv7wkmpff3v8mzhqh49g0e60x4ehzws4ee6upcy78sqlqx4gn","0"]],"blocked_tokens_list":[],"guardian":null,"checkpoint_generator_limit":null}
+
+SUCCESS query contract to neutron1mzq6xzynh002x090rzt6us37scfexpu8ca4sllc3p3scn5mvsp0qw7qw56:
+	query: {"balance":{"address":"neutron1m5ftsp8ywahn39raagtdwglk4fz5skxwgv9szu8an3kusu3az37sx9cexg"}}
+	resp: {"balance":"0"}
+
+SUCCESS query contract to neutron1yt7fdzjpk3nmlmvl3epmsxayrt6vd39wxncg6pju2rcs7mz2np6seqzc6w:
+	query: {"balance":{"address":"neutron1m5ftsp8ywahn39raagtdwglk4fz5skxwgv9szu8an3kusu3az37sx9cexg"}}
+	resp: {"balance":"0"}
+
+SUCCESS query contract to neutron1rnraxu54huv7wkmpff3v8mzhqh49g0e60x4ehzws4ee6upcy78sqlqx4gn:
+	query: {"balance":{"address":"neutron1m5ftsp8ywahn39raagtdwglk4fz5skxwgv9szu8an3kusu3az37sx9cexg"}}
+	resp: {"balance":"0"}
+
+SUCCESS query contract to neutron18tsv2jfx2l0t7ru45lyv57prefwqac8fu4xzsglv7k4l3kke2mxqfem7hm:
+	query: {"balance":{"address":"neutron1m5ftsp8ywahn39raagtdwglk4fz5skxwgv9szu8an3kusu3az37sx9cexg"}}
+	resp: {"balance":"0"}
+
+SUCCESS query contract to neutron1zxy7570wm8r6y9f90u5uhnvda6lncdfkv3qlqvdl6ewd8lhu5enqyt05c5:
+	query: {"config":{}}
+	resp: {"owner":"neutron1hm34gdfygjnlh5ku6sfqcd4fnkyzrjamcy783k","factory":"neutron1z6nfr3l2yvcrvyftksjxpkc6466xtexsdkz4yw6ywpxyyh5jvtnqakth68","generator_controller":null,"voting_escrow":null,"voting_escrow_delegation":null,"astro_token":{"native_token":{"denom":"factory/neutron1hm34gdfygjnlh5ku6sfqcd4fnkyzrjamcy783k/uastro"}},"tokens_per_block":"0","total_alloc_point":"0","start_block":"1","vesting_contract":"neutron1kxy5k02ceuugj782mgq4daufa27u8y5l23cr2fjqlw84j4sgt7us2rn0xm","active_pools":[["neutron18tsv2jfx2l0t7ru45lyv57prefwqac8fu4xzsglv7k4l3kke2mxqfem7hm","0"],["neutron1rnraxu54huv7wkmpff3v8mzhqh49g0e60x4ehzws4ee6upcy78sqlqx4gn","0"]],"blocked_tokens_list":[],"guardian":null,"checkpoint_generator_limit":null}
+
+SUCCESS query contract to neutron1mzq6xzynh002x090rzt6us37scfexpu8ca4sllc3p3scn5mvsp0qw7qw56:
+	query: {"balance":{"address":"neutron123r7u7jhwwqxp8fr9yd4cx5g5wmy9zlwkvxkn9"}}
+	resp: {"balance":"347407"}
+
+SUCCESS query contract to neutron1yt7fdzjpk3nmlmvl3epmsxayrt6vd39wxncg6pju2rcs7mz2np6seqzc6w:
+	query: {"balance":{"address":"neutron123r7u7jhwwqxp8fr9yd4cx5g5wmy9zlwkvxkn9"}}
+	resp: {"balance":"6155"}
+
+SUCCESS query contract to neutron1rnraxu54huv7wkmpff3v8mzhqh49g0e60x4ehzws4ee6upcy78sqlqx4gn:
+	query: {"balance":{"address":"neutron123r7u7jhwwqxp8fr9yd4cx5g5wmy9zlwkvxkn9"}}
+	resp: {"balance":"0"}
+
+SUCCESS query contract to neutron18tsv2jfx2l0t7ru45lyv57prefwqac8fu4xzsglv7k4l3kke2mxqfem7hm:
+	query: {"balance":{"address":"neutron123r7u7jhwwqxp8fr9yd4cx5g5wmy9zlwkvxkn9"}}
+	resp: {"balance":"0"}
+
+SUCCESS query contract to neutron1zxy7570wm8r6y9f90u5uhnvda6lncdfkv3qlqvdl6ewd8lhu5enqyt05c5:
+	query: {"config":{}}
+	resp: {"owner":"neutron1hm34gdfygjnlh5ku6sfqcd4fnkyzrjamcy783k","factory":"neutron1z6nfr3l2yvcrvyftksjxpkc6466xtexsdkz4yw6ywpxyyh5jvtnqakth68","generator_controller":null,"voting_escrow":null,"voting_escrow_delegation":null,"astro_token":{"native_token":{"denom":"factory/neutron1hm34gdfygjnlh5ku6sfqcd4fnkyzrjamcy783k/uastro"}},"tokens_per_block":"0","total_alloc_point":"0","start_block":"1","vesting_contract":"neutron1kxy5k02ceuugj782mgq4daufa27u8y5l23cr2fjqlw84j4sgt7us2rn0xm","active_pools":[["neutron18tsv2jfx2l0t7ru45lyv57prefwqac8fu4xzsglv7k4l3kke2mxqfem7hm","0"],["neutron1rnraxu54huv7wkmpff3v8mzhqh49g0e60x4ehzws4ee6upcy78sqlqx4gn","0"]],"blocked_tokens_list":[],"guardian":null,"checkpoint_generator_limit":null}
+
+SUCCESS query contract to neutron1zxy7570wm8r6y9f90u5uhnvda6lncdfkv3qlqvdl6ewd8lhu5enqyt05c5:
+	query: {"deposit":{"lp_token":"neutron1mzq6xzynh002x090rzt6us37scfexpu8ca4sllc3p3scn5mvsp0qw7qw56","user":"neutron192x7hkwxhg4lw4p6jqsq0rkl8vvznz54p2xamz9qln4cj7zu5hws82luug"}}
+	resp: "0"
+
+SUCCESS query contract to neutron1zxy7570wm8r6y9f90u5uhnvda6lncdfkv3qlqvdl6ewd8lhu5enqyt05c5:
+	query: {"deposit":{"lp_token":"neutron1yt7fdzjpk3nmlmvl3epmsxayrt6vd39wxncg6pju2rcs7mz2np6seqzc6w","user":"neutron192x7hkwxhg4lw4p6jqsq0rkl8vvznz54p2xamz9qln4cj7zu5hws82luug"}}
+	resp: "0"
+
+SUCCESS query contract to neutron1lffp94kk9h8hhk3q4xv9pwdqtlervfh8h8rmq7yrnxpacl7k4dequnjzmz:
+	query: {"deposit":{"lp_token":"neutron1rnraxu54huv7wkmpff3v8mzhqh49g0e60x4ehzws4ee6upcy78sqlqx4gn","user":"neutron1m5ftsp8ywahn39raagtdwglk4fz5skxwgv9szu8an3kusu3az37sx9cexg"}}
+	resp: "0"
+
+SUCCESS query contract to neutron1lffp94kk9h8hhk3q4xv9pwdqtlervfh8h8rmq7yrnxpacl7k4dequnjzmz:
+	query: {"deposit":{"lp_token":"neutron18tsv2jfx2l0t7ru45lyv57prefwqac8fu4xzsglv7k4l3kke2mxqfem7hm","user":"neutron1m5ftsp8ywahn39raagtdwglk4fz5skxwgv9szu8an3kusu3az37sx9cexg"}}
+	resp: "0"
+
+Bob state after withdrawal:
+{"xykUserLockups":{"claimable_generator_ntrn_debt":"0","mapped_lockup_infos":{"USDC1":{"astroport_lp_token":"neutron1mzq6xzynh002x090rzt6us37scfexpu8ca4sllc3p3scn5mvsp0qw7qw56","astroport_lp_transferred":"347407","astroport_lp_units":"347407","claimable_generator_astro_debt":"0","claimable_generator_proxy_debt":[],"duration":1,"generator_ntrn_debt":"4498","generator_proxy_debt":[],"lp_units_locked":"347407","ntrn_rewards":"9671","pool_type":"USDC","unlock_timestamp":1711544923,"withdrawal_flag":false,"expected_ntrn_share":48312,"expected_paired_asset_share":2498199},"ATOM1":{"astroport_lp_token":"neutron1yt7fdzjpk3nmlmvl3epmsxayrt6vd39wxncg6pju2rcs7mz2np6seqzc6w","astroport_lp_transferred":"6155","astroport_lp_units":"6155","claimable_generator_astro_debt":"0","claimable_generator_proxy_debt":[],"duration":1,"generator_ntrn_debt":"3998","generator_proxy_debt":[],"lp_units_locked":"6155","ntrn_rewards":"328","pool_type":"ATOM","unlock_timestamp":1711544923,"withdrawal_flag":false,"expected_ntrn_share":2707,"expected_paired_asset_share":13996}},"lockup_positions_index":2,"ntrn_transferred":true,"total_ntrn_rewards":"9999"},"pclUserLockups":{"claimable_incentives_debt":"0","claimable_incentives_external_debt":"0","mapped_lockup_infos":{},"lockup_positions_index":0,"ntrn_transferred":false,"total_ntrn_rewards":"0"},"balances":{"xykLockdrop":{"ntrn":1,"usdc":0,"atom":0,"usdcXykPairLp":0,"atomXykPairLp":0,"usdcPclPairLp":0,"atomPclPairLp":0,"astro":2,"external_rewards":0},"pclLockdrop":{"ntrn":0,"usdc":0,"atom":0,"usdcXykPairLp":0,"atomXykPairLp":0,"usdcPclPairLp":0,"atomPclPairLp":0,"astro":0,"external_rewards":0},"user":{"ntrn":49841999,"usdc":5000000,"atom":9970000,"usdcXykPairLp":347407,"atomXykPairLp":6155,"usdcPclPairLp":0,"atomPclPairLp":0,"astro":8496,"external_rewards":0}},"xykUsdcStakedInGen":0,"xykAtomStakedInGen":0,"pclUsdcStakedInGen":0,"pclAtomStakedInGen":0}
+FAILED exec contract to neutron192x7hkwxhg4lw4p6jqsq0rkl8vvznz54p2xamz9qln4cj7zu5hws82luug:
+	msg: {"claim_rewards_and_optionally_unlock":{"pool_type":"USDC","duration":1,"withdraw_lp_stake":true}}
+	tx hash: A8B530DEDB331F9054F8291DD13D7BA28EA4857C17B468E54AA44E6FECA3F27F
+
+FAILED exec contract to neutron192x7hkwxhg4lw4p6jqsq0rkl8vvznz54p2xamz9qln4cj7zu5hws82luug:
+	msg: {"claim_rewards_and_optionally_unlock":{"pool_type":"ATOM","duration":1,"withdraw_lp_stake":false}}
+	tx hash: AD45A790E6FC1F0B4A9104A337A750930D17B1193E4282CA2CFFE7DCACC4049D
+
+SUCCESS query contract to neutron192x7hkwxhg4lw4p6jqsq0rkl8vvznz54p2xamz9qln4cj7zu5hws82luug:
+	query: {"user_info":{"address":"neutron123r7u7jhwwqxp8fr9yd4cx5g5wmy9zlwkvxkn9"}}
+	resp: {"total_ntrn_rewards":"9999","ntrn_transferred":true,"lockup_infos":[{"pool_type":"ATOM","lp_units_locked":"6155","withdrawal_flag":false,"ntrn_rewards":"328","duration":1,"generator_ntrn_debt":"3998","claimable_generator_astro_debt":"0","generator_proxy_debt":[],"claimable_generator_proxy_debt":[],"unlock_timestamp":1711544923,"astroport_lp_units":"6155","astroport_lp_token":"neutron1yt7fdzjpk3nmlmvl3epmsxayrt6vd39wxncg6pju2rcs7mz2np6seqzc6w","astroport_lp_transferred":"6155"},{"pool_type":"USDC","lp_units_locked":"347407","withdrawal_flag":false,"ntrn_rewards":"9671","duration":1,"generator_ntrn_debt":"4498","claimable_generator_astro_debt":"0","generator_proxy_debt":[],"claimable_generator_proxy_debt":[],"unlock_timestamp":1711544923,"astroport_lp_units":"347407","astroport_lp_token":"neutron1mzq6xzynh002x090rzt6us37scfexpu8ca4sllc3p3scn5mvsp0qw7qw56","astroport_lp_transferred":"347407"}],"claimable_generator_ntrn_debt":"0","lockup_positions_index":2}
+
+SUCCESS query contract to neutron1m5ftsp8ywahn39raagtdwglk4fz5skxwgv9szu8an3kusu3az37sx9cexg:
+	query: {"user_info":{"address":"neutron123r7u7jhwwqxp8fr9yd4cx5g5wmy9zlwkvxkn9"}}
+	resp: {"total_ntrn_rewards":"0","ntrn_transferred":false,"lockup_infos":[],"claimable_incentives_debt":[],"lockup_positions_index":0}
+
+SUCCESS query contract to neutron1mzq6xzynh002x090rzt6us37scfexpu8ca4sllc3p3scn5mvsp0qw7qw56:
+	query: {"minter":{}}
+	resp: {"minter":"neutron12zrv9md6lwjd83fjhfy32n9yr0yjx52fan0t70sn3phh5xh6rztqwn49tw","cap":null}
+
+SUCCESS query contract to neutron1yt7fdzjpk3nmlmvl3epmsxayrt6vd39wxncg6pju2rcs7mz2np6seqzc6w:
+	query: {"minter":{}}
+	resp: {"minter":"neutron105ml67ymwlznz8twk2nyxu5xaqnsp2h24t50995ucp8ffu5wut7q2ewhj4","cap":null}
+
+SUCCESS query contract to neutron12zrv9md6lwjd83fjhfy32n9yr0yjx52fan0t70sn3phh5xh6rztqwn49tw:
+	query: {"share":{"amount":"347407"}}
+	resp: [{"info":{"native_token":{"denom":"uibcusdc"}},"amount":"2498199"},{"info":{"native_token":{"denom":"untrn"}},"amount":"48312"}]
+
+SUCCESS query contract to neutron105ml67ymwlznz8twk2nyxu5xaqnsp2h24t50995ucp8ffu5wut7q2ewhj4:
+	query: {"share":{"amount":"6155"}}
+	resp: [{"info":{"native_token":{"denom":"uibcatom"}},"amount":"13996"},{"info":{"native_token":{"denom":"untrn"}},"amount":"2707"}]
+
+SUCCESS query contract to neutron1mzq6xzynh002x090rzt6us37scfexpu8ca4sllc3p3scn5mvsp0qw7qw56:
+	query: {"balance":{"address":"neutron192x7hkwxhg4lw4p6jqsq0rkl8vvznz54p2xamz9qln4cj7zu5hws82luug"}}
+	resp: {"balance":"0"}
+
+SUCCESS query contract to neutron1yt7fdzjpk3nmlmvl3epmsxayrt6vd39wxncg6pju2rcs7mz2np6seqzc6w:
+	query: {"balance":{"address":"neutron192x7hkwxhg4lw4p6jqsq0rkl8vvznz54p2xamz9qln4cj7zu5hws82luug"}}
+	resp: {"balance":"0"}
+
+SUCCESS query contract to neutron1rnraxu54huv7wkmpff3v8mzhqh49g0e60x4ehzws4ee6upcy78sqlqx4gn:
+	query: {"balance":{"address":"neutron192x7hkwxhg4lw4p6jqsq0rkl8vvznz54p2xamz9qln4cj7zu5hws82luug"}}
+	resp: {"balance":"0"}
+
+SUCCESS query contract to neutron18tsv2jfx2l0t7ru45lyv57prefwqac8fu4xzsglv7k4l3kke2mxqfem7hm:
+	query: {"balance":{"address":"neutron192x7hkwxhg4lw4p6jqsq0rkl8vvznz54p2xamz9qln4cj7zu5hws82luug"}}
+	resp: {"balance":"0"}
+
+SUCCESS query contract to neutron1zxy7570wm8r6y9f90u5uhnvda6lncdfkv3qlqvdl6ewd8lhu5enqyt05c5:
+	query: {"config":{}}
+	resp: {"owner":"neutron1hm34gdfygjnlh5ku6sfqcd4fnkyzrjamcy783k","factory":"neutron1z6nfr3l2yvcrvyftksjxpkc6466xtexsdkz4yw6ywpxyyh5jvtnqakth68","generator_controller":null,"voting_escrow":null,"voting_escrow_delegation":null,"astro_token":{"native_token":{"denom":"factory/neutron1hm34gdfygjnlh5ku6sfqcd4fnkyzrjamcy783k/uastro"}},"tokens_per_block":"0","total_alloc_point":"0","start_block":"1","vesting_contract":"neutron1kxy5k02ceuugj782mgq4daufa27u8y5l23cr2fjqlw84j4sgt7us2rn0xm","active_pools":[["neutron18tsv2jfx2l0t7ru45lyv57prefwqac8fu4xzsglv7k4l3kke2mxqfem7hm","0"],["neutron1rnraxu54huv7wkmpff3v8mzhqh49g0e60x4ehzws4ee6upcy78sqlqx4gn","0"]],"blocked_tokens_list":[],"guardian":null,"checkpoint_generator_limit":null}
+
+SUCCESS query contract to neutron1mzq6xzynh002x090rzt6us37scfexpu8ca4sllc3p3scn5mvsp0qw7qw56:
+	query: {"balance":{"address":"neutron1m5ftsp8ywahn39raagtdwglk4fz5skxwgv9szu8an3kusu3az37sx9cexg"}}
+	resp: {"balance":"0"}
+
+SUCCESS query contract to neutron1yt7fdzjpk3nmlmvl3epmsxayrt6vd39wxncg6pju2rcs7mz2np6seqzc6w:
+	query: {"balance":{"address":"neutron1m5ftsp8ywahn39raagtdwglk4fz5skxwgv9szu8an3kusu3az37sx9cexg"}}
+	resp: {"balance":"0"}
+
+SUCCESS query contract to neutron1rnraxu54huv7wkmpff3v8mzhqh49g0e60x4ehzws4ee6upcy78sqlqx4gn:
+	query: {"balance":{"address":"neutron1m5ftsp8ywahn39raagtdwglk4fz5skxwgv9szu8an3kusu3az37sx9cexg"}}
+	resp: {"balance":"0"}
+
+SUCCESS query contract to neutron18tsv2jfx2l0t7ru45lyv57prefwqac8fu4xzsglv7k4l3kke2mxqfem7hm:
+	query: {"balance":{"address":"neutron1m5ftsp8ywahn39raagtdwglk4fz5skxwgv9szu8an3kusu3az37sx9cexg"}}
+	resp: {"balance":"0"}
+
+SUCCESS query contract to neutron1zxy7570wm8r6y9f90u5uhnvda6lncdfkv3qlqvdl6ewd8lhu5enqyt05c5:
+	query: {"config":{}}
+	resp: {"owner":"neutron1hm34gdfygjnlh5ku6sfqcd4fnkyzrjamcy783k","factory":"neutron1z6nfr3l2yvcrvyftksjxpkc6466xtexsdkz4yw6ywpxyyh5jvtnqakth68","generator_controller":null,"voting_escrow":null,"voting_escrow_delegation":null,"astro_token":{"native_token":{"denom":"factory/neutron1hm34gdfygjnlh5ku6sfqcd4fnkyzrjamcy783k/uastro"}},"tokens_per_block":"0","total_alloc_point":"0","start_block":"1","vesting_contract":"neutron1kxy5k02ceuugj782mgq4daufa27u8y5l23cr2fjqlw84j4sgt7us2rn0xm","active_pools":[["neutron18tsv2jfx2l0t7ru45lyv57prefwqac8fu4xzsglv7k4l3kke2mxqfem7hm","0"],["neutron1rnraxu54huv7wkmpff3v8mzhqh49g0e60x4ehzws4ee6upcy78sqlqx4gn","0"]],"blocked_tokens_list":[],"guardian":null,"checkpoint_generator_limit":null}
+
+SUCCESS query contract to neutron1mzq6xzynh002x090rzt6us37scfexpu8ca4sllc3p3scn5mvsp0qw7qw56:
+	query: {"balance":{"address":"neutron123r7u7jhwwqxp8fr9yd4cx5g5wmy9zlwkvxkn9"}}
+	resp: {"balance":"347407"}
+
+SUCCESS query contract to neutron1yt7fdzjpk3nmlmvl3epmsxayrt6vd39wxncg6pju2rcs7mz2np6seqzc6w:
+	query: {"balance":{"address":"neutron123r7u7jhwwqxp8fr9yd4cx5g5wmy9zlwkvxkn9"}}
+	resp: {"balance":"6155"}
+
+SUCCESS query contract to neutron1rnraxu54huv7wkmpff3v8mzhqh49g0e60x4ehzws4ee6upcy78sqlqx4gn:
+	query: {"balance":{"address":"neutron123r7u7jhwwqxp8fr9yd4cx5g5wmy9zlwkvxkn9"}}
+	resp: {"balance":"0"}
+
+SUCCESS query contract to neutron18tsv2jfx2l0t7ru45lyv57prefwqac8fu4xzsglv7k4l3kke2mxqfem7hm:
+	query: {"balance":{"address":"neutron123r7u7jhwwqxp8fr9yd4cx5g5wmy9zlwkvxkn9"}}
+	resp: {"balance":"0"}
+
+SUCCESS query contract to neutron1zxy7570wm8r6y9f90u5uhnvda6lncdfkv3qlqvdl6ewd8lhu5enqyt05c5:
+	query: {"config":{}}
+	resp: {"owner":"neutron1hm34gdfygjnlh5ku6sfqcd4fnkyzrjamcy783k","factory":"neutron1z6nfr3l2yvcrvyftksjxpkc6466xtexsdkz4yw6ywpxyyh5jvtnqakth68","generator_controller":null,"voting_escrow":null,"voting_escrow_delegation":null,"astro_token":{"native_token":{"denom":"factory/neutron1hm34gdfygjnlh5ku6sfqcd4fnkyzrjamcy783k/uastro"}},"tokens_per_block":"0","total_alloc_point":"0","start_block":"1","vesting_contract":"neutron1kxy5k02ceuugj782mgq4daufa27u8y5l23cr2fjqlw84j4sgt7us2rn0xm","active_pools":[["neutron18tsv2jfx2l0t7ru45lyv57prefwqac8fu4xzsglv7k4l3kke2mxqfem7hm","0"],["neutron1rnraxu54huv7wkmpff3v8mzhqh49g0e60x4ehzws4ee6upcy78sqlqx4gn","0"]],"blocked_tokens_list":[],"guardian":null,"checkpoint_generator_limit":null}
+
+SUCCESS query contract to neutron1zxy7570wm8r6y9f90u5uhnvda6lncdfkv3qlqvdl6ewd8lhu5enqyt05c5:
+	query: {"deposit":{"lp_token":"neutron1mzq6xzynh002x090rzt6us37scfexpu8ca4sllc3p3scn5mvsp0qw7qw56","user":"neutron192x7hkwxhg4lw4p6jqsq0rkl8vvznz54p2xamz9qln4cj7zu5hws82luug"}}
+	resp: "0"
+
+SUCCESS query contract to neutron1zxy7570wm8r6y9f90u5uhnvda6lncdfkv3qlqvdl6ewd8lhu5enqyt05c5:
+	query: {"deposit":{"lp_token":"neutron1yt7fdzjpk3nmlmvl3epmsxayrt6vd39wxncg6pju2rcs7mz2np6seqzc6w","user":"neutron192x7hkwxhg4lw4p6jqsq0rkl8vvznz54p2xamz9qln4cj7zu5hws82luug"}}
+	resp: "0"
+
+SUCCESS query contract to neutron1lffp94kk9h8hhk3q4xv9pwdqtlervfh8h8rmq7yrnxpacl7k4dequnjzmz:
+	query: {"deposit":{"lp_token":"neutron1rnraxu54huv7wkmpff3v8mzhqh49g0e60x4ehzws4ee6upcy78sqlqx4gn","user":"neutron1m5ftsp8ywahn39raagtdwglk4fz5skxwgv9szu8an3kusu3az37sx9cexg"}}
+	resp: "0"
+
+SUCCESS query contract to neutron1lffp94kk9h8hhk3q4xv9pwdqtlervfh8h8rmq7yrnxpacl7k4dequnjzmz:
+	query: {"deposit":{"lp_token":"neutron18tsv2jfx2l0t7ru45lyv57prefwqac8fu4xzsglv7k4l3kke2mxqfem7hm","user":"neutron1m5ftsp8ywahn39raagtdwglk4fz5skxwgv9szu8an3kusu3az37sx9cexg"}}
+	resp: "0"
+
+Bob state before claim/withdrawal on PCL:
+{"xykUserLockups":{"claimable_generator_ntrn_debt":"0","mapped_lockup_infos":{"USDC1":{"astroport_lp_token":"neutron1mzq6xzynh002x090rzt6us37scfexpu8ca4sllc3p3scn5mvsp0qw7qw56","astroport_lp_transferred":"347407","astroport_lp_units":"347407","claimable_generator_astro_debt":"0","claimable_generator_proxy_debt":[],"duration":1,"generator_ntrn_debt":"4498","generator_proxy_debt":[],"lp_units_locked":"347407","ntrn_rewards":"9671","pool_type":"USDC","unlock_timestamp":1711544923,"withdrawal_flag":false,"expected_ntrn_share":48312,"expected_paired_asset_share":2498199},"ATOM1":{"astroport_lp_token":"neutron1yt7fdzjpk3nmlmvl3epmsxayrt6vd39wxncg6pju2rcs7mz2np6seqzc6w","astroport_lp_transferred":"6155","astroport_lp_units":"6155","claimable_generator_astro_debt":"0","claimable_generator_proxy_debt":[],"duration":1,"generator_ntrn_debt":"3998","generator_proxy_debt":[],"lp_units_locked":"6155","ntrn_rewards":"328","pool_type":"ATOM","unlock_timestamp":1711544923,"withdrawal_flag":false,"expected_ntrn_share":2707,"expected_paired_asset_share":13996}},"lockup_positions_index":2,"ntrn_transferred":true,"total_ntrn_rewards":"9999"},"pclUserLockups":{"claimable_incentives_debt":"0","claimable_incentives_external_debt":"0","mapped_lockup_infos":{},"lockup_positions_index":0,"ntrn_transferred":false,"total_ntrn_rewards":"0"},"balances":{"xykLockdrop":{"ntrn":1,"usdc":0,"atom":0,"usdcXykPairLp":0,"atomXykPairLp":0,"usdcPclPairLp":0,"atomPclPairLp":0,"astro":2,"external_rewards":0},"pclLockdrop":{"ntrn":0,"usdc":0,"atom":0,"usdcXykPairLp":0,"atomXykPairLp":0,"usdcPclPairLp":0,"atomPclPairLp":0,"astro":0,"external_rewards":0},"user":{"ntrn":49821999,"usdc":5000000,"atom":9970000,"usdcXykPairLp":347407,"atomXykPairLp":6155,"usdcPclPairLp":0,"atomPclPairLp":0,"astro":8496,"external_rewards":0}},"xykUsdcStakedInGen":0,"xykAtomStakedInGen":0,"pclUsdcStakedInGen":0,"pclAtomStakedInGen":0}
+FAILED exec contract to neutron1m5ftsp8ywahn39raagtdwglk4fz5skxwgv9szu8an3kusu3az37sx9cexg:
+	msg: {"claim_rewards_and_optionally_unlock":{"pool_type":"USDC","duration":1,"withdraw_lp_stake":true}}
+	tx hash: 04AE09E33A1F22678C3C1D45EE77B1791B11B94AC108C44B13A8FE1C26C8395F
+
+FAILED exec contract to neutron1m5ftsp8ywahn39raagtdwglk4fz5skxwgv9szu8an3kusu3az37sx9cexg:
+	msg: {"claim_rewards_and_optionally_unlock":{"pool_type":"ATOM","duration":1,"withdraw_lp_stake":true}}
+	tx hash: 7E6A6F2EAB8224141C697F0E6D6A68D32D8328AEFA05FC111565EDBDFB9B2097
+
+SUCCESS query contract to neutron192x7hkwxhg4lw4p6jqsq0rkl8vvznz54p2xamz9qln4cj7zu5hws82luug:
+	query: {"user_info":{"address":"neutron123r7u7jhwwqxp8fr9yd4cx5g5wmy9zlwkvxkn9"}}
+	resp: {"total_ntrn_rewards":"9999","ntrn_transferred":true,"lockup_infos":[{"pool_type":"ATOM","lp_units_locked":"6155","withdrawal_flag":false,"ntrn_rewards":"328","duration":1,"generator_ntrn_debt":"3998","claimable_generator_astro_debt":"0","generator_proxy_debt":[],"claimable_generator_proxy_debt":[],"unlock_timestamp":1711544923,"astroport_lp_units":"6155","astroport_lp_token":"neutron1yt7fdzjpk3nmlmvl3epmsxayrt6vd39wxncg6pju2rcs7mz2np6seqzc6w","astroport_lp_transferred":"6155"},{"pool_type":"USDC","lp_units_locked":"347407","withdrawal_flag":false,"ntrn_rewards":"9671","duration":1,"generator_ntrn_debt":"4498","claimable_generator_astro_debt":"0","generator_proxy_debt":[],"claimable_generator_proxy_debt":[],"unlock_timestamp":1711544923,"astroport_lp_units":"347407","astroport_lp_token":"neutron1mzq6xzynh002x090rzt6us37scfexpu8ca4sllc3p3scn5mvsp0qw7qw56","astroport_lp_transferred":"347407"}],"claimable_generator_ntrn_debt":"0","lockup_positions_index":2}
+
+SUCCESS query contract to neutron1m5ftsp8ywahn39raagtdwglk4fz5skxwgv9szu8an3kusu3az37sx9cexg:
+	query: {"user_info":{"address":"neutron123r7u7jhwwqxp8fr9yd4cx5g5wmy9zlwkvxkn9"}}
+	resp: {"total_ntrn_rewards":"0","ntrn_transferred":false,"lockup_infos":[],"claimable_incentives_debt":[],"lockup_positions_index":0}
+
+SUCCESS query contract to neutron1yt7fdzjpk3nmlmvl3epmsxayrt6vd39wxncg6pju2rcs7mz2np6seqzc6w:
+	query: {"minter":{}}
+	resp: {"minter":"neutron105ml67ymwlznz8twk2nyxu5xaqnsp2h24t50995ucp8ffu5wut7q2ewhj4","cap":null}
+
+SUCCESS query contract to neutron1mzq6xzynh002x090rzt6us37scfexpu8ca4sllc3p3scn5mvsp0qw7qw56:
+	query: {"minter":{}}
+	resp: {"minter":"neutron12zrv9md6lwjd83fjhfy32n9yr0yjx52fan0t70sn3phh5xh6rztqwn49tw","cap":null}
+
+SUCCESS query contract to neutron105ml67ymwlznz8twk2nyxu5xaqnsp2h24t50995ucp8ffu5wut7q2ewhj4:
+	query: {"share":{"amount":"6155"}}
+	resp: [{"info":{"native_token":{"denom":"uibcatom"}},"amount":"13996"},{"info":{"native_token":{"denom":"untrn"}},"amount":"2707"}]
+
+SUCCESS query contract to neutron12zrv9md6lwjd83fjhfy32n9yr0yjx52fan0t70sn3phh5xh6rztqwn49tw:
+	query: {"share":{"amount":"347407"}}
+	resp: [{"info":{"native_token":{"denom":"uibcusdc"}},"amount":"2498199"},{"info":{"native_token":{"denom":"untrn"}},"amount":"48312"}]
+
+SUCCESS query contract to neutron1mzq6xzynh002x090rzt6us37scfexpu8ca4sllc3p3scn5mvsp0qw7qw56:
+	query: {"balance":{"address":"neutron192x7hkwxhg4lw4p6jqsq0rkl8vvznz54p2xamz9qln4cj7zu5hws82luug"}}
+	resp: {"balance":"0"}
+
+SUCCESS query contract to neutron1yt7fdzjpk3nmlmvl3epmsxayrt6vd39wxncg6pju2rcs7mz2np6seqzc6w:
+	query: {"balance":{"address":"neutron192x7hkwxhg4lw4p6jqsq0rkl8vvznz54p2xamz9qln4cj7zu5hws82luug"}}
+	resp: {"balance":"0"}
+
+SUCCESS query contract to neutron1rnraxu54huv7wkmpff3v8mzhqh49g0e60x4ehzws4ee6upcy78sqlqx4gn:
+	query: {"balance":{"address":"neutron192x7hkwxhg4lw4p6jqsq0rkl8vvznz54p2xamz9qln4cj7zu5hws82luug"}}
+	resp: {"balance":"0"}
+
+SUCCESS query contract to neutron18tsv2jfx2l0t7ru45lyv57prefwqac8fu4xzsglv7k4l3kke2mxqfem7hm:
+	query: {"balance":{"address":"neutron192x7hkwxhg4lw4p6jqsq0rkl8vvznz54p2xamz9qln4cj7zu5hws82luug"}}
+	resp: {"balance":"0"}
+
+SUCCESS query contract to neutron1zxy7570wm8r6y9f90u5uhnvda6lncdfkv3qlqvdl6ewd8lhu5enqyt05c5:
+	query: {"config":{}}
+	resp: {"owner":"neutron1hm34gdfygjnlh5ku6sfqcd4fnkyzrjamcy783k","factory":"neutron1z6nfr3l2yvcrvyftksjxpkc6466xtexsdkz4yw6ywpxyyh5jvtnqakth68","generator_controller":null,"voting_escrow":null,"voting_escrow_delegation":null,"astro_token":{"native_token":{"denom":"factory/neutron1hm34gdfygjnlh5ku6sfqcd4fnkyzrjamcy783k/uastro"}},"tokens_per_block":"0","total_alloc_point":"0","start_block":"1","vesting_contract":"neutron1kxy5k02ceuugj782mgq4daufa27u8y5l23cr2fjqlw84j4sgt7us2rn0xm","active_pools":[["neutron18tsv2jfx2l0t7ru45lyv57prefwqac8fu4xzsglv7k4l3kke2mxqfem7hm","0"],["neutron1rnraxu54huv7wkmpff3v8mzhqh49g0e60x4ehzws4ee6upcy78sqlqx4gn","0"]],"blocked_tokens_list":[],"guardian":null,"checkpoint_generator_limit":null}
+
+SUCCESS query contract to neutron1mzq6xzynh002x090rzt6us37scfexpu8ca4sllc3p3scn5mvsp0qw7qw56:
+	query: {"balance":{"address":"neutron1m5ftsp8ywahn39raagtdwglk4fz5skxwgv9szu8an3kusu3az37sx9cexg"}}
+	resp: {"balance":"0"}
+
+SUCCESS query contract to neutron1yt7fdzjpk3nmlmvl3epmsxayrt6vd39wxncg6pju2rcs7mz2np6seqzc6w:
+	query: {"balance":{"address":"neutron1m5ftsp8ywahn39raagtdwglk4fz5skxwgv9szu8an3kusu3az37sx9cexg"}}
+	resp: {"balance":"0"}
+
+SUCCESS query contract to neutron1rnraxu54huv7wkmpff3v8mzhqh49g0e60x4ehzws4ee6upcy78sqlqx4gn:
+	query: {"balance":{"address":"neutron1m5ftsp8ywahn39raagtdwglk4fz5skxwgv9szu8an3kusu3az37sx9cexg"}}
+	resp: {"balance":"0"}
+
+SUCCESS query contract to neutron18tsv2jfx2l0t7ru45lyv57prefwqac8fu4xzsglv7k4l3kke2mxqfem7hm:
+	query: {"balance":{"address":"neutron1m5ftsp8ywahn39raagtdwglk4fz5skxwgv9szu8an3kusu3az37sx9cexg"}}
+	resp: {"balance":"0"}
+
+SUCCESS query contract to neutron1zxy7570wm8r6y9f90u5uhnvda6lncdfkv3qlqvdl6ewd8lhu5enqyt05c5:
+	query: {"config":{}}
+	resp: {"owner":"neutron1hm34gdfygjnlh5ku6sfqcd4fnkyzrjamcy783k","factory":"neutron1z6nfr3l2yvcrvyftksjxpkc6466xtexsdkz4yw6ywpxyyh5jvtnqakth68","generator_controller":null,"voting_escrow":null,"voting_escrow_delegation":null,"astro_token":{"native_token":{"denom":"factory/neutron1hm34gdfygjnlh5ku6sfqcd4fnkyzrjamcy783k/uastro"}},"tokens_per_block":"0","total_alloc_point":"0","start_block":"1","vesting_contract":"neutron1kxy5k02ceuugj782mgq4daufa27u8y5l23cr2fjqlw84j4sgt7us2rn0xm","active_pools":[["neutron18tsv2jfx2l0t7ru45lyv57prefwqac8fu4xzsglv7k4l3kke2mxqfem7hm","0"],["neutron1rnraxu54huv7wkmpff3v8mzhqh49g0e60x4ehzws4ee6upcy78sqlqx4gn","0"]],"blocked_tokens_list":[],"guardian":null,"checkpoint_generator_limit":null}
+
+SUCCESS query contract to neutron1mzq6xzynh002x090rzt6us37scfexpu8ca4sllc3p3scn5mvsp0qw7qw56:
+	query: {"balance":{"address":"neutron123r7u7jhwwqxp8fr9yd4cx5g5wmy9zlwkvxkn9"}}
+	resp: {"balance":"347407"}
+
+SUCCESS query contract to neutron1yt7fdzjpk3nmlmvl3epmsxayrt6vd39wxncg6pju2rcs7mz2np6seqzc6w:
+	query: {"balance":{"address":"neutron123r7u7jhwwqxp8fr9yd4cx5g5wmy9zlwkvxkn9"}}
+	resp: {"balance":"6155"}
+
+SUCCESS query contract to neutron1rnraxu54huv7wkmpff3v8mzhqh49g0e60x4ehzws4ee6upcy78sqlqx4gn:
+	query: {"balance":{"address":"neutron123r7u7jhwwqxp8fr9yd4cx5g5wmy9zlwkvxkn9"}}
+	resp: {"balance":"0"}
+
+SUCCESS query contract to neutron18tsv2jfx2l0t7ru45lyv57prefwqac8fu4xzsglv7k4l3kke2mxqfem7hm:
+	query: {"balance":{"address":"neutron123r7u7jhwwqxp8fr9yd4cx5g5wmy9zlwkvxkn9"}}
+	resp: {"balance":"0"}
+
+SUCCESS query contract to neutron1zxy7570wm8r6y9f90u5uhnvda6lncdfkv3qlqvdl6ewd8lhu5enqyt05c5:
+	query: {"config":{}}
+	resp: {"owner":"neutron1hm34gdfygjnlh5ku6sfqcd4fnkyzrjamcy783k","factory":"neutron1z6nfr3l2yvcrvyftksjxpkc6466xtexsdkz4yw6ywpxyyh5jvtnqakth68","generator_controller":null,"voting_escrow":null,"voting_escrow_delegation":null,"astro_token":{"native_token":{"denom":"factory/neutron1hm34gdfygjnlh5ku6sfqcd4fnkyzrjamcy783k/uastro"}},"tokens_per_block":"0","total_alloc_point":"0","start_block":"1","vesting_contract":"neutron1kxy5k02ceuugj782mgq4daufa27u8y5l23cr2fjqlw84j4sgt7us2rn0xm","active_pools":[["neutron18tsv2jfx2l0t7ru45lyv57prefwqac8fu4xzsglv7k4l3kke2mxqfem7hm","0"],["neutron1rnraxu54huv7wkmpff3v8mzhqh49g0e60x4ehzws4ee6upcy78sqlqx4gn","0"]],"blocked_tokens_list":[],"guardian":null,"checkpoint_generator_limit":null}
+
+SUCCESS query contract to neutron1zxy7570wm8r6y9f90u5uhnvda6lncdfkv3qlqvdl6ewd8lhu5enqyt05c5:
+	query: {"deposit":{"lp_token":"neutron1mzq6xzynh002x090rzt6us37scfexpu8ca4sllc3p3scn5mvsp0qw7qw56","user":"neutron192x7hkwxhg4lw4p6jqsq0rkl8vvznz54p2xamz9qln4cj7zu5hws82luug"}}
+	resp: "0"
+
+SUCCESS query contract to neutron1zxy7570wm8r6y9f90u5uhnvda6lncdfkv3qlqvdl6ewd8lhu5enqyt05c5:
+	query: {"deposit":{"lp_token":"neutron1yt7fdzjpk3nmlmvl3epmsxayrt6vd39wxncg6pju2rcs7mz2np6seqzc6w","user":"neutron192x7hkwxhg4lw4p6jqsq0rkl8vvznz54p2xamz9qln4cj7zu5hws82luug"}}
+	resp: "0"
+
+SUCCESS query contract to neutron1lffp94kk9h8hhk3q4xv9pwdqtlervfh8h8rmq7yrnxpacl7k4dequnjzmz:
+	query: {"deposit":{"lp_token":"neutron1rnraxu54huv7wkmpff3v8mzhqh49g0e60x4ehzws4ee6upcy78sqlqx4gn","user":"neutron1m5ftsp8ywahn39raagtdwglk4fz5skxwgv9szu8an3kusu3az37sx9cexg"}}
+	resp: "0"
+
+SUCCESS query contract to neutron1lffp94kk9h8hhk3q4xv9pwdqtlervfh8h8rmq7yrnxpacl7k4dequnjzmz:
+	query: {"deposit":{"lp_token":"neutron18tsv2jfx2l0t7ru45lyv57prefwqac8fu4xzsglv7k4l3kke2mxqfem7hm","user":"neutron1m5ftsp8ywahn39raagtdwglk4fz5skxwgv9szu8an3kusu3az37sx9cexg"}}
+	resp: "0"
+
+Bob state after withdrawal:
+{"xykUserLockups":{"claimable_generator_ntrn_debt":"0","mapped_lockup_infos":{"ATOM1":{"astroport_lp_token":"neutron1yt7fdzjpk3nmlmvl3epmsxayrt6vd39wxncg6pju2rcs7mz2np6seqzc6w","astroport_lp_transferred":"6155","astroport_lp_units":"6155","claimable_generator_astro_debt":"0","claimable_generator_proxy_debt":[],"duration":1,"generator_ntrn_debt":"3998","generator_proxy_debt":[],"lp_units_locked":"6155","ntrn_rewards":"328","pool_type":"ATOM","unlock_timestamp":1711544923,"withdrawal_flag":false,"expected_ntrn_share":2707,"expected_paired_asset_share":13996},"USDC1":{"astroport_lp_token":"neutron1mzq6xzynh002x090rzt6us37scfexpu8ca4sllc3p3scn5mvsp0qw7qw56","astroport_lp_transferred":"347407","astroport_lp_units":"347407","claimable_generator_astro_debt":"0","claimable_generator_proxy_debt":[],"duration":1,"generator_ntrn_debt":"4498","generator_proxy_debt":[],"lp_units_locked":"347407","ntrn_rewards":"9671","pool_type":"USDC","unlock_timestamp":1711544923,"withdrawal_flag":false,"expected_ntrn_share":48312,"expected_paired_asset_share":2498199}},"lockup_positions_index":2,"ntrn_transferred":true,"total_ntrn_rewards":"9999"},"pclUserLockups":{"claimable_incentives_debt":"0","claimable_incentives_external_debt":"0","mapped_lockup_infos":{},"lockup_positions_index":0,"ntrn_transferred":false,"total_ntrn_rewards":"0"},"balances":{"xykLockdrop":{"ntrn":1,"usdc":0,"atom":0,"usdcXykPairLp":0,"atomXykPairLp":0,"usdcPclPairLp":0,"atomPclPairLp":0,"astro":2,"external_rewards":0},"pclLockdrop":{"ntrn":0,"usdc":0,"atom":0,"usdcXykPairLp":0,"atomXykPairLp":0,"usdcPclPairLp":0,"atomPclPairLp":0,"astro":0,"external_rewards":0},"user":{"ntrn":49781999,"usdc":5000000,"atom":9970000,"usdcXykPairLp":347407,"atomXykPairLp":6155,"usdcPclPairLp":0,"atomPclPairLp":0,"astro":8496,"external_rewards":0}},"xykUsdcStakedInGen":0,"xykAtomStakedInGen":0,"pclUsdcStakedInGen":0,"pclAtomStakedInGen":0}
+FAILED exec contract to neutron192x7hkwxhg4lw4p6jqsq0rkl8vvznz54p2xamz9qln4cj7zu5hws82luug:
+	msg: {"claim_rewards_and_optionally_unlock":{"pool_type":"USDC","duration":1,"withdraw_lp_stake":true}}
+	tx hash: DB56B9F2BC1A7D0CB609647F387AE7704B9C16FE33EB73F4483D306B9D2DCF53
+
+FAILED exec contract to neutron192x7hkwxhg4lw4p6jqsq0rkl8vvznz54p2xamz9qln4cj7zu5hws82luug:
+	msg: {"claim_rewards_and_optionally_unlock":{"pool_type":"ATOM","duration":1,"withdraw_lp_stake":false}}
+	tx hash: 48984477B34068A829FE93BCC2A0A2269911DD2C87C45504C71E0C47CD59C6B6
+
+FAILED exec contract to neutron1m5ftsp8ywahn39raagtdwglk4fz5skxwgv9szu8an3kusu3az37sx9cexg:
+	msg: {"claim_rewards_and_optionally_unlock":{"pool_type":"USDC","duration":1,"withdraw_lp_stake":false}}
+	tx hash: 6E01F357D0320920F4537C943593CF8111FA49203701BE4BCB4711D252C3545C
+
+FAILED exec contract to neutron1m5ftsp8ywahn39raagtdwglk4fz5skxwgv9szu8an3kusu3az37sx9cexg:
+	msg: {"claim_rewards_and_optionally_unlock":{"pool_type":"ATOM","duration":1,"withdraw_lp_stake":false}}
+	tx hash: 6AF52C6431BB60A013F002D7ACF64019312F09400BDCA408B30C2F37D0D97483
+
+SUCCESS query contract to neutron1zxy7570wm8r6y9f90u5uhnvda6lncdfkv3qlqvdl6ewd8lhu5enqyt05c5:
+	query: {"deposit":{"lp_token":"neutron1yt7fdzjpk3nmlmvl3epmsxayrt6vd39wxncg6pju2rcs7mz2np6seqzc6w","user":"neutron192x7hkwxhg4lw4p6jqsq0rkl8vvznz54p2xamz9qln4cj7zu5hws82luug"}}
+	resp: "0"
+
+SUCCESS query contract to neutron1zxy7570wm8r6y9f90u5uhnvda6lncdfkv3qlqvdl6ewd8lhu5enqyt05c5:
+	query: {"deposit":{"lp_token":"neutron1mzq6xzynh002x090rzt6us37scfexpu8ca4sllc3p3scn5mvsp0qw7qw56","user":"neutron192x7hkwxhg4lw4p6jqsq0rkl8vvznz54p2xamz9qln4cj7zu5hws82luug"}}
+	resp: "0"
+
+SUCCESS query contract to neutron1zxy7570wm8r6y9f90u5uhnvda6lncdfkv3qlqvdl6ewd8lhu5enqyt05c5:
+	query: {"pending_token":{"lp_token":"neutron1yt7fdzjpk3nmlmvl3epmsxayrt6vd39wxncg6pju2rcs7mz2np6seqzc6w","user":"neutron192x7hkwxhg4lw4p6jqsq0rkl8vvznz54p2xamz9qln4cj7zu5hws82luug"}}
+	resp: {"pending":"0","pending_on_proxy":null}
+
+SUCCESS query contract to neutron1zxy7570wm8r6y9f90u5uhnvda6lncdfkv3qlqvdl6ewd8lhu5enqyt05c5:
+	query: {"pending_token":{"lp_token":"neutron1mzq6xzynh002x090rzt6us37scfexpu8ca4sllc3p3scn5mvsp0qw7qw56","user":"neutron192x7hkwxhg4lw4p6jqsq0rkl8vvznz54p2xamz9qln4cj7zu5hws82luug"}}
+	resp: {"pending":"0","pending_on_proxy":null}
+
+TGE participant wallets: {"Alice":{"chain":{"sdk":{"url":"http://localhost:1317","chainID":"test-1"},"blockWaiter":{"url":"ws://localhost:26657"},"denom":"untrn"},"wallet":{"address":"neutron1clttyxll0a9uhls7cjztc9j9jw859d3g7e6a50","account":{"address":"neutron1clttyxll0a9uhls7cjztc9j9jw859d3g7e6a50","account_number":"40","sequence":"5"},"pubKey":{"key":"A2Nu43+Oy6w3Q07hX5vn/5p9JfJmAUY5F8phBbkfGlGw"},"privKey":{"key":"+iGgBvtPtCoxeOWk5STOrE2fdBJISlIj6HPw0KRDwws="},"addrPrefix":"neutron"}},"Bob":{"chain":{"sdk":{"url":"http://localhost:1317","chainID":"test-1"},"blockWaiter":{"url":"ws://localhost:26657"},"denom":"untrn"},"wallet":{"address":"neutron123r7u7jhwwqxp8fr9yd4cx5g5wmy9zlwkvxkn9","account":{"address":"neutron123r7u7jhwwqxp8fr9yd4cx5g5wmy9zlwkvxkn9","account_number":"41","sequence":"23"},"pubKey":{"key":"Azo2gfv1EzCw6bAn3cO+GkewzrqqOV+AWKEsPqGn8hFE"},"privKey":{"key":"vVQ3xb7vR/zKLRj0xYOgroWAPEX2JHtS0twhTp9tTT0="},"addrPrefix":"neutron"}},"Charlie":{"chain":{"sdk":{"url":"http://localhost:1317","chainID":"test-1"},"blockWaiter":{"url":"ws://localhost:26657"},"denom":"untrn"},"wallet":{"address":"neutron1jffamdu7mmvhqr655q33dzrmulrsck0msvl5mc","account":{"address":"neutron1jffamdu7mmvhqr655q33dzrmulrsck0msvl5mc","account_number":"42","sequence":"5"},"pubKey":{"key":"AxSKR4gh11ybBkuovNFwTPloP9GyDFxT7cQxNM4RpyIE"},"privKey":{"key":"rZP8DCVqOa8YtjoJq7Tia7uhVGz9dcVONwUkJLtYILo="},"addrPrefix":"neutron"}}}
+TGE contracts: {
+  airdrop: 'neutron1470dyhz2paeutte607l5ahyfeq3rc3xy4lajfxhftgahxevrm5cq4mvz3t',
+  credits: 'neutron1nyuryl5u5z04dx4zsqgvsuw7fe8gl2f77yufynauuhklnnmnjncqcls0tj',
+  creditsVault: 'neutron17v6gz38e94ryfeewtlpafw0jd20afgsu8xu8px2dz7xaqkz4afrq5vddng',
+  priceFeed: 'neutron1jrs7f3sr5f0qzm0dtf85mlyfw79ley46ruumgqnm4l4hyplu7pdq4cqw3q',
+  coinRegistry: 'neutron1mgt372t6vjmxpax53746ywcecum7wg0ye5ptaf42rjwat9qcqnhqu7qaw9',
+  astroFactory: 'neutron1z6nfr3l2yvcrvyftksjxpkc6466xtexsdkz4yw6ywpxyyh5jvtnqakth68',
+  vestingAtomLp: 'neutron14hpg9wup26t2t2ppfjfaj6w3knxrwasw9sjwzhd7ru0gl83xkxxqv2phqg',
+  vestingUsdcLp: 'neutron1qm62qvux86w8ex36tpl24lz5qcanaql8t0zhs974m08r8u8jzlxs8jlwyg',
+  vestingLpVault: 'neutron1tgslfuz7gkatufz87m57m38cluq4znhyepua3g9e7sus0ct946jsyg4p5z',
+  auction: 'neutron15nxhrnv0kwc22ez5fyd6qfdvjjzk6h8sqtwma6c2ykqndlyukqwqm9y8e3',
+  lockdrop: 'neutron192x7hkwxhg4lw4p6jqsq0rkl8vvznz54p2xamz9qln4cj7zu5hws82luug',
+  astroGenerator: 'neutron1zxy7570wm8r6y9f90u5uhnvda6lncdfkv3qlqvdl6ewd8lhu5enqyt05c5',
+  astroIncentives: 'neutron1lffp94kk9h8hhk3q4xv9pwdqtlervfh8h8rmq7yrnxpacl7k4dequnjzmz',
+  astroVesting: 'neutron1kxy5k02ceuugj782mgq4daufa27u8y5l23cr2fjqlw84j4sgt7us2rn0xm',
+  lockdropVault: 'neutron1l3gtxnwjuy65rzk63k352d52ad0f2sh89kgrqwczgt56jc8nmc3qh5kag3',
+  oracleAtom: 'neutron1v6a0pv0pd3etcd7atyr06efg4q56p4czu30lfycff7sf0n55ed8qhvfcl2',
+  oracleUsdc: 'neutron1anqktcx3sz9qsn4x6udh34fzqdpu5acx66gup79sxlqw8ejxf5fqvtdyg6'
+}
+ FAIL  src/testcases/run_in_band/tge.quint.test.ts (548.563 s)
+  TGE / Migration / PCL contracts
+    Pre-Migration setup
+      Deploy
+        ✓ should deploy useres contracts (40668 ms)
+        ✓ should deploy auction (2034 ms)
+        ✓ should deploy lockdrop and lockdrop vault (13346 ms)
+      Airdrop
+        ✓ should claim airdrop (3035 ms)
+      Auction
+        Phase 1
+          ✓ should wait for auction time (64110 ms)
+          ✓ should allow deposit ATOM (2229 ms)
+          ✓ should allow deposit USDC (3057 ms)
+        Phase 2
+          ✓ time moves to finish the phase (56712 ms)
+        Phase 3
+          ✓ wait for lock time to pass (59350 ms)
+          ✓ should set generator to lockdrop (739 ms)
+          intentivizing lockdrop
+            ✓ should incentivize lockdrop (382 ms)
+          set_pool_size
+            ✓ transfer some ATOM directly to auction contract to try affect pool (1020 ms)
+            ✓ wait for the window time to pass (58598 ms)
+            ✓ send NTRNs to the pool (530 ms)
+            ✓ should be able to set pool size (3069 ms)
+          lock_lp
+            ✓ should be able to lock ATOM LP tokens (1024 ms)
+            ✓ should be able to lock USDC LP tokens (1025 ms)
+        Init pool
+          ✓ should init pool (60117 ms)
+          ✓ update oracles (4021 ms)
+        Vest LP
+          ✓ should vest LP (permissionless) (1020 ms)
+      Advance few blocks just in case
+        ✓ advancing 10 blocks (10201 ms)
+      Migrate to new contracts
+        ✓ setup PCL pools (1026 ms)
+        replace XYK with PCL pools
+          ✓ deregister XYK pairs (2039 ms)
+          ✓ create and fill NTRN/ibcATOM PCL pair (2040 ms)
+          ✓ create and fill NTRN/ibcUSDC PCL pair (2031 ms)
+          reschedule staking rewards
+            ✓ deactivate generator rewards (2043 ms)
+            ✓ activate incentives contract rewards (3032 ms)
+            add external rewards for incentives contract
+              ✓ create external rewards token (2046 ms)
+              ✓ add external rewards for incentives contract (1018 ms)
+        instantiate PCL contracts
+          ✓ retrieve XYK lockdrop contract state (13 ms)
+          ✓ instantiate PCL lockdrop contract (2027 ms)
+          ✓ instantiate PCL vesting lp contracts (3030 ms)
+        migrate TGE contracts to liquidity migration versions
+          ✓ store new lockdrop contract version (1204 ms)
+          ✓ migrate lockdrop (854 ms)
+          ✓ store new reserve contract version (1097 ms)
+          ✓ migrate reserve (928 ms)
+          ✓ store new vesting lp contract version (1238 ms)
+          ✓ should migrate ATOM LP vesting to V2 (816 ms)
+          ✓ should migrate USDC LP vesting to V2 (1012 ms)
+        execute migration handlers: reserve
+          ✓ check reserve shares before migration (31 ms)
+          ✓ check Neutron DAO shares before migration (33 ms)
+          ✓ migrate reserve contract liquidity (965 ms)
+          ✓ check reserve shares after migration (30 ms)
+          ✓ check Neutron DAO shares after migration (28 ms)
+      Advance few blocks just in case 2
+        ✓ advancing 11 blocks 2 (11124 ms)
+    Quint generated steps
+      Quint generated step ADVANCE BLOCK from step 1
+        ✓ advancing 10 blocks (10189 ms)
+      Quint generated step MIGRATE from step 2
+        execute migration of vesting for user Alice
+          ✓ should validate numbers & save claim amount before migration (6 ms)
+          ✓ should  migrate atom (1016 ms)
+          ✓ should  migrate usdc (1012 ms)
+          ✓ should claim (2032 ms)
+      Quint generated step ADVANCE BLOCK from step 3
+        ✓ advancing 10 blocks (10167 ms)
+      Quint generated step MIGRATE from step 4
+        execute migration of vesting for user Charlie
+          ✓ should validate numbers & save claim amount before migration (12 ms)
+          ✓ should  migrate atom (1014 ms)
+          ✓ should  migrate usdc (1024 ms)
+          ✓ should claim (2029 ms)
+      Quint generated step ADVANCE BLOCK from step 5
+        ✓ advancing 10 blocks (10176 ms)
+      Quint generated step CLAIM_REWARDS_XYK from step 6
+        ✓ for Bob with withdraw (2097 ms)
+      Quint generated step CLAIM_REWARDS_XYK from step 7
+        ✓ for Bob with withdraw (2005 ms)
+      Quint generated step ADVANCE BLOCK from step 8
+        ✓ advancing 10 blocks (10180 ms)
+      Quint generated step CLAIM_REWARDS_XYK from step 9
+        ✓ for Bob with withdraw (2041 ms)
+      Quint generated step MIGRATE from step 10
+        ✓ fill liquidity migration contracts (1 ms)
+        migrate Bob participant
+          ✓ gather state before migration (105 ms)
+          ✓ migrate the user (914 ms)
+          ✓ gather state after migration (103 ms)
+          check user liquidity migration
+            ✓ user XYK lockup info consistency (1 ms)
+            ✓ no user lockup info in PCL lockdrop
+            ✓ no balance changes
+            ✓ already claimed events emission (1 ms)
+      Quint generated step ADVANCE BLOCK from step 11
+        ✓ advancing 10 blocks (10133 ms)
+      Quint generated step CLAIM_REWARDS_PCL from step 12
+        check generator state
+          ✕ check generator stake presence (6 ms)
+          ✕ check generator rewards presence (5 ms)
+        user Bob testing post migration state
+          ✓ no withdrawal available from XYK (1985 ms)
+          Bob claim without withdrawal
+            ✓ gather state before claim/withdrawal on PCL (150 ms)
+            ✕ claim USDC lockup from PCL (874 ms)
+            ✕ claim ATOM lockup from PCL (1020 ms)
+            ✓ gather state after withdrawal (137 ms)
+            funds flow
+              ✓ lp tokens staked in generator
+              ✓ lp tokens received by the user
+              ✓ no ntrn received by the user
+              generator rewards
+                ✕ astro (1 ms)
+                ✕ external rewards
+      Quint generated step ADVANCE BLOCK from step 13
+        ✓ advancing 10 blocks (10018 ms)
+      Quint generated step CLAIM_REWARDS_PCL from step 14
+        user Bob testing post migration state
+          ✓ no withdrawal available from XYK (2040 ms)
+          Bob claim with withdrawal
+            ✓ gather state before withdrawal on PCL (100 ms)
+            ✕ claim & withdraw USDC lockup from PCL (911 ms)
+            ✕ claim & withdraw ATOM lockup from PCL (1019 ms)
+            ✓ gather state after withdrawal (98 ms)
+            funds flow
+              ✕ lp tokens staked in generator
+              ✕ lp tokens received by the user (1 ms)
+              ✓ no ntrn received by the user
+              generator rewards
+                ✕ astro (2 ms)
+                ✕ external rewards (1 ms)
+      Quint generated step ADVANCE BLOCK from step 15
+        ✓ advancing 10 blocks (10074 ms)
+      Quint generated step CLAIM_REWARDS_PCL from step 16
+        user Bob testing post migration state
+          ✓ no withdrawal available from XYK (2048 ms)
+          Bob claim without withdrawal
+            ✕ claim USDC lockup from PCL fails (1030 ms)
+            ✕ claim ATOM lockup from PCL fails (1009 ms)
+      confirm lockdrop withdrawal completeness
+        ✓ no XYK lp tokens kept by XYK lockdrop (7 ms)
+        no generator rewards left to be paid
+          ✓ for XYK pairs (7 ms)
+
+  ● TGE / Migration / PCL contracts › Quint generated steps › Quint generated step CLAIM_REWARDS_PCL from step 12 › check generator state › check generator stake presence
+
+    expect(received).toBeGreaterThan(expected)
+
+    Expected: > 0
+    Received:   0
+
+      2580 |                     },
+      2581 |                   );
+    > 2582 |                   expect(+stakedAtomLp).toBeGreaterThan(0);
+           |                                         ^
+      2583 |           
+      2584 |                   const stakedUsdcLp = await neutronChain.queryContract<string>(
+      2585 |                     liqMigContracts.incentives,
+
+      at Object.toBeGreaterThan (src/testcases/run_in_band/tge.quint.test.ts:2582:41)
+      at asyncGeneratorStep (src/testcases/run_in_band/tge.quint.test.ts:62:94)
+      at asyncGeneratorStep (src/testcases/run_in_band/tge.quint.test.ts:62:94)
+          at runMicrotasks (<anonymous>)
+
+  ● TGE / Migration / PCL contracts › Quint generated steps › Quint generated step CLAIM_REWARDS_PCL from step 12 › check generator state › check generator rewards presence
+
+    Status: 500 
+    Response: {"code":2,"message":"codespace wasm code 9: query wasm contract failed: User neutron1m5ftsp8ywahn39raagtdwglk4fz5skxwgv9szu8an3kusu3az37sx9cexg doesn't have position in neutron18tsv2jfx2l0t7ru45lyv57prefwqac8fu4xzsglv7k4l3kke2mxqfem7hm","details":[]} 
+    Headers: {"content-type":"application/json","grpc-metadata-content-type":"application/grpc+cosmos-sdk-grpc-codec","grpc-metadata-x-cosmos-block-height":"516","x-server-time":"1711545049","date":"Wed, 27 Mar 2024 13:10:49 GMT","content-length":"250","connection":"close"}
+
+      at node_modules/@neutron-org/neutronjsplus/dist/cosmos.js:52:23
+          at runMicrotasks (<anonymous>)
+      at CosmosWrapper.queryContract (node_modules/@neutron-org/neutronjsplus/dist/cosmos.js:50:22)
+
+  ● TGE / Migration / PCL contracts › Quint generated steps › Quint generated step CLAIM_REWARDS_PCL from step 12 › user Bob testing post migration state › Bob claim without withdrawal › claim USDC lockup from PCL
+
+
+    github.com/CosmWasm/wasmd/x/wasm/keeper.Keeper.execute
+    	github.com/CosmWasm/wasmd@v0.45.0/x/wasm/keeper/keeper.go:400
+    github.com/CosmWasm/wasmd/x/wasm/keeper.msgServer.ExecuteContract
+    	github.com/CosmWasm/wasmd@v0.45.0/x/wasm/keeper/msg_server.go:128
+    github.com/CosmWasm/wasmd/x/wasm/types._Msg_ExecuteContract_Handler.func1
+    	github.com/CosmWasm/wasmd@v0.45.0/x/wasm/types/tx.pb.go:2263
+    github.com/cosmos/cosmos-sdk/baseapp.(*MsgServiceRouter).RegisterService.func2.1
+    	github.com/cosmos/cosmos-sdk@v0.47.6/baseapp/msg_service_router.go:118
+    github.com/CosmWasm/wasmd/x/wasm/types._Msg_ExecuteContract_Handler
+    	github.com/CosmWasm/wasmd@v0.45.0/x/wasm/types/tx.pb.go:2265
+    github.com/cosmos/cosmos-sdk/baseapp.(*MsgServiceRouter).RegisterService.func2
+    	github.com/cosmos/cosmos-sdk@v0.47.6/baseapp/msg_service_router.go:139
+    github.com/cosmos/cosmos-sdk/baseapp.(*BaseApp).runMsgs
+    	github.com/cosmos/cosmos-sdk@v0.47.6/baseapp/baseapp.go:806
+    github.com/cosmos/cosmos-sdk/baseapp.(*BaseApp).runTx
+    	github.com/cosmos/cosmos-sdk@v0.47.6/baseapp/baseapp.go:749
+    github.com/cosmos/cosmos-sdk/baseapp.(*BaseApp).DeliverTx
+    	github.com/cosmos/cosmos-sdk@v0.47.6/baseapp/abci.go:409
+    github.com/cometbft/cometbft/abci/client.(*localClient).DeliverTxAsync
+    	github.com/cometbft/cometbft@v0.37.2/abci/client/local_client.go:82
+    github.com/cometbft/cometbft/proxy.(*appConnConsensus).DeliverTxAsync
+    	github.com/cometbft/cometbft@v0.37.2/proxy/app_conn.go:106
+    github.com/cometbft/cometbft/state.execBlockOnProxyApp
+    	github.com/cometbft/cometbft@v0.37.2/state/execution.go:376
+    github.com/cometbft/cometbft/state.(*BlockExecutor).ApplyBlock
+    	github.com/cometbft/cometbft@v0.37.2/state/execution.go:197
+    github.com/cometbft/cometbft/consensus.(*State).finalizeCommit
+    	github.com/cometbft/cometbft@v0.37.2/consensus/state.go:1700
+    github.com/cometbft/cometbft/consensus.(*State).tryFinalizeCommit
+    	github.com/cometbft/cometbft@v0.37.2/consensus/state.go:1609
+    github.com/cometbft/cometbft/consensus.(*State).enterCommit.func1
+    	github.com/cometbft/cometbft@v0.37.2/consensus/state.go:1544
+    github.com/cometbft/cometbft/consensus.(*State).enterCommit
+    	github.com/cometbft/cometbft@v0.37.2/consensus/state.go:1582
+    github.com/cometbft/cometbft/consensus.(*State).addVote
+    	github.com/cometbft/cometbft@v0.37.2/consensus/state.go:2212
+    github.com/cometbft/cometbft/consensus.(*State).tryAddVote
+    	github.com/cometbft/cometbft@v0.37.2/consensus/state.go:2001
+    github.com/cometbft/cometbft/consensus.(*State).handleMsg
+    	github.com/cometbft/cometbft@v0.37.2/consensus/state.go:861
+    github.com/cometbft/cometbft/consensus.(*State).receiveRoutine
+    	github.com/cometbft/cometbft@v0.37.2/consensus/state.go:788
+    failed to execute message; message index: 0: astroport_periphery::lockdrop_pcl::LockupInfo not found: execute wasm contract failed
+    Failed tx hash: DDCCE9DABC9731D6ED994E249D6FC3B5AB6FA8C8B2A2A4C61AEA8025125DBA28
+
+      at WalletWrapper.executeContract (node_modules/@neutron-org/neutronjsplus/dist/cosmos.js:457:19)
+          at runMicrotasks (<anonymous>)
+
+  ● TGE / Migration / PCL contracts › Quint generated steps › Quint generated step CLAIM_REWARDS_PCL from step 12 › user Bob testing post migration state › Bob claim without withdrawal › claim ATOM lockup from PCL
+
+
+    github.com/CosmWasm/wasmd/x/wasm/keeper.Keeper.execute
+    	github.com/CosmWasm/wasmd@v0.45.0/x/wasm/keeper/keeper.go:400
+    github.com/CosmWasm/wasmd/x/wasm/keeper.msgServer.ExecuteContract
+    	github.com/CosmWasm/wasmd@v0.45.0/x/wasm/keeper/msg_server.go:128
+    github.com/CosmWasm/wasmd/x/wasm/types._Msg_ExecuteContract_Handler.func1
+    	github.com/CosmWasm/wasmd@v0.45.0/x/wasm/types/tx.pb.go:2263
+    github.com/cosmos/cosmos-sdk/baseapp.(*MsgServiceRouter).RegisterService.func2.1
+    	github.com/cosmos/cosmos-sdk@v0.47.6/baseapp/msg_service_router.go:118
+    github.com/CosmWasm/wasmd/x/wasm/types._Msg_ExecuteContract_Handler
+    	github.com/CosmWasm/wasmd@v0.45.0/x/wasm/types/tx.pb.go:2265
+    github.com/cosmos/cosmos-sdk/baseapp.(*MsgServiceRouter).RegisterService.func2
+    	github.com/cosmos/cosmos-sdk@v0.47.6/baseapp/msg_service_router.go:139
+    github.com/cosmos/cosmos-sdk/baseapp.(*BaseApp).runMsgs
+    	github.com/cosmos/cosmos-sdk@v0.47.6/baseapp/baseapp.go:806
+    github.com/cosmos/cosmos-sdk/baseapp.(*BaseApp).runTx
+    	github.com/cosmos/cosmos-sdk@v0.47.6/baseapp/baseapp.go:749
+    github.com/cosmos/cosmos-sdk/baseapp.(*BaseApp).DeliverTx
+    	github.com/cosmos/cosmos-sdk@v0.47.6/baseapp/abci.go:409
+    github.com/cometbft/cometbft/abci/client.(*localClient).DeliverTxAsync
+    	github.com/cometbft/cometbft@v0.37.2/abci/client/local_client.go:82
+    github.com/cometbft/cometbft/proxy.(*appConnConsensus).DeliverTxAsync
+    	github.com/cometbft/cometbft@v0.37.2/proxy/app_conn.go:106
+    github.com/cometbft/cometbft/state.execBlockOnProxyApp
+    	github.com/cometbft/cometbft@v0.37.2/state/execution.go:376
+    github.com/cometbft/cometbft/state.(*BlockExecutor).ApplyBlock
+    	github.com/cometbft/cometbft@v0.37.2/state/execution.go:197
+    github.com/cometbft/cometbft/consensus.(*State).finalizeCommit
+    	github.com/cometbft/cometbft@v0.37.2/consensus/state.go:1700
+    github.com/cometbft/cometbft/consensus.(*State).tryFinalizeCommit
+    	github.com/cometbft/cometbft@v0.37.2/consensus/state.go:1609
+    github.com/cometbft/cometbft/consensus.(*State).enterCommit.func1
+    	github.com/cometbft/cometbft@v0.37.2/consensus/state.go:1544
+    github.com/cometbft/cometbft/consensus.(*State).enterCommit
+    	github.com/cometbft/cometbft@v0.37.2/consensus/state.go:1582
+    github.com/cometbft/cometbft/consensus.(*State).addVote
+    	github.com/cometbft/cometbft@v0.37.2/consensus/state.go:2212
+    github.com/cometbft/cometbft/consensus.(*State).tryAddVote
+    	github.com/cometbft/cometbft@v0.37.2/consensus/state.go:2001
+    github.com/cometbft/cometbft/consensus.(*State).handleMsg
+    	github.com/cometbft/cometbft@v0.37.2/consensus/state.go:861
+    github.com/cometbft/cometbft/consensus.(*State).receiveRoutine
+    	github.com/cometbft/cometbft@v0.37.2/consensus/state.go:788
+    failed to execute message; message index: 0: astroport_periphery::lockdrop_pcl::LockupInfo not found: execute wasm contract failed
+    Failed tx hash: 7FDC007316F1AE969C1832C7CC4DF80C59EB62441424F0EBA63D620361B9EBDD
+
+      at WalletWrapper.executeContract (node_modules/@neutron-org/neutronjsplus/dist/cosmos.js:457:19)
+          at runMicrotasks (<anonymous>)
+
+  ● TGE / Migration / PCL contracts › Quint generated steps › Quint generated step CLAIM_REWARDS_PCL from step 12 › user Bob testing post migration state › Bob claim without withdrawal › funds flow › generator rewards › astro
+
+    expect(received).toBeGreaterThan(expected)
+
+    Expected: > 0
+    Received:   0
+
+      2728 |                     });
+      2729 |   
+    > 2730 |                     describe('funds flow', () => {
+           |                             ^
+      2731 |                       const atomLockupKey = 'ATOM1';
+      2732 |                       const usdcLockupKey = 'USDC1';
+      2733 |                       describe('generator rewards', () => {
+
+      at Object.toBeGreaterThan (src/testcases/run_in_band/tge.quint.test.ts:2730:29)
+      at asyncGeneratorStep (src/testcases/run_in_band/tge.quint.test.ts:62:94)
+      at asyncGeneratorStep (src/testcases/run_in_band/tge.quint.test.ts:62:94)
+      at _next (src/testcases/run_in_band/tge.quint.test.ts:62:94)
+      at Object.<anonymous> (src/testcases/run_in_band/tge.quint.test.ts:62:94)
+          at runMicrotasks (<anonymous>)
+
+  ● TGE / Migration / PCL contracts › Quint generated steps › Quint generated step CLAIM_REWARDS_PCL from step 12 › user Bob testing post migration state › Bob claim without withdrawal › funds flow › generator rewards › external rewards
+
+    expect(received).toBeGreaterThan(expected)
+
+    Expected: > 0
+    Received:   0
+
+      2750 |                             stateAfter.balances.user.astro - stateBefore.balances.user.astro,
+      2751 |                             +stateBefore.pclUserLockups.claimable_incentives_debt,
+    > 2752 |                             0.5,
+           |                             ^
+      2753 |                           );
+      2754 |                         });
+      2755 |               
+
+      at Object.toBeGreaterThan (src/testcases/run_in_band/tge.quint.test.ts:2752:29)
+      at asyncGeneratorStep (src/testcases/run_in_band/tge.quint.test.ts:62:94)
+      at asyncGeneratorStep (src/testcases/run_in_band/tge.quint.test.ts:62:94)
+      at _next (src/testcases/run_in_band/tge.quint.test.ts:62:94)
+      at Object.<anonymous> (src/testcases/run_in_band/tge.quint.test.ts:62:94)
+          at runMicrotasks (<anonymous>)
+
+  ● TGE / Migration / PCL contracts › Quint generated steps › Quint generated step CLAIM_REWARDS_PCL from step 14 › user Bob testing post migration state › Bob claim with withdrawal › claim & withdraw USDC lockup from PCL
+
+
+    github.com/CosmWasm/wasmd/x/wasm/keeper.Keeper.execute
+    	github.com/CosmWasm/wasmd@v0.45.0/x/wasm/keeper/keeper.go:400
+    github.com/CosmWasm/wasmd/x/wasm/keeper.msgServer.ExecuteContract
+    	github.com/CosmWasm/wasmd@v0.45.0/x/wasm/keeper/msg_server.go:128
+    github.com/CosmWasm/wasmd/x/wasm/types._Msg_ExecuteContract_Handler.func1
+    	github.com/CosmWasm/wasmd@v0.45.0/x/wasm/types/tx.pb.go:2263
+    github.com/cosmos/cosmos-sdk/baseapp.(*MsgServiceRouter).RegisterService.func2.1
+    	github.com/cosmos/cosmos-sdk@v0.47.6/baseapp/msg_service_router.go:118
+    github.com/CosmWasm/wasmd/x/wasm/types._Msg_ExecuteContract_Handler
+    	github.com/CosmWasm/wasmd@v0.45.0/x/wasm/types/tx.pb.go:2265
+    github.com/cosmos/cosmos-sdk/baseapp.(*MsgServiceRouter).RegisterService.func2
+    	github.com/cosmos/cosmos-sdk@v0.47.6/baseapp/msg_service_router.go:139
+    github.com/cosmos/cosmos-sdk/baseapp.(*BaseApp).runMsgs
+    	github.com/cosmos/cosmos-sdk@v0.47.6/baseapp/baseapp.go:806
+    github.com/cosmos/cosmos-sdk/baseapp.(*BaseApp).runTx
+    	github.com/cosmos/cosmos-sdk@v0.47.6/baseapp/baseapp.go:749
+    github.com/cosmos/cosmos-sdk/baseapp.(*BaseApp).DeliverTx
+    	github.com/cosmos/cosmos-sdk@v0.47.6/baseapp/abci.go:409
+    github.com/cometbft/cometbft/abci/client.(*localClient).DeliverTxAsync
+    	github.com/cometbft/cometbft@v0.37.2/abci/client/local_client.go:82
+    github.com/cometbft/cometbft/proxy.(*appConnConsensus).DeliverTxAsync
+    	github.com/cometbft/cometbft@v0.37.2/proxy/app_conn.go:106
+    github.com/cometbft/cometbft/state.execBlockOnProxyApp
+    	github.com/cometbft/cometbft@v0.37.2/state/execution.go:376
+    github.com/cometbft/cometbft/state.(*BlockExecutor).ApplyBlock
+    	github.com/cometbft/cometbft@v0.37.2/state/execution.go:197
+    github.com/cometbft/cometbft/consensus.(*State).finalizeCommit
+    	github.com/cometbft/cometbft@v0.37.2/consensus/state.go:1700
+    github.com/cometbft/cometbft/consensus.(*State).tryFinalizeCommit
+    	github.com/cometbft/cometbft@v0.37.2/consensus/state.go:1609
+    github.com/cometbft/cometbft/consensus.(*State).enterCommit.func1
+    	github.com/cometbft/cometbft@v0.37.2/consensus/state.go:1544
+    github.com/cometbft/cometbft/consensus.(*State).enterCommit
+    	github.com/cometbft/cometbft@v0.37.2/consensus/state.go:1582
+    github.com/cometbft/cometbft/consensus.(*State).addVote
+    	github.com/cometbft/cometbft@v0.37.2/consensus/state.go:2212
+    github.com/cometbft/cometbft/consensus.(*State).tryAddVote
+    	github.com/cometbft/cometbft@v0.37.2/consensus/state.go:2001
+    github.com/cometbft/cometbft/consensus.(*State).handleMsg
+    	github.com/cometbft/cometbft@v0.37.2/consensus/state.go:861
+    github.com/cometbft/cometbft/consensus.(*State).receiveRoutine
+    	github.com/cometbft/cometbft@v0.37.2/consensus/state.go:788
+    failed to execute message; message index: 0: astroport_periphery::lockdrop_pcl::LockupInfo not found: execute wasm contract failed
+    Failed tx hash: 04AE09E33A1F22678C3C1D45EE77B1791B11B94AC108C44B13A8FE1C26C8395F
+
+      at WalletWrapper.executeContract (node_modules/@neutron-org/neutronjsplus/dist/cosmos.js:457:19)
+          at runMicrotasks (<anonymous>)
+
+  ● TGE / Migration / PCL contracts › Quint generated steps › Quint generated step CLAIM_REWARDS_PCL from step 14 › user Bob testing post migration state › Bob claim with withdrawal › claim & withdraw ATOM lockup from PCL
+
+
+    github.com/CosmWasm/wasmd/x/wasm/keeper.Keeper.execute
+    	github.com/CosmWasm/wasmd@v0.45.0/x/wasm/keeper/keeper.go:400
+    github.com/CosmWasm/wasmd/x/wasm/keeper.msgServer.ExecuteContract
+    	github.com/CosmWasm/wasmd@v0.45.0/x/wasm/keeper/msg_server.go:128
+    github.com/CosmWasm/wasmd/x/wasm/types._Msg_ExecuteContract_Handler.func1
+    	github.com/CosmWasm/wasmd@v0.45.0/x/wasm/types/tx.pb.go:2263
+    github.com/cosmos/cosmos-sdk/baseapp.(*MsgServiceRouter).RegisterService.func2.1
+    	github.com/cosmos/cosmos-sdk@v0.47.6/baseapp/msg_service_router.go:118
+    github.com/CosmWasm/wasmd/x/wasm/types._Msg_ExecuteContract_Handler
+    	github.com/CosmWasm/wasmd@v0.45.0/x/wasm/types/tx.pb.go:2265
+    github.com/cosmos/cosmos-sdk/baseapp.(*MsgServiceRouter).RegisterService.func2
+    	github.com/cosmos/cosmos-sdk@v0.47.6/baseapp/msg_service_router.go:139
+    github.com/cosmos/cosmos-sdk/baseapp.(*BaseApp).runMsgs
+    	github.com/cosmos/cosmos-sdk@v0.47.6/baseapp/baseapp.go:806
+    github.com/cosmos/cosmos-sdk/baseapp.(*BaseApp).runTx
+    	github.com/cosmos/cosmos-sdk@v0.47.6/baseapp/baseapp.go:749
+    github.com/cosmos/cosmos-sdk/baseapp.(*BaseApp).DeliverTx
+    	github.com/cosmos/cosmos-sdk@v0.47.6/baseapp/abci.go:409
+    github.com/cometbft/cometbft/abci/client.(*localClient).DeliverTxAsync
+    	github.com/cometbft/cometbft@v0.37.2/abci/client/local_client.go:82
+    github.com/cometbft/cometbft/proxy.(*appConnConsensus).DeliverTxAsync
+    	github.com/cometbft/cometbft@v0.37.2/proxy/app_conn.go:106
+    github.com/cometbft/cometbft/state.execBlockOnProxyApp
+    	github.com/cometbft/cometbft@v0.37.2/state/execution.go:376
+    github.com/cometbft/cometbft/state.(*BlockExecutor).ApplyBlock
+    	github.com/cometbft/cometbft@v0.37.2/state/execution.go:197
+    github.com/cometbft/cometbft/consensus.(*State).finalizeCommit
+    	github.com/cometbft/cometbft@v0.37.2/consensus/state.go:1700
+    github.com/cometbft/cometbft/consensus.(*State).tryFinalizeCommit
+    	github.com/cometbft/cometbft@v0.37.2/consensus/state.go:1609
+    github.com/cometbft/cometbft/consensus.(*State).enterCommit.func1
+    	github.com/cometbft/cometbft@v0.37.2/consensus/state.go:1544
+    github.com/cometbft/cometbft/consensus.(*State).enterCommit
+    	github.com/cometbft/cometbft@v0.37.2/consensus/state.go:1582
+    github.com/cometbft/cometbft/consensus.(*State).addVote
+    	github.com/cometbft/cometbft@v0.37.2/consensus/state.go:2212
+    github.com/cometbft/cometbft/consensus.(*State).tryAddVote
+    	github.com/cometbft/cometbft@v0.37.2/consensus/state.go:2001
+    github.com/cometbft/cometbft/consensus.(*State).handleMsg
+    	github.com/cometbft/cometbft@v0.37.2/consensus/state.go:861
+    github.com/cometbft/cometbft/consensus.(*State).receiveRoutine
+    	github.com/cometbft/cometbft@v0.37.2/consensus/state.go:788
+    failed to execute message; message index: 0: astroport_periphery::lockdrop_pcl::LockupInfo not found: execute wasm contract failed
+    Failed tx hash: 7E6A6F2EAB8224141C697F0E6D6A68D32D8328AEFA05FC111565EDBDFB9B2097
+
+      at WalletWrapper.executeContract (node_modules/@neutron-org/neutronjsplus/dist/cosmos.js:457:19)
+          at runMicrotasks (<anonymous>)
+
+  ● TGE / Migration / PCL contracts › Quint generated steps › Quint generated step CLAIM_REWARDS_PCL from step 14 › user Bob testing post migration state › Bob claim with withdrawal › funds flow › generator rewards › astro
+
+    expect(received).toBeGreaterThan(expected)
+
+    Expected: > 0
+    Received:   0
+
+      2916 |                       );
+      2917 |                     });
+    > 2918 |                     describe('funds flow', () => {
+           |                             ^
+      2919 |                       const atomLockupKey = 'ATOM1';
+      2920 |                       const usdcLockupKey = 'USDC1';
+      2921 |                       describe('generator rewards', () => {
+
+      at Object.toBeGreaterThan (src/testcases/run_in_band/tge.quint.test.ts:2918:29)
+      at asyncGeneratorStep (src/testcases/run_in_band/tge.quint.test.ts:62:94)
+      at asyncGeneratorStep (src/testcases/run_in_band/tge.quint.test.ts:62:94)
+      at _next (src/testcases/run_in_band/tge.quint.test.ts:62:94)
+      at Object.<anonymous> (src/testcases/run_in_band/tge.quint.test.ts:62:94)
+          at runMicrotasks (<anonymous>)
+
+  ● TGE / Migration / PCL contracts › Quint generated steps › Quint generated step CLAIM_REWARDS_PCL from step 14 › user Bob testing post migration state › Bob claim with withdrawal › funds flow › generator rewards › external rewards
+
+    expect(received).toBeGreaterThan(expected)
+
+    Expected: > 0
+    Received:   0
+
+      2938 |                             stateAfter.balances.user.astro - stateBefore.balances.user.astro,
+      2939 |                             +stateBefore.pclUserLockups.claimable_incentives_debt,
+    > 2940 |                             0.5,
+           |                             ^
+      2941 |                           );
+      2942 |                         });
+      2943 |               
+
+      at Object.toBeGreaterThan (src/testcases/run_in_band/tge.quint.test.ts:2940:29)
+      at asyncGeneratorStep (src/testcases/run_in_band/tge.quint.test.ts:62:94)
+      at asyncGeneratorStep (src/testcases/run_in_band/tge.quint.test.ts:62:94)
+      at _next (src/testcases/run_in_band/tge.quint.test.ts:62:94)
+      at Object.<anonymous> (src/testcases/run_in_band/tge.quint.test.ts:62:94)
+          at runMicrotasks (<anonymous>)
+
+  ● TGE / Migration / PCL contracts › Quint generated steps › Quint generated step CLAIM_REWARDS_PCL from step 14 › user Bob testing post migration state › Bob claim with withdrawal › funds flow › lp tokens staked in generator
+
+    TypeError: Cannot read properties of undefined (reading 'lp_units_locked')
+
+      2962 |                           );
+      2963 |                         });
+    > 2964 |                       });
+           |                              ^
+      2965 |               
+      2966 |                       it('lp tokens staked in generator', async () => {
+      2967 |                         // expect staked LP amount to decrease by amount of withdrawn tokens
+
+      at Object.lp_units_locked (src/testcases/run_in_band/tge.quint.test.ts:2964:30)
+      at asyncGeneratorStep (src/testcases/run_in_band/tge.quint.test.ts:62:94)
+      at asyncGeneratorStep (src/testcases/run_in_band/tge.quint.test.ts:62:94)
+      at _next (src/testcases/run_in_band/tge.quint.test.ts:62:94)
+      at Object.<anonymous> (src/testcases/run_in_band/tge.quint.test.ts:62:94)
+          at runMicrotasks (<anonymous>)
+
+  ● TGE / Migration / PCL contracts › Quint generated steps › Quint generated step CLAIM_REWARDS_PCL from step 14 › user Bob testing post migration state › Bob claim with withdrawal › funds flow › lp tokens received by the user
+
+    TypeError: Cannot read properties of undefined (reading 'lp_units_locked')
+
+      2977 |                           +stateBefore.pclUserLockups.mapped_lockup_infos[usdcLockupKey]
+      2978 |                             .lp_units_locked,
+    > 2979 |                         );
+           |                                ^
+      2980 |                       });
+      2981 |               
+      2982 |                       it('lp tokens received by the user', async () => {
+
+      at Object.lp_units_locked (src/testcases/run_in_band/tge.quint.test.ts:2979:32)
+      at asyncGeneratorStep (src/testcases/run_in_band/tge.quint.test.ts:62:94)
+      at asyncGeneratorStep (src/testcases/run_in_band/tge.quint.test.ts:62:94)
+      at _next (src/testcases/run_in_band/tge.quint.test.ts:62:94)
+      at Object.<anonymous> (src/testcases/run_in_band/tge.quint.test.ts:62:94)
+          at runMicrotasks (<anonymous>)
+
+  ● TGE / Migration / PCL contracts › Quint generated steps › Quint generated step CLAIM_REWARDS_PCL from step 16 › user Bob testing post migration state › Bob claim without withdrawal › claim USDC lockup from PCL fails
+
+    expect(received).rejects.toThrow(expected)
+
+    Expected pattern: /Astro LP Tokens have already been claimed!/
+    Received message: "
+    github.com/CosmWasm/wasmd/x/wasm/keeper.Keeper.execute
+    	github.com/CosmWasm/wasmd@v0.45.0/x/wasm/keeper/keeper.go:400
+    github.com/CosmWasm/wasmd/x/wasm/keeper.msgServer.ExecuteContract
+    	github.com/CosmWasm/wasmd@v0.45.0/x/wasm/keeper/msg_server.go:128
+    github.com/CosmWasm/wasmd/x/wasm/types._Msg_ExecuteContract_Handler.func1
+    	github.com/CosmWasm/wasmd@v0.45.0/x/wasm/types/tx.pb.go:2263
+    github.com/cosmos/cosmos-sdk/baseapp.(*MsgServiceRouter).RegisterService.func2.1
+    	github.com/cosmos/cosmos-sdk@v0.47.6/baseapp/msg_service_router.go:118
+    github.com/CosmWasm/wasmd/x/wasm/types._Msg_ExecuteContract_Handler
+    	github.com/CosmWasm/wasmd@v0.45.0/x/wasm/types/tx.pb.go:2265
+    github.com/cosmos/cosmos-sdk/baseapp.(*MsgServiceRouter).RegisterService.func2
+    	github.com/cosmos/cosmos-sdk@v0.47.6/baseapp/msg_service_router.go:139
+    github.com/cosmos/cosmos-sdk/baseapp.(*BaseApp).runMsgs
+    	github.com/cosmos/cosmos-sdk@v0.47.6/baseapp/baseapp.go:806
+    github.com/cosmos/cosmos-sdk/baseapp.(*BaseApp).runTx
+    	github.com/cosmos/cosmos-sdk@v0.47.6/baseapp/baseapp.go:749
+    github.com/cosmos/cosmos-sdk/baseapp.(*BaseApp).DeliverTx
+    	github.com/cosmos/cosmos-sdk@v0.47.6/baseapp/abci.go:409
+    github.com/cometbft/cometbft/abci/client.(*localClient).DeliverTxAsync
+    	github.com/cometbft/cometbft@v0.37.2/abci/client/local_client.go:82
+    github.com/cometbft/cometbft/proxy.(*appConnConsensus).DeliverTxAsync
+    	github.com/cometbft/cometbft@v0.37.2/proxy/app_conn.go:106
+    github.com/cometbft/cometbft/state.execBlockOnProxyApp
+    	github.com/cometbft/cometbft@v0.37.2/state/execution.go:376
+    github.com/cometbft/cometbft/state.(*BlockExecutor).ApplyBlock
+    	github.com/cometbft/cometbft@v0.37.2/state/execution.go:197
+    github.com/cometbft/cometbft/consensus.(*State).finalizeCommit
+    	github.com/cometbft/cometbft@v0.37.2/consensus/state.go:1700
+    github.com/cometbft/cometbft/consensus.(*State).tryFinalizeCommit
+    	github.com/cometbft/cometbft@v0.37.2/consensus/state.go:1609
+    github.com/cometbft/cometbft/consensus.(*State).enterCommit.func1
+    	github.com/cometbft/cometbft@v0.37.2/consensus/state.go:1544
+    github.com/cometbft/cometbft/consensus.(*State).enterCommit
+    	github.com/cometbft/cometbft@v0.37.2/consensus/state.go:1582
+    github.com/cometbft/cometbft/consensus.(*State).addVote
+    	github.com/cometbft/cometbft@v0.37.2/consensus/state.go:2212
+    github.com/cometbft/cometbft/consensus.(*State).tryAddVote
+    	github.com/cometbft/cometbft@v0.37.2/consensus/state.go:2001
+    github.com/cometbft/cometbft/consensus.(*State).handleMsg
+    	github.com/cometbft/cometbft@v0.37.2/consensus/state.go:861
+    github.com/cometbft/cometbft/consensus.(*State).receiveRoutine
+    	github.com/cometbft/cometbft@v0.37.2/consensus/state.go:788
+    failed to execute message; message index: 0: astroport_periphery::lockdrop_pcl::LockupInfo not found: execute wasm contract failed
+    Failed tx hash: 6E01F357D0320920F4537C943593CF8111FA49203701BE4BCB4711D252C3545C"
+
+          at WalletWrapper.executeContract (node_modules/@neutron-org/neutronjsplus/dist/cosmos.js:457:19)
+              at runMicrotasks (<anonymous>)
+
+      2817 |                             },
+      2818 |                           }),
+    > 2819 |                           undefined,
+           |                                 ^
+      2820 |                           {
+      2821 |                             gas_limit: Long.fromString('5000000'),
+      2822 |                             amount: [
+
+      at Object.toThrow (node_modules/expect/build/index.js:218:22)
+      at Object.toThrow (src/testcases/run_in_band/tge.quint.test.ts:2819:33)
+      at asyncGeneratorStep (src/testcases/run_in_band/tge.quint.test.ts:62:94)
+      at asyncGeneratorStep (src/testcases/run_in_band/tge.quint.test.ts:62:94)
+      at _next (src/testcases/run_in_band/tge.quint.test.ts:62:94)
+      at Object.<anonymous> (src/testcases/run_in_band/tge.quint.test.ts:62:94)
+          at runMicrotasks (<anonymous>)
+
+  ● TGE / Migration / PCL contracts › Quint generated steps › Quint generated step CLAIM_REWARDS_PCL from step 16 › user Bob testing post migration state › Bob claim without withdrawal › claim ATOM lockup from PCL fails
+
+    expect(received).rejects.toThrow(expected)
+
+    Expected pattern: /Astro LP Tokens have already been claimed!/
+    Received message: "
+    github.com/CosmWasm/wasmd/x/wasm/keeper.Keeper.execute
+    	github.com/CosmWasm/wasmd@v0.45.0/x/wasm/keeper/keeper.go:400
+    github.com/CosmWasm/wasmd/x/wasm/keeper.msgServer.ExecuteContract
+    	github.com/CosmWasm/wasmd@v0.45.0/x/wasm/keeper/msg_server.go:128
+    github.com/CosmWasm/wasmd/x/wasm/types._Msg_ExecuteContract_Handler.func1
+    	github.com/CosmWasm/wasmd@v0.45.0/x/wasm/types/tx.pb.go:2263
+    github.com/cosmos/cosmos-sdk/baseapp.(*MsgServiceRouter).RegisterService.func2.1
+    	github.com/cosmos/cosmos-sdk@v0.47.6/baseapp/msg_service_router.go:118
+    github.com/CosmWasm/wasmd/x/wasm/types._Msg_ExecuteContract_Handler
+    	github.com/CosmWasm/wasmd@v0.45.0/x/wasm/types/tx.pb.go:2265
+    github.com/cosmos/cosmos-sdk/baseapp.(*MsgServiceRouter).RegisterService.func2
+    	github.com/cosmos/cosmos-sdk@v0.47.6/baseapp/msg_service_router.go:139
+    github.com/cosmos/cosmos-sdk/baseapp.(*BaseApp).runMsgs
+    	github.com/cosmos/cosmos-sdk@v0.47.6/baseapp/baseapp.go:806
+    github.com/cosmos/cosmos-sdk/baseapp.(*BaseApp).runTx
+    	github.com/cosmos/cosmos-sdk@v0.47.6/baseapp/baseapp.go:749
+    github.com/cosmos/cosmos-sdk/baseapp.(*BaseApp).DeliverTx
+    	github.com/cosmos/cosmos-sdk@v0.47.6/baseapp/abci.go:409
+    github.com/cometbft/cometbft/abci/client.(*localClient).DeliverTxAsync
+    	github.com/cometbft/cometbft@v0.37.2/abci/client/local_client.go:82
+    github.com/cometbft/cometbft/proxy.(*appConnConsensus).DeliverTxAsync
+    	github.com/cometbft/cometbft@v0.37.2/proxy/app_conn.go:106
+    github.com/cometbft/cometbft/state.execBlockOnProxyApp
+    	github.com/cometbft/cometbft@v0.37.2/state/execution.go:376
+    github.com/cometbft/cometbft/state.(*BlockExecutor).ApplyBlock
+    	github.com/cometbft/cometbft@v0.37.2/state/execution.go:197
+    github.com/cometbft/cometbft/consensus.(*State).finalizeCommit
+    	github.com/cometbft/cometbft@v0.37.2/consensus/state.go:1700
+    github.com/cometbft/cometbft/consensus.(*State).tryFinalizeCommit
+    	github.com/cometbft/cometbft@v0.37.2/consensus/state.go:1609
+    github.com/cometbft/cometbft/consensus.(*State).enterCommit.func1
+    	github.com/cometbft/cometbft@v0.37.2/consensus/state.go:1544
+    github.com/cometbft/cometbft/consensus.(*State).enterCommit
+    	github.com/cometbft/cometbft@v0.37.2/consensus/state.go:1582
+    github.com/cometbft/cometbft/consensus.(*State).addVote
+    	github.com/cometbft/cometbft@v0.37.2/consensus/state.go:2212
+    github.com/cometbft/cometbft/consensus.(*State).tryAddVote
+    	github.com/cometbft/cometbft@v0.37.2/consensus/state.go:2001
+    github.com/cometbft/cometbft/consensus.(*State).handleMsg
+    	github.com/cometbft/cometbft@v0.37.2/consensus/state.go:861
+    github.com/cometbft/cometbft/consensus.(*State).receiveRoutine
+    	github.com/cometbft/cometbft@v0.37.2/consensus/state.go:788
+    failed to execute message; message index: 0: astroport_periphery::lockdrop_pcl::LockupInfo not found: execute wasm contract failed
+    Failed tx hash: 6AF52C6431BB60A013F002D7ACF64019312F09400BDCA408B30C2F37D0D97483"
+
+          at WalletWrapper.executeContract (node_modules/@neutron-org/neutronjsplus/dist/cosmos.js:457:19)
+              at runMicrotasks (<anonymous>)
+
+      2838 |                             },
+      2839 |                           }),
+    > 2840 |                           undefined,
+           |                                 ^
+      2841 |                           {
+      2842 |                             gas_limit: Long.fromString('5000000'),
+      2843 |                             amount: [
+
+      at Object.toThrow (node_modules/expect/build/index.js:218:22)
+      at Object.toThrow (src/testcases/run_in_band/tge.quint.test.ts:2840:33)
+      at asyncGeneratorStep (src/testcases/run_in_band/tge.quint.test.ts:62:94)
+      at asyncGeneratorStep (src/testcases/run_in_band/tge.quint.test.ts:62:94)
+      at _next (src/testcases/run_in_band/tge.quint.test.ts:62:94)
+      at Object.<anonymous> (src/testcases/run_in_band/tge.quint.test.ts:62:94)
+          at runMicrotasks (<anonymous>)
+
+Test Suites: 1 failed, 1 total
+Tests:       14 failed, 84 passed, 98 total
+Snapshots:   0 total
+Time:        548.608 s
