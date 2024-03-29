@@ -3096,7 +3096,31 @@ describe('TGE / Migration / PCL contracts', () => {
         );
         expect(+stakedUsdcLp).toBe(0);
       });
-
+      if(propertyType === '0'){
+        it('no PCL lp tokens kept by PCL lockdrop', async () => {
+          const stakedAtomLp = await neutronChain.queryContract<string>(
+            liqMigContracts.generator,
+            {
+              deposit: {
+                lp_token: liqMigContracts.atomPclLp,
+                user: liqMigContracts.pclLockdrop,
+              },
+            },
+          );
+          expect(+stakedAtomLp).toBe(0);
+  
+          const stakedUsdcLp = await neutronChain.queryContract<string>(
+            liqMigContracts.generator,
+            {
+              deposit: {
+                lp_token: liqMigContracts.usdcPclLp,
+                user: liqMigContracts.pclLockdrop,
+              },
+            },
+          );
+          expect(+stakedUsdcLp).toBe(0);
+        });
+      }
       describe('no generator rewards left to be paid', () => {
         it('for XYK pairs', async () => {
           const pendingAtomRewards = await neutronChain.queryContract<any>(
@@ -3123,6 +3147,7 @@ describe('TGE / Migration / PCL contracts', () => {
         });
         
       });
+      
     });
   });
 
